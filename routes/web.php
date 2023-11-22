@@ -57,6 +57,15 @@ Route::get('/contacts/import/google', function (GooglePeopleService $googlePeopl
     $user = Auth::user();
 
     // check for expired token
+    if(!$user->token_expires_at || $user->token_expires_at->isPast()) {
+        ray('refreshinfg token');
+        $response = $googlePeople->refreshToken($user->google_refresh_token);
+        ray($response);
+        $user->update([
+            'google_token' => $response['access_token'],
+            'token_expires_at' => now()->addSeconds($response['expires_in']),
+        ]);
+    }
 
     $googlePeople->setToken($user->google_token);
 

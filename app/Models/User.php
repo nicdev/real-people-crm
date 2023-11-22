@@ -26,18 +26,9 @@ class User extends Authenticatable
         'google_id',
         'google_token',
         'google_refresh_token',
+        'token_expires_at',
     ];
 
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($user) {
-            if (empty($user->password)) {
-                $user->password = Hash::make(Str::random(16));
-            }
-        });
-    }
 
     /**
      * The attributes that should be hidden for serialization.
@@ -57,5 +48,17 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
+        'token_expires_at' => 'datetime',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($user) {
+            if (empty($user->password)) {
+                $user->password = Hash::make(Str::random(16));
+            }
+        });
+    }
 }
