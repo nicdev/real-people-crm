@@ -3,7 +3,6 @@
 namespace App\Providers;
 
 use App\Services\GooglePeopleService;
-use App\Services\HttpService;
 use Illuminate\Support\ServiceProvider;
 
 class GooglePeopleServiceProvider extends ServiceProvider

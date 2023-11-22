@@ -1,9 +1,7 @@
 <?php
 
 use App\Models\User;
-use App\Providers\GooglePeopleServiceProvider;
 use App\Services\GooglePeopleService;
-use Google\Client;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
@@ -36,7 +34,6 @@ Route::get('/auth/redirect', function () {
 
 Route::get('/auth/google/callback', function () {
     $user = Socialite::driver('google')->user();
-
     $user = User::updateOrCreate([
         'email' => $user->email,
     ], [
@@ -44,6 +41,7 @@ Route::get('/auth/google/callback', function () {
         'google_id' => $user->id,
         'google_token' => $user->token,
         'google_refresh_token' => $user->refreshToken,
+        'token_expires_at' => now()->addSeconds($user->expiresIn),
     ]);
 
     Auth::login($user);
@@ -57,9 +55,13 @@ Route::get('/dashboard', function () {
 
 Route::get('/contacts/import/google', function (GooglePeopleService $googlePeople) {
     $user = Auth::user();
+
+    // check for expired token
+
     $googlePeople->setToken($user->google_token);
 
-    $contacts = $googlePeople->get('/v1/people/me/connections', ['personFields' => 'names,emailAddresses']);
+    // $result = $googlePeople->get('/v1/people/me/connections', ['personFields' => 'names,emailAddresses']);
+    $contacts = $googlePeople->contacts();
     dd($contacts);
-   
+
 })->middleware(['auth'])->name('contacts.import.google');

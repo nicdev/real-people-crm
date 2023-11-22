@@ -13,6 +13,7 @@ class HttpService
      * Create a new HttpClient instance.
      *
      * @param  string  $token The API token to use.
+     * @param  string  $refreshToken The API refresh token to use.
      * @param  \GuzzleHttp\Client|null  $client The Guzzle HTTP client to use.
      * @param  array  $headers An array of headers to include in all requests.
      * @param  array  $result The result of the last API request.
@@ -21,6 +22,7 @@ class HttpService
     public function __construct(
         public $url,
         private $token = null,
+        private $refreshToken = null,
         private $client = null,
         private $headers = [],
         private $result = [],
@@ -161,23 +163,29 @@ class HttpService
         }
     }
 
-    /**
-     * Check if there is a next page of results available.
-     *
-     * @return bool True if there is a next page of results, false otherwise.
-     */
-    public function hasNextPage(): bool
-    {
-        return isset($this->result['total'], $this->result['limit'], $this->result['offset']) &&
-            ($this->result['total'] > $this->result['limit'] + $this->result['offset']);
-    }
-
     public function setToken($token)
     {
         $this->token = $token;
-        ray($this->headers);
-        $this->headers['headers']['Authorization'] =  'Bearer '.$this->token;
-            
-        ray($this->headers);
+
+        $this->headers['headers']['Authorization'] = 'Bearer '.$this->token;
+    }
+
+    public function refreshToken($refreshToken) {
+        $options = [
+            'base_uri' => 'https://oauth2.googleapis.com',
+            'headers' => [
+                'Content-Type' => 'application/x-www-form-urlencoded',
+            ],
+            'form_params' => [
+                'client_id' => config('services.google.client_id'),
+                'client_secret' => config('services.google.client_secret'),
+                'refresh_token' => $refreshToken,
+                'grant_type' => 'refresh_token',
+            ],
+        ];
+
+        $response = $this->client->post('/token', $options);
+
+        ray($response->getBody()->getContents());
     }
 }
