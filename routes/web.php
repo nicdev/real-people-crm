@@ -1,6 +1,9 @@
 <?php
 
 use App\Models\User;
+use App\Providers\GooglePeopleServiceProvider;
+use App\Services\GooglePeopleService;
+use Google\Client;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
@@ -33,7 +36,7 @@ Route::get('/auth/redirect', function () {
 
 Route::get('/auth/google/callback', function () {
     $user = Socialite::driver('google')->user();
-    ray($user);
+
     $user = User::updateOrCreate([
         'email' => $user->email,
     ], [
@@ -49,5 +52,14 @@ Route::get('/auth/google/callback', function () {
 });
 
 Route::get('/dashboard', function () {
-    dd(Auth::user());
+    return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
+
+Route::get('/contacts/import/google', function (GooglePeopleService $googlePeople) {
+    $user = Auth::user();
+    $googlePeople->setToken($user->google_token);
+
+    $contacts = $googlePeople->get('/v1/people/me/connections', ['personFields' => 'names,emailAddresses']);
+    dd($contacts);
+   
+})->middleware(['auth'])->name('contacts.import.google');
