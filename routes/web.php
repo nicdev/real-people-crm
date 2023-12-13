@@ -1,5 +1,6 @@
 <?php
 
+use App\Actions\ImportContacts;
 use App\Models\User;
 use App\Services\GooglePeopleService;
 use Illuminate\Support\Facades\Auth;
@@ -53,14 +54,12 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-Route::get('/contacts/import/google', function (GooglePeopleService $googlePeople) {
+Route::get('/contacts/import/google', function (GooglePeopleService $googlePeople, ImportContacts $importContacts) {
     $user = Auth::user();
 
     // check for expired token
     if(!$user->token_expires_at || $user->token_expires_at->isPast()) {
-        ray('refreshinfg token');
         $response = $googlePeople->refreshToken($user->google_refresh_token);
-        ray($response);
         $user->update([
             'google_token' => $response['access_token'],
             'token_expires_at' => now()->addSeconds($response['expires_in']),
@@ -69,8 +68,6 @@ Route::get('/contacts/import/google', function (GooglePeopleService $googlePeopl
 
     $googlePeople->setToken($user->google_token);
 
-    // $result = $googlePeople->get('/v1/people/me/connections', ['personFields' => 'names,emailAddresses']);
-    $contacts = $googlePeople->contacts();
-    dd($contacts);
+    $importContacts($googlePeople->contacts());
 
 })->middleware(['auth'])->name('contacts.import.google');
