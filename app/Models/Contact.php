@@ -47,4 +47,9 @@ class Contact extends Model
     protected $casts = [
         'google_metadata' => 'array',
     ];
+
+    function scopeActive($query)
+    {
+        return $query->where('is_discarded', false);
+    }
 }

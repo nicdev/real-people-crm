@@ -25,4 +25,4 @@ Route::post('/contacts/{contact}/update', function (ContactUpdateRequest $reques
     $contact->update($request->validated());
 
     return $contact;
-})->middleware('auth');
+})->middleware('auth:sanctum');

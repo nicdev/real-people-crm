@@ -56,7 +56,7 @@ Route::get('/auth/google/callback', function () {
 
 Route::get('/dashboard', function () {
     return view('dashboard', [
-        'contacts' => Auth::user()->contacts,
+        'contacts' => Auth::user()->contacts()->active()->get(),
     ]);
 })->middleware(['auth'])->name('dashboard');
 
