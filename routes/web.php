@@ -22,6 +22,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/login', function() {
+    return view('login');
+})->name('login');
+
 Route::get('/auth/redirect', function () {
     $scopes = [
         'https://www.googleapis.com/auth/userinfo.email',
@@ -51,7 +55,9 @@ Route::get('/auth/google/callback', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('dashboard', [
+        'contacts' => Auth::user()->contacts,
+    ]);
 })->middleware(['auth'])->name('dashboard');
 
 Route::get('/contacts/import/google', function (GooglePeopleService $googlePeople, ImportContacts $importContacts) {

@@ -40,7 +40,8 @@ class Contact extends Model
         'last_name',
         'email',
         'google_metadata',
-        'display_name'
+        'display_name',
+        'is_discarded'
     ];
 
     protected $casts = [
