@@ -21,7 +21,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('/contacts/{contact}/update', function (ContactUpdateRequest $request, Contact $contact) {
-    ray($request->validated());
     $contact->update($request->validated());
 
     return $contact;

@@ -119,7 +119,7 @@ class HttpService
     public function respond(ResponseInterface $response): array
     {
         $this->result = json_decode($response->getBody(), true);
-        ray($this->result);
+        
         if ($response->getStatusCode() === 200) {
             return $this->result;
         }
@@ -184,7 +184,7 @@ class HttpService
                 'grant_type' => 'refresh_token',
             ],
         ];
-        ray('refreshing token');
+
         $response = $this->client->post('/token', $options);
         return $this->respond($response);
     }
