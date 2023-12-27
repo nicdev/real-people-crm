@@ -8,36 +8,47 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\Validate;
-use Livewire\Component;
 use LivewireUI\Modal\ModalComponent;
 
-class Modal extends ModalComponent 
+class Modal extends ModalComponent
 {
     public Contact $contact;
+
     public Collection $companies;
-    
+
     #[Validate('required|max:255|string')]
     public $first_name;
+
     #[Validate('required|max:255|string')]
     public $middle_name;
+
     #[Validate('required|max:255|string')]
     public $last_name;
+
     #[Validate('required|max:40|string')]
     public $phone;
+
     #[Validate('required|max:255|email')]
     public $email;
+
     #[Validate('required|max:255|url')]
     public $linkedin;
+
     #[Validate('required|max:255|url')]
     public $twitter;
+
     #[Validate('required|max:255|url')]
     public $youtube;
+
     #[Validate('required|max:255|url')]
     public $website;
+
     #[Validate('required|string')]
     public $preferred_contact_method = 'Email';
+
     #[Validate('required|string|max:10000')]
     public $general_notes;
+
     public $company_id;
 
     public function render(): View
@@ -45,7 +56,8 @@ class Modal extends ModalComponent
         return view('livewire.contacts.modal-form');
     }
 
-    public function mount(Contact $contact, Collection $companies) {
+    public function mount(Contact $contact, Collection $companies)
+    {
         $this->contact = $contact ?? new Contact();
         $this->companies = auth()->user()->companies ?? new Collection();
 
@@ -63,7 +75,8 @@ class Modal extends ModalComponent
         $this->company_id = $contact->company_id;
     }
 
-    public function store(CreateOrUpdateContact $createOrUpdateContact) {
+    public function store(CreateOrUpdateContact $createOrUpdateContact)
+    {
         $createOrUpdateContact([
             'id' => $this->contact?->id,
             'first_name' => $this->first_name,
@@ -80,9 +93,9 @@ class Modal extends ModalComponent
             'user_id' => auth()->id(),
             'company_id' => $this->company_id,
         ]);
-    
+
         session()->flash('message', 'Contact successfully created.');
-    
+
         return redirect()->route('contacts.index');
     }
 

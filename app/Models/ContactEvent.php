@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|ContactEvent newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ContactEvent newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ContactEvent query()
+ *
  * @mixin \Eloquent
  */
 class ContactEvent extends Model

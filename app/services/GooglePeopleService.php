@@ -15,8 +15,8 @@ class GooglePeopleService extends HttpService
     {
         $contacts = [];
         do {
-            $params = isset($response['nextPageToken']) ? 
-                ['personFields' => 'names,emailAddresses', 'pageSize' => 1000, 'pageToken' => $response['nextPageToken']] : 
+            $params = isset($response['nextPageToken']) ?
+                ['personFields' => 'names,emailAddresses', 'pageSize' => 1000, 'pageToken' => $response['nextPageToken']] :
                 ['personFields' => 'names,emailAddresses', 'pageSize' => 1000];
             $response = $this->get('/v1/people/me/connections', $params);
             $contacts = [...$contacts, ...$response['connections']];

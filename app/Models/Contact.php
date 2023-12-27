@@ -5,8 +5,6 @@ namespace App\Models;
 use App\Models\File as ContactFile;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 
 /**
@@ -21,6 +19,7 @@ use Illuminate\Support\Str;
  * @property string $email
  * @property array|null $google_metadata
  * @property int $user_id
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Contact newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Contact newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Contact query()
@@ -33,6 +32,7 @@ use Illuminate\Support\Str;
  * @method static \Illuminate\Database\Eloquent\Builder|Contact whereLastName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Contact whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Contact whereUserId($value)
+ *
  * @property int $is_discarded
  * @property string|null $middle_name
  * @property string|null $phone
@@ -44,6 +44,7 @@ use Illuminate\Support\Str;
  * @property string|null $preferred_contact_method
  * @property string|null $general_notes
  * @property-read \App\Models\User|null $user
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Contact whereGeneralNotes($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Contact whereIsDiscarded($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Contact whereLinkedin($value)
@@ -54,12 +55,15 @@ use Illuminate\Support\Str;
  * @method static \Illuminate\Database\Eloquent\Builder|Contact whereTwitter($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Contact whereWebsite($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Contact whereYoutube($value)
+ *
  * @property int $company_id
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ContactEvent> $contactEvents
  * @property-read int|null $contact_events_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, ContactFile> $files
  * @property-read int|null $files_count
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Contact whereCompanyId($value)
+ *
  * @mixin \Eloquent
  */
 class Contact extends Model
@@ -95,13 +99,13 @@ class Contact extends Model
         parent::boot();
 
         static::creating(function ($person) {
-            $slugBase = Str::slug($person->first_name . '-' . $person->middle_name . '-' . $person->last_name);
+            $slugBase = Str::slug($person->first_name.'-'.$person->middle_name.'-'.$person->last_name);
             $slug = $slugBase;
             $count = 1;
 
             // Check if the slug already exists and increment the suffix until a unique slug is found
             while (static::where('slug', $slug)->exists()) {
-                $slug = $slugBase . '-' . $count;
+                $slug = $slugBase.'-'.$count;
                 $count++;
             }
 

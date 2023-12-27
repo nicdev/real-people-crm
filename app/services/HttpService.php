@@ -119,7 +119,7 @@ class HttpService
     public function respond(ResponseInterface $response): array
     {
         $this->result = json_decode($response->getBody(), true);
-        
+
         if ($response->getStatusCode() === 200) {
             return $this->result;
         }
@@ -171,7 +171,8 @@ class HttpService
         $this->headers['headers']['Authorization'] = 'Bearer '.$this->token;
     }
 
-    public function refreshToken($refreshToken) {
+    public function refreshToken($refreshToken)
+    {
         $options = [
             'base_uri' => 'https://oauth2.googleapis.com',
             'headers' => [
@@ -186,6 +187,7 @@ class HttpService
         ];
 
         $response = $this->client->post('/token', $options);
+
         return $this->respond($response);
     }
 }

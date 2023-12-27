@@ -4,29 +4,31 @@ namespace App\Actions\Contacts;
 
 use Illuminate\Support\Facades\Auth;
 
-class ImportContacts {
-    public function __invoke(array $contacts) {
+class ImportContacts
+{
+    public function __invoke(array $contacts)
+    {
         $user = Auth::user();
 
-        foreach($contacts as $contact) { 
+        foreach ($contacts as $contact) {
             $contact = $this->cleanContact($contact);
 
-            if($contact !== null) {
+            if ($contact !== null) {
                 $user->contacts()->updateOrCreate([
                     'email' => $contact['email'],
                 ], $contact);
             }
         }
 
-        return;
     }
 
-    protected function cleanContact(array $contact) {
-        if(!isset($contact['emailAddresses'][0]['value'])) {
+    protected function cleanContact(array $contact)
+    {
+        if (! isset($contact['emailAddresses'][0]['value'])) {
             return null;
         }
 
-        if(!isset($contact['names'][0]['displayName']) && !isset($contact['names'][0]['givenName']) && !isset($contact['names'][0]['familyName'])) {
+        if (! isset($contact['names'][0]['displayName']) && ! isset($contact['names'][0]['givenName']) && ! isset($contact['names'][0]['familyName'])) {
             return null;
         }
 

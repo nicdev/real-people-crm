@@ -2,7 +2,6 @@
 
 use App\Actions\Contacts\ImportContacts;
 use App\Livewire\Companies\Index as IndexCompany;
-use App\Livewire\Contacts\Create as CreateContact;
 use App\Livewire\Contacts\Index as IndexContact;
 use App\Livewire\Contacts\Show as ShowContact;
 use App\Models\User;
@@ -66,7 +65,7 @@ Route::get('/contacts/import/google', function (GooglePeopleService $googlePeopl
     $user = Auth::user();
 
     // check for expired token
-    if (!$user->token_expires_at || $user->token_expires_at->isPast()) {
+    if (! $user->token_expires_at || $user->token_expires_at->isPast()) {
         $response = $googlePeople->refreshToken($user->google_refresh_token);
         $user->update([
             'google_token' => $response['access_token'],
@@ -95,12 +94,12 @@ Route::group(['prefix' => 'contacts', 'middleware' => 'auth'], function () {
 // Companmies
 Route::group(['prefix' => 'companies', 'middleware' => 'auth'], function () {
     Route::get('/', IndexCompany::class)->name('companies.index');
-    
+
     Route::get('/{company}', function ($company) {
         return view('companies.show', [
             'company' => Auth::user()->companies()->findOrFail($company),
         ]);
-        
+
     })->name('company.show');
 
     Route::delete('/{company}', function ($company) {

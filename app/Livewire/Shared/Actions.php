@@ -5,8 +5,8 @@ namespace App\Livewire\Shared;
 use Illuminate\View\View;
 use Livewire\Component;
 
-class Actions extends Component 
-{ 
+class Actions extends Component
+{
     public $model;
 
     public function render(): View
