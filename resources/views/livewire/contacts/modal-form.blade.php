@@ -1,4 +1,5 @@
 <div>
+    <h1>CONTACTS MODAL</h1>
     <form wire:submit="store">
         <div class="form-group">
             <label for="first_name">Name</label>
@@ -56,7 +57,8 @@
                 <option value="website">Website</option>
             </select>
             @error('preferred_contact_method') <span class="text-danger">{{ $message }}</span>@enderror
-            </div>
+        </div>
+        <livewire:companies.select :companies="$companies" />
         <div class="form-group">
             <label for="general_notes">General Notes</label>
             <textarea wire:model="general_notes" class="form-control" id="general_notes" rows="3"></textarea>

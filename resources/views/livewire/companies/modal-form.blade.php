@@ -1,4 +1,5 @@
 <div>
+    <h1>COMPANIES MODAL</h1>
     <form wire:submit="store">
         <div class="form-group">
             <label for="name">Name</label>

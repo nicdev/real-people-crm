@@ -5,13 +5,16 @@ namespace App\Livewire\Companies;
 use App\Actions\Companies\CreateOrUpdateCompany;
 use App\Models\Company;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Collection;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 use LivewireUI\Modal\ModalComponent;
+use PHPUnit\TestRunner\TestResult\Collector;
 
 class Modal extends ModalComponent 
 {
     public Company $company;
+    public Collection $companies;
     
     #[Validate('required|max:255|string')]
     public $name;
@@ -37,6 +40,7 @@ class Modal extends ModalComponent
 
     public function mount(Company $company) {
         $this->company = $company ?? new company();
+        $this->companies = $companies ?? new Collection(); 
 
         $this->name = $company->name;
         $this->phone = $company->phone;
@@ -65,5 +69,10 @@ class Modal extends ModalComponent
         session()->flash('message', 'Company successfully created.');
     
         return redirect()->route('companies.index');
+    }
+    
+    public static function modalMaxWidth(): string
+    {
+        return 'md';
     }
 }

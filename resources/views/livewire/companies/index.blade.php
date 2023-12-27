@@ -1,12 +1,12 @@
 <div>
+<livewire:shared.nav>
+<livewire:shared.actions model="company">
     @session('message')
         <div class="alert alert-success">
             {{ session('message') }}
         </div>
     @endsession
-
-    <button wire:click="$dispatch('openModal', {component: 'companies.modal' })">New</button>
-
+    
     @foreach($companies as $c) 
         <div wire:key="{{ $c->id }}">
             <div>

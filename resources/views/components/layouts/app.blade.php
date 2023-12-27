@@ -10,8 +10,10 @@
 
         @vite('resources/css/app.css')
     </head>
-    <body>
-        {{ $slot }}
+    <body class="bg-gray-100 text-gray-800 font-sans">
+        <div class="container mx-auto p-4">
+            {{ $slot }}
+        </div>
 
         @livewire('wire-elements-modal')
     </body>

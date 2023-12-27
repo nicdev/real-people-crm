@@ -4,6 +4,7 @@ use App\Actions\Contacts\ImportContacts;
 use App\Livewire\Companies\Index as IndexCompany;
 use App\Livewire\Contacts\Create as CreateContact;
 use App\Livewire\Contacts\Index as IndexContact;
+use App\Livewire\Contacts\Show as ShowContact;
 use App\Models\User;
 use App\Services\GooglePeopleService;
 use Illuminate\Support\Facades\Auth;
@@ -81,14 +82,7 @@ Route::get('/contacts/import/google', function (GooglePeopleService $googlePeopl
 // Contacts
 Route::group(['prefix' => 'contacts', 'middleware' => 'auth'], function () {
     Route::get('/', IndexContact::class)->name('contacts.index');
-    
-    Route::get('/{contact}', function ($contact) {
-        return view('contacts.show', [
-            'contact' => Auth::user()->contacts()->findOrFail($contact),
-        ]);
-
-    })->name('contacts.show');
-    
+    Route::get('/{contact}', ShowContact::class)->name('contacts.show');
     Route::delete('/{contact}', function ($contact) {
         Auth::user()->contacts()->findOrFail($contact)->delete();
 
@@ -108,4 +102,12 @@ Route::group(['prefix' => 'companies', 'middleware' => 'auth'], function () {
         ]);
         
     })->name('company.show');
+
+    Route::delete('/{company}', function ($company) {
+        Auth::user()->companies()->findOrFail($company)->delete();
+
+        session()->flash('message', 'Company successfully deleted.');
+
+        return redirect()->route('companies.index');
+    })->name('companies.delete');
 });
