@@ -1,6 +1,9 @@
 <?php
 
-use App\Actions\ImportContacts;
+use App\Actions\Contacts\ImportContacts;
+use App\Livewire\Companies\Index as IndexCompany;
+use App\Livewire\Contacts\Create as CreateContact;
+use App\Livewire\Contacts\Index as IndexContact;
 use App\Models\User;
 use App\Services\GooglePeopleService;
 use Illuminate\Support\Facades\Auth;
@@ -22,7 +25,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/login', function() {
+Route::get('/login', function () {
     return view('login');
 })->name('login');
 
@@ -55,16 +58,14 @@ Route::get('/auth/google/callback', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard', [
-        'contacts' => Auth::user()->contacts()->active()->get(),
-    ]);
+    return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
 Route::get('/contacts/import/google', function (GooglePeopleService $googlePeople, ImportContacts $importContacts) {
     $user = Auth::user();
 
     // check for expired token
-    if(!$user->token_expires_at || $user->token_expires_at->isPast()) {
+    if (!$user->token_expires_at || $user->token_expires_at->isPast()) {
         $response = $googlePeople->refreshToken($user->google_refresh_token);
         $user->update([
             'google_token' => $response['access_token'],
@@ -75,5 +76,36 @@ Route::get('/contacts/import/google', function (GooglePeopleService $googlePeopl
     $googlePeople->setToken($user->google_token);
 
     $importContacts($googlePeople->contacts());
-
 })->middleware(['auth'])->name('contacts.import.google');
+
+// Contacts
+Route::group(['prefix' => 'contacts', 'middleware' => 'auth'], function () {
+    Route::get('/', IndexContact::class)->name('contacts.index');
+    
+    Route::get('/{contact}', function ($contact) {
+        return view('contacts.show', [
+            'contact' => Auth::user()->contacts()->findOrFail($contact),
+        ]);
+
+    })->name('contacts.show');
+    
+    Route::delete('/{contact}', function ($contact) {
+        Auth::user()->contacts()->findOrFail($contact)->delete();
+
+        session()->flash('message', 'Contact successfully deleted.');
+
+        return redirect()->route('contacts.index');
+    })->name('contacts.delete');
+});
+
+// Companmies
+Route::group(['prefix' => 'companies', 'middleware' => 'auth'], function () {
+    Route::get('/', IndexCompany::class)->name('companies.index');
+    
+    Route::get('/{company}', function ($company) {
+        return view('companies.show', [
+            'company' => Auth::user()->companies()->findOrFail($company),
+        ]);
+        
+    })->name('company.show');
+});

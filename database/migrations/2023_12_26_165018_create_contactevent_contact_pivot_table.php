@@ -1,6 +1,7 @@
 <?php
 
-use App\Models\User;
+use App\Models\Contact;
+use App\Models\ContactEvent;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,8 +13,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('contacts', function (Blueprint $table) {
-            $table->foreignIdFor(User::class)->after('id')->constrained()->onDelete('cascade');
+        Schema::create('contact_contactevent', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
+            $table->foreignIdFor(Contact::class);
+            $table->foreignIdFor(ContactEvent::class);
         });
     }
 
@@ -22,9 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('contacts', function (Blueprint $table) {
-            $table->dropForeign('user_id');
-            $table->dropColumn('user_id');
-        });
+        Schema::dropIfExists('contact_contactevent');
     }
 };

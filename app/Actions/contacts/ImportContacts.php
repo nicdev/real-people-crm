@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Actions;
+namespace App\Actions\Contacts;
 
 use Illuminate\Support\Facades\Auth;
 
