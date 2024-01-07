@@ -1,1 +1,1 @@
-<button wire:click="delete" wire:confirm="Are you sure you want to delete {{ $company->name }}?">Delete</button>
+<button wire:click="delete" wire:confirm="Are you sure you want to delete {{ $company->name }}?" class="relative ml-3 inline-flex items-center rounded-md bg-white hover:bg-red-500 hover:text-gray-100 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-red-500">Delete</button>

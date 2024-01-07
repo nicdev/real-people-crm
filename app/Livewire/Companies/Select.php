@@ -16,6 +16,7 @@ class Select extends Component
 
     public function change($company_id)
     {
+        ray('displaych company');
         $this->dispatch('company-selected', $company_id);
     }
 

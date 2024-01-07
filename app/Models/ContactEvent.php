@@ -18,8 +18,23 @@ class ContactEvent extends Model
 {
     use HasFactory;
 
-    public function contacts()
+    protected $fillable = [
+        'title',
+        'description',
+        'location',
+        'contact_id',
+        'contact_method_id',
+        'recap',
+        'date',
+    ];
+
+    public function contact()
     {
-        $this->belongsToMany(Contact::class, 'contact_contactevent');
+        $this->belongsTo(Contact::class);
+    }
+
+    public function contactMethod()
+    {
+        $this->belongsTo(ContactMethod::class);
     }
 }

@@ -49,6 +49,11 @@ use Laravel\Sanctum\HasApiTokens;
  * @method static \Illuminate\Database\Eloquent\Builder|User whereTokenExpiresAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  *
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Company> $companies
+ * @property-read int|null $companies_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ContactEvent> $contactEvents
+ * @property-read int|null $contact_events_count
+ *
  * @mixin \Eloquent
  */
 class User extends Authenticatable
@@ -105,6 +110,11 @@ class User extends Authenticatable
     public function contacts()
     {
         return $this->hasMany(Contact::class);
+    }
+
+    public function contactEvents()
+    {
+        return $this->hasManyThrough(ContactEvent::class, Contact::class);
     }
 
     public function companies()

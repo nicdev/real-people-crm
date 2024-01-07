@@ -2,8 +2,10 @@
 
 use App\Actions\Contacts\ImportContacts;
 use App\Livewire\Companies\Index as IndexCompany;
+use App\Livewire\Companies\Show as ShowCompany;
 use App\Livewire\Contacts\Index as IndexContact;
 use App\Livewire\Contacts\Show as ShowContact;
+use App\Livewire\Dashboard;
 use App\Models\User;
 use App\Services\GooglePeopleService;
 use Illuminate\Support\Facades\Auth;
@@ -52,14 +54,10 @@ Route::get('/auth/google/callback', function () {
         'token_expires_at' => now()->addSeconds($user->expiresIn),
     ]);
 
-    Auth::login($user);
+    Auth::login($user, true);
 
-    return redirect('/dashboard');
+    return redirect('/');
 });
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
 
 Route::get('/contacts/import/google', function (GooglePeopleService $googlePeople, ImportContacts $importContacts) {
     $user = Auth::user();
@@ -78,6 +76,9 @@ Route::get('/contacts/import/google', function (GooglePeopleService $googlePeopl
     $importContacts($googlePeople->contacts());
 })->middleware(['auth'])->name('contacts.import.google');
 
+// Dashboard
+Route::get('/', Dashboard::class)->middleware(['auth'])->name('dashboard');
+
 // Contacts
 Route::group(['prefix' => 'contacts', 'middleware' => 'auth'], function () {
     Route::get('/', IndexContact::class)->name('contacts.index');
@@ -91,16 +92,23 @@ Route::group(['prefix' => 'contacts', 'middleware' => 'auth'], function () {
     })->name('contacts.delete');
 });
 
-// Companmies
+// Contact Events
+Route::group(['prefix' => 'contact-events', 'middleware' => 'auth'], function () {
+    Route::get('/', IndexContact::class)->name('contact-events.index');
+    // Route::get('/{contact}', ShowContact::class)->name('contact-events.show');
+    // Route::delete('/{contact}', function ($contact) {
+    //     Auth::user()->contacts()->findOrFail($contact)->delete();
+
+    //     session()->flash('message', 'Contact successfully deleted.');
+
+    //     return redirect()->route('contact-events.index');
+    // })->name('contact-events.delete');
+});
+
+// Companies
 Route::group(['prefix' => 'companies', 'middleware' => 'auth'], function () {
     Route::get('/', IndexCompany::class)->name('companies.index');
-
-    Route::get('/{company}', function ($company) {
-        return view('companies.show', [
-            'company' => Auth::user()->companies()->findOrFail($company),
-        ]);
-
-    })->name('company.show');
+    Route::get('/{company}', ShowCompany::class)->name('companies.show');
 
     Route::delete('/{company}', function ($company) {
         Auth::user()->companies()->findOrFail($company)->delete();

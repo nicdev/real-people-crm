@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\ContactMethod;
 use App\Models\File as ContactFile;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -64,6 +65,12 @@ use Illuminate\Support\Str;
  *
  * @method static \Illuminate\Database\Eloquent\Builder|Contact whereCompanyId($value)
  *
+ * @property string|null $slug
+ * @property string|null $title
+ *
+ * @method static \Illuminate\Database\Eloquent\Builder|Contact whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Contact whereTitle($value)
+ *
  * @mixin \Eloquent
  */
 class Contact extends Model
@@ -120,11 +127,16 @@ class Contact extends Model
 
     public function contactEvents()
     {
-        return $this->belongsToMany(ContactEvent::class, 'contact_contactevent');
+        return $this->hasMany(ContactEvent::class);
     }
 
     public function files()
     {
         return $this->hasMany(ContactFile::class);
+    }
+
+    public function preferredContactMethod()
+    {
+        return $this->hasOne(ContactMethod::class, 'id', 'preferred_contact_method_id');
     }
 }
