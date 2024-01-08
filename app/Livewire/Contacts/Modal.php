@@ -17,7 +17,7 @@ class Modal extends ModalComponent
 
     public function mount(?Contact $contact)
     {
-        if($contact) {
+        if ($contact) {
             $this->form->setContact($contact);
         }
 

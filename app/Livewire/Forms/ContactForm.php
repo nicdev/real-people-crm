@@ -4,7 +4,6 @@ namespace App\Livewire\Forms;
 
 use App\Actions\Contacts\CreateOrUpdateContact;
 use App\Models\Contact;
-use App\Models\ContactMethod;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
 use Illuminate\Validation\Rule;
@@ -16,7 +15,7 @@ class ContactForm extends Form
     public ?Contact $contact;
 
     public Collection $companies;
-    
+
     #[Validate('required|max:255|string')]
     public $first_name;
 
@@ -102,8 +101,8 @@ class ContactForm extends Form
         ];
     }
 
-    public function setContact(Contact $contact): void 
+    public function setContact(Contact $contact): void
     {
         $this->contact = $contact;
-    } 
+    }
 }

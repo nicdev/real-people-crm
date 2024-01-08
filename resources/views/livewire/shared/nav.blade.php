@@ -61,10 +61,7 @@
                     <a href="{{ route('contacts.index') }}"
                         wire:navigate
                         class="inline-flex items-center border-b-2 px-1 pt-1 text-sm font-mediu {{ preg_match('/contacts.*/', Request::segment(1)) ? 'border-indigo-500 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700' }}">Contacts</a>
-                    <a href={{ route('contact-events.index') }}
-                        wire:navigate
-                        class="inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium {{ preg_match('/contact-events.*/', Request::segment(1)) ? 'border-indigo-500 text-gray-900' : 'border-transparent text-gray-500  hover:border-gray-300 hover:text-gray-700' }}">Contact
-                        Events</a>
+                   
                     <a href={{ route('companies.index') }}
                         wire:navigate
                         class="inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium {{ preg_match('/companies.*/', Request::segment(1)) ? 'border-indigo-500 text-gray-900' : 'border-transparent text-gray-500  hover:border-gray-300 hover:text-gray-700' }}">Companies</a>

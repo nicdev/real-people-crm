@@ -51,7 +51,7 @@ class Modal extends ModalComponent
     {
         $this->contact_event = $contactEvent ?? new ContactEvent();
         $this->contact = $contact;
-        $this->contact_method_id = $this->contact->preferrendContactMethod ?                                        $this->contact->preferredContactMethod->id : ContactMethod::where('name', 'Email')->first()->id;
+        $this->contact_method_id = $this->contact->preferrendContactMethod ? $this->contact->preferredContactMethod->id : ContactMethod::where('name', 'Email')->first()->id;
         $this->contact_methods = ContactMethod::all();
     }
 
@@ -84,12 +84,13 @@ class Modal extends ModalComponent
     public function contactMethod()
     {
         ray('compuer');
+
         return $this->contact_method_id ? ContactMethod::find($this->contact_method_id)->name : null;
     }
 
     #[Computed]
     public function title()
     {
-        return $this->contactMethod() . ' with ' . $this->contact->first_name;
+        return $this->contactMethod().' with '.$this->contact->first_name;
     }
 }
