@@ -3,17 +3,18 @@
 namespace App\Livewire\Contacts;
 
 use App\Models\Contact;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Show extends Component
 {
     public Contact $contact;
 
+    public $showContactEventModal = false;
+
     public function render()
     {
-        return view('livewire.contacts.show')->with([
-            'contact' => $this->contact,
-        ]);
+        return view('livewire.contacts.show');
     }
 
     public function mount(Contact $contact)
@@ -28,5 +29,11 @@ class Show extends Component
         session()->flash('message', 'Contact successfully deleted.');
 
         return redirect()->route('contacts.index');
+    }
+
+    #[On('modal-closed')]
+    public function closeModal()
+    {
+        $this->showContactEventModal = false;
     }
 }

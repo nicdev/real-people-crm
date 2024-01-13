@@ -7,10 +7,11 @@
 
     <livewire:shared.nav />
     <nav class="my-4">
-        <livewire:shared.actions model="contact"
-            :methods="['new']" />
-        <livewire:shared.modal-button model="contactEvent"
-            label="New Contact Event" />
+        <span class="my-4 mr-2">
+            <button wire:click="$toggle('showContactForm')"
+                class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 mr-2 border border-blue-500 hover:border-transparent rounded">
+                New Contact</button>
+        </span>
     </nav>
 
     @foreach ($contacts as $c)
@@ -75,4 +76,6 @@
             </div>
         </div>
     @endforeach
+
+    <livewire:shared.modal component="contacts.modal" :show-modal="$showContactForm" />
 </div>

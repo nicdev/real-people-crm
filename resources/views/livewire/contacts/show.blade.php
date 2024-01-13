@@ -1,11 +1,21 @@
 <div>
     <livewire:shared.nav>
-        <nav>
-            <button
-                        wire:click="$dispatch('openModal', {component: 'contact-events.modal', arguments: {{ json_encode(['contact' => $contact->id]) }} })"
-                        class="relative ml-3 inline-flex items-center rounded-md bg-white hover:bg-indigo-400 hover:text-gray-100 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-indigo-400">New Contact Event with {{ $contact->first_name }}</button>
+        <nav class="pb-4">
+            <span class="my-4 mr-2">
+                <button wire:click="$toggle('showContactEventModal')"
+                    class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 mr-2 border border-blue-500 hover:border-transparent rounded">
+                    New Contact Event with {{ $contact->first_name }}</button>
+            </span>
         </nav>
         {{-- <livewire:shared.actions> --}}
+        @if ($contact->contactEvents->count() > 0)
+            <livewire:contact-events.index :contact="$contact" />
+        @else
+            <p>
+                🤔 Looks like it's been a while. May be a good time to reach out to {{ $contact->first_name }}.
+            </p>
+        @endif
+
         <div class="px-4 sm:px-0">
             <h3 class="text-base font-semibold leading-7 text-gray-900">{{ $contact->name }}</h3>
             <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">{{ $contact->first_name }} @if ($contact->company)
@@ -13,13 +23,7 @@
                 @endif
             </p>
         </div>
-        @if ($contact->contactEvents->count() > 0)
-            <div class="mt-6 border-t border-gray-100">
-                @foreach ($contact->contactEvents as $ce)
-                    Display contact event here {{ $ce }}
-                @endforeach
-            </div>
-        @endif
+        
         <div class="mt-6 border-t border-gray-100">
             <dl class="divide-y divide-gray-100">
                 <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
@@ -118,4 +122,7 @@
                     </div>
             </dl>
         </div>
+        @if($showContactEventModal)
+        <livewire:contact-events.modal :contact="$contact" />
+        @endif
 </div>

@@ -7,18 +7,18 @@ use App\Models\Contact;
 use App\Models\ContactMethod;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
-use LivewireUI\Modal\ModalComponent;
+use Livewire\Component;
 
-class Modal extends ModalComponent
+class Modal extends Component
 {
     public ContactForm $form;
 
     public Collection $contact_methods;
 
-    public function mount(?Contact $contact)
+    public function mount(?Contact $model = null)
     {
-        if ($contact) {
-            $this->form->setContact($contact);
+        if (isset($model)) {
+            $this->form->setContact($model);
         }
 
         $this->contact_methods = ContactMethod::all();

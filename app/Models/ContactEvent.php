@@ -54,11 +54,11 @@ class ContactEvent extends Model
 
     public function contact()
     {
-        $this->belongsTo(Contact::class);
+        return $this->belongsTo(Contact::class);
     }
 
     public function contactMethod()
     {
-        $this->belongsTo(ContactMethod::class);
+        return $this->belongsTo(ContactMethod::class);
     }
 }

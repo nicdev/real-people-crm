@@ -44,7 +44,7 @@ class Modal extends ModalComponent
         return view('livewire.companies.modal-form');
     }
 
-    public function mount(Company $company)
+    public function mount(?Company $company)
     {
         $this->company = $company ?? new company();
         $this->companies = $companies ?? new Collection();

@@ -47,17 +47,18 @@ class Modal extends ModalComponent
         return view('livewire.contact-events.modal-form');
     }
 
-    public function mount(ContactEvent $contactEvent, Contact $contact)
+    public function mount(?ContactEvent $contactEvent, ?Contact $contact)
     {
-        $this->contact_event = $contactEvent ?? new ContactEvent();
+        $this->contact_event = $contactEvent ?? null;
         $this->contact = $contact;
-        $this->contact_method_id = $this->contact->preferrendContactMethod ? $this->contact->preferredContactMethod->id : ContactMethod::where('name', 'Email')->first()->id;
+        $this->contact_method_id = $this->contact?->preferredContactMethod ? $this->contact->preferredContactMethod->id : ContactMethod::where('name', 'Email')->first()->id;
         $this->contact_methods = ContactMethod::all();
+        $this->date = $this->contact_event?->date ?: now()->format('Y-m-d');
     }
 
     public function store(CreateOrUpdateContactEvent $createOrUpdateContactEvent)
     {
-        $createOrUpdateContactEvent([
+        $this->contact_event = $createOrUpdateContactEvent([
             'id' => $this->contact_event?->id,
             'user_id' => auth()->id(),
             'title' => $this->title,
@@ -71,7 +72,7 @@ class Modal extends ModalComponent
 
         session()->flash('message', 'Contact Event successfully created.');
 
-        return redirect()->route('contact-events.index');
+        return redirect()->route('contacts.show', $this->contact_event->contact_id);
     }
 
     #[On('updated-contact-id')]
@@ -83,14 +84,12 @@ class Modal extends ModalComponent
     #[Computed]
     public function contactMethod()
     {
-        ray('compuer');
-
         return $this->contact_method_id ? ContactMethod::find($this->contact_method_id)->name : null;
     }
 
     #[Computed]
     public function title()
     {
-        return $this->contactMethod().' with '.$this->contact->first_name;
+        return $this->contact->first_name.' via '.$this->contactMethod();
     }
 }

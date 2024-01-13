@@ -7,11 +7,18 @@ use Livewire\Component;
 
 class Index extends Component
 {
+    public Contact $contact;
+
     public function render()
     {
-        $contactEvents = auth()->user()->contactEvents()->orderBy('updated_at', 'desc')->limit(5)->get();
+        $contactEvents = $this->contact->contactEvents()->orderBy('date', 'desc')->limit(5)->get();
 
         return view('livewire.contact-events.index')->with(compact('contactEvents'));
+    }
+
+    public function mount(Contact $contact)
+    {
+        $this->contact = $contact;
     }
 
     public function delete(Contact $contact)

@@ -1,8 +1,11 @@
 <div>
     <livewire:shared.nav />
     <nav class="my-4">
-        <livewire:shared.actions model="company"
-            :methods="['new']" />
+        <span class="my-4 mr-2">
+            <button wire:click="$toggle('showCompanyForm')"
+                class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 mr-2 border border-blue-500 hover:border-transparent rounded">
+                New Company</button>
+        </span>
         @session('message')
             <div class="alert alert-success">
                 {{ session('message') }}
@@ -125,4 +128,6 @@
 
         </div>
     @endforeach
+
+    <livewire:shared.modal component="companies.modal" :show-modal="$showCompanyForm" />
 </div>

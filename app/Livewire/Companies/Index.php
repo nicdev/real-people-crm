@@ -3,15 +3,24 @@
 namespace App\Livewire\Companies;
 
 use App\Models\Contact;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Index extends Component
 {
+    public $showCompanyForm = false;
+
     public function render()
     {
         $companies = auth()->user()->companies ?? [];
 
         return view('livewire.companies.index')->with(compact('companies'));
+    }
+
+    #[On('modal-closed')]
+    public function closeModal()
+    {
+        $this->showCompanyForm = false;
     }
 
     public function delete(Contact $company)
