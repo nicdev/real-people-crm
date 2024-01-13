@@ -6,9 +6,9 @@ use Illuminate\Support\Facades\Auth;
 
 class ImportContacts
 {
-    public function __invoke(array $contacts)
+    public function __invoke(array $contacts, $user)
     {
-        $user = Auth::user();
+        // $user = Auth::user();
 
         foreach ($contacts as $contact) {
             $contact = $this->cleanContact($contact);

@@ -16,7 +16,6 @@ class Select extends Component
 
     public function updatedContactId($contact_id)
     {
-        ray('doing change', $contact_id);
         $this->dispatch('updated-contact-id', $contact_id);
     }
 
