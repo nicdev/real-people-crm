@@ -7,6 +7,7 @@ use App\Models\Contact;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
 use Illuminate\Validation\Rule;
+use Livewire\Attributes\Reactive;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 
@@ -65,7 +66,7 @@ class ContactForm extends Form
 
     public function store()
     {
-        app(CreateOrUpdateContact::class)([
+        $contact = app(CreateOrUpdateContact::class)([
             'id' => $this->contact?->id,
             'first_name' => $this->first_name,
             'middle_name' => $this->middle_name,
@@ -84,7 +85,7 @@ class ContactForm extends Form
 
         session()->flash('message', 'Contact successfully created.');
 
-        return redirect()->route('contacts.index');
+        return redirect()->route('contacts.show', $contact);
     }
 
     public function rules()
@@ -104,5 +105,9 @@ class ContactForm extends Form
     public function setContact(Contact $contact): void
     {
         $this->contact = $contact;
+
+        foreach($this->contact->getAttributes() as $key => $value) {
+            $this->$key = $value;
+        }
     }
 }

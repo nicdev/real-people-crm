@@ -15,17 +15,17 @@
         <span class="my-4 mr-2">
             <button type="button"
                 wire:click="importFromGoogle"
-                
-                class="bg-transparent hover:bg-blue-500 font-semibold hover:text-white py-2 px-4 mr-2 border hover:border-transparent rounded {{ $importingContacts ? 'text-blue-400 border-blue-200  hover:bg-blue-100' : 'text-blue-700 border-blue-500  hover:bg-blue-500' }}" {{ $importingContacts ? 'disabled' : ''}}>
+                class="bg-transparent hover:bg-blue-500 font-semibold hover:text-white py-2 px-4 mr-2 border hover:border-transparent rounded {{ $importingContacts ? 'text-blue-400 border-blue-200  hover:bg-blue-100' : 'text-blue-700 border-blue-500  hover:bg-blue-500' }}"
+                {{ $importingContacts ? 'disabled' : '' }}>
                 Import Contacts From Google</button>
         </span>
-        @if($importingContacts)
+        @if ($importingContacts)
             <span>Import in progress. You will be notified via email upon completion.</span>
         @endif
     </nav>
 
     @foreach ($contacts as $c)
-        <div class="border-b border-gray-200 bg-white px-4 py-5 sm:px-6">
+        <div class="border-b border-gray-200 bg-white px-4 py-5 sm:px-6" wire:key="{{ $c->id }}">
             <div class="-ml-4 -mt-4 flex flex-wrap items-center justify-between sm:flex-nowrap">
                 <div class="ml-4 mt-4">
                     <div class="flex items-center">
@@ -82,10 +82,12 @@
                             <span>Email</span>
                         </a>
                     @endif
+                    <button class="relative ml-3 inline-flex items-center rounded-md bg-white hover:bg-red-500 hover:text-gray-100 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-red-500" wire:click="delete" wire:confirm="Are you sure you want to delete {{ $c->first_name }}?">Delete</button>
                 </div>
             </div>
         </div>
     @endforeach
+    {{ $contacts->links() }}
 
     <livewire:shared.modal component="contacts.modal"
         :show-modal="$showContactForm" />

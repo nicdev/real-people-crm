@@ -9,9 +9,12 @@ use App\Services\GooglePeopleService;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class Index extends Component
 {
+    use WithPagination;
+    
     public $showContactForm = false;
 
     public $showContactEventForm = false;
@@ -20,7 +23,7 @@ class Index extends Component
 
     public function render()
     {
-        $contacts = auth()->user()->contacts;
+        $contacts = Contact::where('user_id', auth()->user()->id)->paginate(15);
 
         return view('livewire.contacts.index')->with(compact('contacts'));
     }

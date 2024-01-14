@@ -2,9 +2,16 @@
     <livewire:shared.nav>
         <nav class="pb-4">
             <span class="my-4 mr-2">
+                <button wire:click="$toggle('showContactForm')"
+                    class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 mr-2 border border-blue-500 hover:border-transparent rounded">
+                    Edit {{ $contact->first_name }} {{ substr($contact->last_name, 0, 1) }}.</button>
                 <button wire:click="$toggle('showContactEventModal')"
                     class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 mr-2 border border-blue-500 hover:border-transparent rounded">
                     New Contact Event with {{ $contact->first_name }}</button>
+                <button
+                    class="relative ml-3 inline-flex items-center rounded-md bg-white hover:bg-red-500 hover:text-gray-100 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-red-500"
+                    wire:click="delete"
+                    wire:confirm="Are you sure you want to delete {{ $contact->first_name }}?">Delete</button>
             </span>
         </nav>
         {{-- <livewire:shared.actions> --}}
@@ -23,7 +30,7 @@
                 @endif
             </p>
         </div>
-        
+
         <div class="mt-6 border-t border-gray-100">
             <dl class="divide-y divide-gray-100">
                 <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
@@ -122,7 +129,11 @@
                     </div>
             </dl>
         </div>
-        @if($showContactEventModal)
-        <livewire:contact-events.modal :contact="$contact" />
+        @if ($showContactEventModal)
+            <livewire:contact-events.modal :contact="$contact" />
         @endif
+
+        <livewire:shared.modal component="contacts.modal"
+            :show-modal="$showContactForm" :model="$contact" />
+
 </div>

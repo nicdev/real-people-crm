@@ -13,7 +13,7 @@
         @endsession
     </nav>
     @foreach ($companies as $c)
-        <div class="border-b border-gray-200 bg-white px-4 py-5 sm:px-6">
+        <div class="border-b border-gray-200 bg-white px-4 py-5 sm:px-6" wire:key="{{ $c->id }}">
             <div class="-ml-4 -mt-4 flex flex-wrap items-center justify-between sm:flex-nowrap">
                 <div class="ml-4 mt-4">
                     <div class="flex items-center">

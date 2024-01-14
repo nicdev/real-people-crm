@@ -12,6 +12,8 @@ class Show extends Component
 
     public $showContactEventModal = false;
 
+    public $showContactForm = false;
+
     public function render()
     {
         return view('livewire.contacts.show');
@@ -35,5 +37,7 @@ class Show extends Component
     public function closeModal()
     {
         $this->showContactEventModal = false;
+
+        $this->showContactForm = false;
     }
 }

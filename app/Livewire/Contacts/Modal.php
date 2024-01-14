@@ -15,13 +15,17 @@ class Modal extends Component
 
     public Collection $contact_methods;
 
+    public bool $editMode = false;
+
     public function mount(?Contact $model = null)
     {
-        if (isset($model)) {
+        if ($model !== null) {
             $this->form->setContact($model);
         }
 
         $this->contact_methods = ContactMethod::all();
+            
+        $this->editMode = $model->exists ?? false;
     }
 
     public function store()

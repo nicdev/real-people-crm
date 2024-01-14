@@ -9,7 +9,7 @@
 
     @if($contacts && count($contacts) > 0)
         @foreach ($contacts as $contact)
-            <div id="contact-{{ $contact['id'] }}">
+            <div id="contact-{{ $contact['id'] }}" wire:key="{{ $contact['id'] }}">
                 <p>
                     {{ $contact['first_name'] }} 
                     {{ $contact['last_name'] }} | 
