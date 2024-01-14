@@ -2,10 +2,8 @@
 
 namespace App\Livewire\Contacts;
 
-use App\Actions\Contacts\ImportContacts;
 use App\Jobs\ImportContactsFromGoogle;
 use App\Models\Contact;
-use App\Services\GooglePeopleService;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -14,7 +12,7 @@ use Livewire\WithPagination;
 class Index extends Component
 {
     use WithPagination;
-    
+
     public $showContactForm = false;
 
     public $showContactEventForm = false;

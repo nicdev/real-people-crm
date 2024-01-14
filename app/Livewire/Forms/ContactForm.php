@@ -7,7 +7,6 @@ use App\Models\Contact;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
 use Illuminate\Validation\Rule;
-use Livewire\Attributes\Reactive;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 
@@ -106,7 +105,7 @@ class ContactForm extends Form
     {
         $this->contact = $contact;
 
-        foreach($this->contact->getAttributes() as $key => $value) {
+        foreach ($this->contact->getAttributes() as $key => $value) {
             $this->$key = $value;
         }
     }

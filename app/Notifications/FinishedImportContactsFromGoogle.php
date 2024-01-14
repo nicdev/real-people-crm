@@ -4,10 +4,7 @@ namespace App\Notifications;
 
 use App\Mail\FinishedImportContactsFromGoogle as FinishedImportContactsFromGoogleMailMessage;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use PHPUnit\Event\Application\Finished;
 
 class FinishedImportContactsFromGoogle extends Notification
 {

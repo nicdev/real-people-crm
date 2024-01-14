@@ -24,7 +24,7 @@ class Modal extends Component
         }
 
         $this->contact_methods = ContactMethod::all();
-            
+
         $this->editMode = $model->exists ?? false;
     }
 
