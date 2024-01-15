@@ -1,11 +1,11 @@
 <div>
     <livewire:shared.nav />
 
-    @session('message')
+    
         @session('message')
             @include('shared.success', ['message' => session('message')])
         @endsession
-    @endsession
+    
 
     <nav class="my-4">
         <span class="my-4 mr-2">

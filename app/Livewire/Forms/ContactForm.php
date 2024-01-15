@@ -45,7 +45,11 @@ class ContactForm extends Form
     public $website;
 
     #[Validate('required')]
+<<<<<<< HEAD
+    public $preferred_contact_method;
+=======
     public $preferred_contact_method ;
+>>>>>>> 3f12642c8e73504d02d7d1df5c909efaf76a3501
 
     #[Validate('nullable|string|max:10000')]
     public $general_notes;
@@ -73,9 +77,7 @@ class ContactForm extends Form
 
     public function store()
     {
-        ray('doingh stiore');
         $this->validate();
-        ray('passwed validation');
         
         $contact = app(CreateOrUpdateContact::class)([
             'id' => isset($this->contact) ? $this->contact->id : null,
@@ -133,13 +135,13 @@ class ContactForm extends Form
         $this->twitter = $contact->twitter;
         $this->youtube = $contact->youtube;
         $this->website = $contact->website;
-        $this->preferred_contact_method = $contact->preferred_contact_method;
+        $this->preferred_contact_method = $contact->preferred_contact_method_id;
         $this->general_notes = $contact->general_notes;
         $this->company_id = $contact->company_id;
         $this->follow_up_date = $contact->follow_up_date;
         $this->frequency = $contact->frequency;
 
-        // I like this better but it throws a warning for using dynamic properties. 
+        // I like this better but it throws a warning for using dynamic properties.
         // Not sure why it considers them dynbamically set.
         //
         // foreach ($this->contact->getAttributes() as $key => $value) {

@@ -99,7 +99,7 @@ class Contact extends Model
         'threads',
         'youtube',
         'website',
-        'preferred_contact_method',
+        'preferred_contact_method_id',
         'general_notes',
         'company_id',
         'frequency',

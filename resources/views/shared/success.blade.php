@@ -1,4 +1,4 @@
-<div class="rounded-md bg-green-50 p-4">
+<div class="rounded-md bg-green-50 p-4 mt-2 mb-4">
   <div class="flex">
     <div class="flex-shrink-0">
       <svg class="h-5 w-5 text-green-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
