@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\File as ContactFile;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
@@ -71,6 +72,11 @@ use Illuminate\Support\Str;
  * @method static \Illuminate\Database\Eloquent\Builder|Contact whereTitle($value)
  *
  * @property-read ContactMethod|null $preferredContactMethod
+ * @property int $frequency
+ * @property \Illuminate\Support\Carbon|null $follow_up_date
+ *
+ * @method static \Illuminate\Database\Eloquent\Builder|Contact whereFollowUpDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Contact whereFrequency($value)
  *
  * @mixin \Eloquent
  */
@@ -95,11 +101,14 @@ class Contact extends Model
         'website',
         'preferred_contact_method',
         'general_notes',
-
+        'company_id',
+        'frequency',
+        'follow_up_date',
     ];
 
     protected $casts = [
         'google_metadata' => 'array',
+        'follow_up_date' => 'date',
     ];
 
     protected static function boot()
@@ -139,5 +148,18 @@ class Contact extends Model
     public function preferredContactMethod()
     {
         return $this->hasOne(ContactMethod::class, 'id', 'preferred_contact_method_id');
+    }
+
+    public function followUp(): Attribute
+    {
+        return Attribute::make(function () {
+            if ($this->follow_up_date) {
+                return $this->follow_up_date->format('Y-m-d');
+            } elseif ($this->contactEvents()->exists()) {
+                return $this->contactEvents()->orderBy('date', 'desc')->first()->date->addDays($this->frequency)->format('Y-m-d');
+            } else {
+                return now()->format('Y-m-d');
+            }
+        });
     }
 }

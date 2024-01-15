@@ -4,6 +4,7 @@ namespace App\Livewire\Forms;
 
 use App\Actions\Contacts\CreateOrUpdateContact;
 use App\Models\Contact;
+use App\Models\ContactMethod;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
 use Illuminate\Validation\Rule;
@@ -19,7 +20,7 @@ class ContactForm extends Form
     #[Validate('required|max:255|string')]
     public $first_name;
 
-    #[Validate('required|max:255|string')]
+    #[Validate('nullable|max:255|string')]
     public $middle_name;
 
     #[Validate('required|max:255|string')]
@@ -31,25 +32,32 @@ class ContactForm extends Form
     #[Validate('required|max:255|email')]
     public $email;
 
-    #[Validate('required|max:255|url')]
+    #[Validate('nullable|max:255|url')]
     public $linkedin;
 
-    #[Validate('required|max:255|url')]
+    #[Validate('nullable|max:255|url')]
     public $twitter;
 
-    #[Validate('required|max:255|url')]
+    #[Validate('nullable|max:255|url')]
     public $youtube;
 
-    #[Validate('required|max:255|url')]
+    #[Validate('nullable|max:255|url')]
     public $website;
 
-    #[Validate('required|exists:contact_methods')]
-    public $preferred_contact_method_id = '';
+    #[Validate('required')]
+    public $preferred_contact_method ;
 
-    #[Validate('required|string|max:10000')]
+    #[Validate('nullable|string|max:10000')]
     public $general_notes;
 
+    #[Validate('nullable|exists:companies,id')]
     public $company_id;
+
+    #[Validate('nullable|date')]
+    public $follow_up_date;
+
+    #[Validate('required|int')]
+    public $frequency = 180;
 
     public function render(): View
     {
@@ -59,14 +67,18 @@ class ContactForm extends Form
     public function mount()
     {
         $this->companies = auth()->user()->companies;
-        $this->company_id = $this->contact->company_id;
-        $this->preferred_contact_method_id = $this->contact->preferredContactMethod;
+        $this->company_id = $this->contact->company_id ?? null;
+        $this->preferred_contact_method = $this->contact->preferredContactMethod ?? ContactMethod::whereName('Email')->first()->id;
     }
 
     public function store()
     {
+        ray('doingh stiore');
+        $this->validate();
+        ray('passwed validation');
+        
         $contact = app(CreateOrUpdateContact::class)([
-            'id' => $this->contact?->id,
+            'id' => isset($this->contact) ? $this->contact->id : null,
             'first_name' => $this->first_name,
             'middle_name' => $this->middle_name,
             'last_name' => $this->last_name,
@@ -76,10 +88,12 @@ class ContactForm extends Form
             'twitter' => $this->twitter,
             'youtube' => $this->youtube,
             'website' => $this->website,
-            'preferred_contact_method_id' => $this->preferred_contact_method_id,
+            'preferred_contact_method_id' => $this->preferred_contact_method,
             'general_notes' => $this->general_notes,
             'user_id' => auth()->id(),
             'company_id' => $this->company_id,
+            'follow_up_date' => $this->follow_up_date,
+            'frequency' => $this->frequency,
         ]);
 
         session()->flash('message', 'Contact successfully created.');
@@ -98,15 +112,38 @@ class ContactForm extends Form
                     $query->where('user_id', auth()->id());
                 }),
             ],
+            'preferred_contact_method' => [
+                'required',
+                'integer',
+                Rule::exists('contact_methods', 'id'),
+            ],
         ];
     }
 
     public function setContact(Contact $contact): void
     {
-        $this->contact = $contact;
+        //$this->contact = $contact;
 
-        foreach ($this->contact->getAttributes() as $key => $value) {
-            $this->$key = $value;
-        }
+        $this->first_name = $contact->first_name;
+        $this->middle_name = $contact->middle_name;
+        $this->last_name = $contact->last_name;
+        $this->phone = $contact->phone;
+        $this->email = $contact->email;
+        $this->linkedin = $contact->linkedin;
+        $this->twitter = $contact->twitter;
+        $this->youtube = $contact->youtube;
+        $this->website = $contact->website;
+        $this->preferred_contact_method = $contact->preferred_contact_method;
+        $this->general_notes = $contact->general_notes;
+        $this->company_id = $contact->company_id;
+        $this->follow_up_date = $contact->follow_up_date;
+        $this->frequency = $contact->frequency;
+
+        // I like this better but it throws a warning for using dynamic properties. 
+        // Not sure why it considers them dynbamically set.
+        //
+        // foreach ($this->contact->getAttributes() as $key => $value) {
+        //     $this->$key = $value;
+        // }
     }
 }

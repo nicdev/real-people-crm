@@ -1,11 +1,12 @@
 <div>
+    <livewire:shared.nav />
+
     @session('message')
-        <div class="alert alert-success">
-            {{ session('message') }}
-        </div>
+        @session('message')
+            @include('shared.success', ['message' => session('message')])
+        @endsession
     @endsession
 
-    <livewire:shared.nav />
     <nav class="my-4">
         <span class="my-4 mr-2">
             <button wire:click="$toggle('showContactForm')"
@@ -25,7 +26,8 @@
     </nav>
 
     @foreach ($contacts as $c)
-        <div class="border-b border-gray-200 bg-white px-4 py-5 sm:px-6" wire:key="{{ $c->id }}">
+        <div class="border-b border-gray-200 bg-white px-4 py-5 sm:px-6"
+            wire:key="{{ $c->id }}">
             <div class="-ml-4 -mt-4 flex flex-wrap items-center justify-between sm:flex-nowrap">
                 <div class="ml-4 mt-4">
                     <div class="flex items-center">
@@ -82,7 +84,10 @@
                             <span>Email</span>
                         </a>
                     @endif
-                    <button class="relative ml-3 inline-flex items-center rounded-md bg-white hover:bg-red-500 hover:text-gray-100 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-red-500" wire:click="delete" wire:confirm="Are you sure you want to delete {{ $c->first_name }}?">Delete</button>
+                    <button
+                        class="relative ml-3 inline-flex items-center rounded-md bg-white hover:bg-red-500 hover:text-gray-100 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-red-500"
+                        wire:click="delete"
+                        wire:confirm="Are you sure you want to delete {{ $c->first_name }}?">Delete</button>
                 </div>
             </div>
         </div>

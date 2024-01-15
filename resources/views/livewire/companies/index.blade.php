@@ -7,9 +7,7 @@
                 New Company</button>
         </span>
         @session('message')
-            <div class="alert alert-success">
-                {{ session('message') }}
-            </div>
+            @include('shared.success', ['message' => session('message')])
         @endsession
     </nav>
     @foreach ($companies as $c)

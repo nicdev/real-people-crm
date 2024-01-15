@@ -10,7 +10,7 @@
                 id="name"
                 placeholder="Enter name">
             @error('name')
-                <span class="text-danger">{{ $message }}</span>
+                @include('shared.form-error', ['errorMessage' => $message])
             @enderror
         </div>
         <div class="mb-2">
@@ -23,7 +23,7 @@
                 id="phone"
                 placeholder="Enter phone">
             @error('phone')
-                <span class="text-danger">{{ $message }}</span>
+                @include('shared.form-error', ['errorMessage' => $message])
             @enderror
         </div>
         <div class="mb-2">
@@ -35,7 +35,7 @@
                 id="email"
                 placeholder="Enter email">
             @error('email')
-                <span class="text-danger">{{ $message }}</span>
+                @include('shared.form-error', ['errorMessage' => $message])
             @enderror
         </div>
         <div class="mb-2">
@@ -47,7 +47,7 @@
                 id="linkedin"
                 placeholder="Enter linkedin">
             @error('linkedin')
-                <span class="text-danger">{{ $message }}</span>
+                @include('shared.form-error', ['errorMessage' => $message])
             @enderror
         </div>
         <div class="mb-2">
@@ -59,7 +59,7 @@
                 id="twitter"
                 placeholder="Enter twitter">
             @error('twitter')
-                <span class="text-danger">{{ $message }}</span>
+                @include('shared.form-error', ['errorMessage' => $message])
             @enderror
         </div>
 
@@ -72,7 +72,7 @@
                 id="youtube"
                 placeholder="Enter youtube">
             @error('youtube')
-                <span class="text-danger">{{ $message }}</span>
+                @include('shared.form-error', ['errorMessage' => $message])
             @enderror
         </div>
         <div class="mb-2">
@@ -84,7 +84,7 @@
                 id="website"
                 placeholder="Enter website">
             @error('website')
-                <span class="text-danger">{{ $message }}</span>
+                @include('shared.form-error', ['errorMessage' => $message])
             @enderror
         </div>
         <div class="mb-2">
@@ -95,7 +95,7 @@
                 id="general_notes"
                 rows="3"></textarea>
             @error('general_notes')
-                <span class="text-danger">{{ $message }}</span>
+                @include('shared.form-error', ['errorMessage' => $message])
             @enderror
         </div>
 

@@ -36,6 +36,9 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|ContactEvent whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ContactEvent whereUpdatedAt($value)
  *
+ * @property-read \App\Models\Contact|null $contact
+ * @property-read \App\Models\ContactMethod $contactMethod
+ *
  * @mixin \Eloquent
  */
 class ContactEvent extends Model
@@ -50,6 +53,10 @@ class ContactEvent extends Model
         'contact_method_id',
         'recap',
         'date',
+    ];
+
+    protected $casts = [
+        'date' => 'date',
     ];
 
     public function contact()

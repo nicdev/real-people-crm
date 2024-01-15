@@ -19,7 +19,7 @@ class Modal extends Component
 
     public function mount(?Contact $model = null)
     {
-        if ($model !== null) {
+        if ($model->id) {
             $this->form->setContact($model);
         }
 
