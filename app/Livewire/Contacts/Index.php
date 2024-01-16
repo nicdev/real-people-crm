@@ -19,9 +19,23 @@ class Index extends Component
 
     public $importingContacts = false;
 
+    public $search;
+
     public function render()
     {
-        $contacts = Contact::where('user_id', auth()->user()->id)->paginate(15);
+        $contacts = auth()
+                        ->user()
+                        ->contacts()
+                        ->orderBy('first_name', 'asc')
+                        ->when($this->search, function ($query) {
+                            $query->where('first_name', 'like', "%{$this->search}%")
+                                ->orWhere('middle_name', 'like', "%{$this->search}%")
+                                ->orWhere('last_name', 'like', "%{$this->search}%")
+                                ->orWhere('email', 'like', "%{$this->search}%")
+                                ->orWhere('phone', 'like', "%{$this->search}%")
+                                ->orWhere('general_notes', 'like', "%{$this->search}%");
+                        })
+                        ->paginate(15);
 
         return view('livewire.contacts.index')->with(compact('contacts'));
     }
@@ -47,5 +61,12 @@ class Index extends Component
         $this->importingContacts = true;
 
         ImportContactsFromGoogle::dispatch(Auth::user()->id);
+    }
+
+    public function updating($key): void
+    {
+        if ($key === 'search') {
+            $this->resetPage();
+        }
     }
 }

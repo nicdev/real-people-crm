@@ -8,8 +8,6 @@ class ImportContacts
 {
     public function __invoke(array $contacts, $user)
     {
-        // $user = Auth::user();
-
         foreach ($contacts as $contact) {
             $contact = $this->cleanContact($contact);
 
@@ -31,12 +29,15 @@ class ImportContacts
         if (! isset($contact['names'][0]['displayName']) && ! isset($contact['names'][0]['givenName']) && ! isset($contact['names'][0]['familyName'])) {
             return null;
         }
-
+        ray($contact);
+        // ray()->pause();
         return [
             'email' => $contact['emailAddresses'][0]['value'],
             'first_name' => $contact['names'][0]['givenName'] ?? null,
             'last_name' => $contact['names'][0]['familyName'] ?? null,
             'display_name' => $contact['names'][0]['displayName'] ?? null,
+            'photo' => $contact['photos'][0]['url'] ?? null,
+            'birthday' => $contact['birthdays'][0]['date'] ?? null,
         ];
     }
 }

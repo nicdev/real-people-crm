@@ -45,11 +45,7 @@ class ContactForm extends Form
     public $website;
 
     #[Validate('required')]
-<<<<<<< HEAD
-    public $preferred_contact_method;
-=======
     public $preferred_contact_method ;
->>>>>>> 3f12642c8e73504d02d7d1df5c909efaf76a3501
 
     #[Validate('nullable|string|max:10000')]
     public $general_notes;
@@ -78,7 +74,6 @@ class ContactForm extends Form
     public function store()
     {
         $this->validate();
-        
         $contact = app(CreateOrUpdateContact::class)([
             'id' => isset($this->contact) ? $this->contact->id : null,
             'first_name' => $this->first_name,

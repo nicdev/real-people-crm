@@ -1,5 +1,4 @@
 <div>
-    {{ json_encode($errors->all()) }}
     <form wire:submit="store">
         <div class="form-group">
             <label class="block text-sm font-medium leading-6 text-gray-900"

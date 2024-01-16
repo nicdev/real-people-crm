@@ -104,11 +104,14 @@ class Contact extends Model
         'company_id',
         'frequency',
         'follow_up_date',
+        'photo',
+        'birthday',
     ];
 
     protected $casts = [
         'google_metadata' => 'array',
         'follow_up_date' => 'date',
+        'birthday' => 'date',
     ];
 
     protected static function boot()

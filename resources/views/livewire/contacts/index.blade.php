@@ -1,11 +1,10 @@
 <div>
     <livewire:shared.nav />
 
-    
-        @session('message')
-            @include('shared.success', ['message' => session('message')])
-        @endsession
-    
+
+    @session('message')
+        @include('shared.success', ['message' => session('message')])
+    @endsession
 
     <nav class="my-4">
         <span class="my-4 mr-2">
@@ -25,6 +24,32 @@
         @endif
     </nav>
 
+    <div class="my-4">
+        <label for="search"
+            class="block text-sm font-medium leading-6 text-gray-900">Search</label>
+        <div class="relative mt-2 rounded-md shadow-sm">
+            {{-- <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                <svg class="h-5 w-5 text-gray-400"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    aria-hidden="true">
+                    <path d="M3 4a2 2 0 00-2 2v1.161l8.441 4.221a1.25 1.25 0 001.118 0L19 7.162V6a2 2 0 00-2-2H3z" />
+                    <path
+                        d="M19 8.839l-7.77 3.885a2.75 2.75 0 01-2.46 0L1 8.839V14a2 2 0 002 2h14a2 2 0 002-2V8.839z" />
+                </svg>
+            </div> --}}
+            <input type="text"
+                name="search"
+                id="search"
+                class="block w-full rounded-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                placeholder="start typing anything about your contact"
+                wire:model.live="search">
+        </div>
+    </div>
+
+    <div class="my-4">
+        {{ $contacts->links() }}
+    </div>
     @foreach ($contacts as $c)
         <div class="border-b border-gray-200 bg-white px-4 py-5 sm:px-6"
             wire:key="{{ $c->id }}">
@@ -33,7 +58,7 @@
                     <div class="flex items-center">
                         <div class="flex-shrink-0">
                             <img class="h-12 w-12 rounded-full"
-                                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                src="{{ $c->photo ?? gravatar($c->email) }}"
                                 alt="">
                         </div>
                         <div class="ml-4">
@@ -92,8 +117,9 @@
             </div>
         </div>
     @endforeach
-    {{ $contacts->links() }}
-
+    <div class="my-4">
+        {{ $contacts->links() }}
+    </div>
     <livewire:shared.modal component="contacts.modal"
         :show-modal="$showContactForm" />
 </div>

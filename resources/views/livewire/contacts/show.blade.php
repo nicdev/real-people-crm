@@ -4,7 +4,6 @@
         @session('message')
             @include('shared.success', ['message' => session('message')])
         @endsession
-    
         <nav class="pb-4">
             <span class="my-4 mr-2">
                 <button wire:click="$toggle('showContactForm')"
@@ -139,6 +138,7 @@
         @endif
 
         <livewire:shared.modal component="contacts.modal"
-            :show-modal="$showContactForm" :model="$contact" />
+            :show-modal="$showContactForm"
+            :model="$contact" />
 
 </div>
