@@ -42,7 +42,7 @@ class Modal extends Component
 
         // @TODO I have a bug where the modal doesn't get filled in with the new contact on first load
         // reloading the page fixes it. For the time being I'm simply redirecting to the contact index page
-        $this->redirectRoute('contacts.index');
+        $contact->wasRecentlyCreated ? $this->redirectRoute('contacts.index') : $this->redirectRoute('contacts.show', $contact);
     }
 
     public function render(): View

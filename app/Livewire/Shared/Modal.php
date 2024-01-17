@@ -2,8 +2,6 @@
 
 namespace App\Livewire\Shared;
 
-use App\Models\Contact;
-use Livewire\Attributes\On;
 use Livewire\Attributes\Reactive;
 use Livewire\Component;
 

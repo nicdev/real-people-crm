@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|ContactEvent newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ContactEvent newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ContactEvent query()
- *
  * @property int $id
  * @property int $contact_method_id
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -23,7 +22,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $time
  * @property string|null $location
  * @property string|null $recap
- *
  * @method static \Illuminate\Database\Eloquent\Builder|ContactEvent whereContactId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ContactEvent whereContactMethodId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ContactEvent whereCreatedAt($value)
@@ -35,10 +33,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|ContactEvent whereTime($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ContactEvent whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ContactEvent whereUpdatedAt($value)
- *
  * @property-read \App\Models\Contact|null $contact
  * @property-read \App\Models\ContactMethod $contactMethod
- *
  * @mixin \Eloquent
  */
 class ContactEvent extends Model

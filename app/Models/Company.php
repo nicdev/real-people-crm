@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Company newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Company newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Company query()
- *
  * @property int $id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -31,7 +30,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $youtube
  * @property string|null $threads
  * @property int $user_id
- *
  * @method static \Illuminate\Database\Eloquent\Builder|Company whereAddress($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Company whereCity($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Company whereCountry($value)
@@ -51,7 +49,6 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Company whereWebsite($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Company whereYoutube($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Company whereZip($value)
- *
  * @mixin \Eloquent
  */
 class Company extends Model

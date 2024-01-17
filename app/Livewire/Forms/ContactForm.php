@@ -8,8 +8,6 @@ use App\Models\ContactMethod;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
 use Illuminate\Validation\Rule;
-use Livewire\Attributes\On;
-use Livewire\Attributes\Reactive;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 
@@ -28,7 +26,7 @@ class ContactForm extends Form
     #[Validate('required|max:255|string')]
     public $last_name;
 
-    #[Validate('max:40|string')]
+    #[Validate('nullable|max:40|string')]
     public $phone;
 
     #[Validate('required|max:255|email')]

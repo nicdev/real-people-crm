@@ -24,7 +24,11 @@
                                 alt="">
                          {{ $contact->first_name }}{{ $contact->middle_name ? ' ' . substr($contact->middle_name, 0, 1) : '' }}
                     {{ $contact->last_name }}</h1>
+        
+        <livewire:contact-events.next-follow_up :contact="$contact" />
+
         <h2 class="text-lg mb-2 font-semibold">Recent Contact Events</h2>
+                
         <livewire:contact-events.index :contact="$contact" />
 
         <h2 class="text-lg mb-2 font-semibold">Contact Information</h2>

@@ -17,5 +17,4 @@ class CopyToClipboard extends Component
     {
         $this->elementId = $elementId;
     }
-
 }
