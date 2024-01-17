@@ -1,5 +1,6 @@
 <div>
     <livewire:shared.nav />
+    <h1 class="text-lg">Upcoming Follow Ups</h1>
     <div class="my-4">
         {{ $followUpList->links() }}
     </div>
