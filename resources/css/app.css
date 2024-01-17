@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.clipboard-copy:hover {
+    cursor: pointer;
+}
+
+.clipboard-copy:active path {
+    transform: scale(0.9);
+}

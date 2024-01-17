@@ -8,137 +8,107 @@
             <span class="my-4 mr-2">
                 <button wire:click="$toggle('showContactForm')"
                     class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 mr-2 border border-blue-500 hover:border-transparent rounded">
-                    Edit {{ $contact->first_name }} {{ substr($contact->last_name, 0, 1) }}.</button>
+                    Edit</button>
                 <button wire:click="$toggle('showContactEventModal')"
                     class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 mr-2 border border-blue-500 hover:border-transparent rounded">
-                    New Contact Event with {{ $contact->first_name }}</button>
+                    New Contact Event</button>
                 <button
                     class="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 mr-2 border border-red-500 hover:border-transparent rounded"
                     wire:click="delete"
                     wire:confirm="Are you sure you want to delete {{ $contact->first_name }}?">Delete</button>
             </span>
         </nav>
-        {{-- <livewire:shared.actions> --}}
-        @if ($contact->contactEvents->count() > 0)
-            <livewire:contact-events.index :contact="$contact" />
-        @else
-            <p>
-                🤔 Looks like it's been a while. May be a good time to reach out to {{ $contact->first_name }}.
-            </p>
-        @endif
+        <h1 class="text-xl font-semibold my-4 flex justify-left items-center">
+                            <img class="h-12 w-12 rounded-full mr-2"
+                                src="{{ $contact->photo ?? gravatar($contact->email) }}"
+                                alt="">
+                         {{ $contact->first_name }}{{ $contact->middle_name ? ' ' . substr($contact->middle_name, 0, 1) : '' }}
+                    {{ $contact->last_name }}</h1>
+        <h2 class="text-lg mb-2 font-semibold">Recent Contact Events</h2>
+        <livewire:contact-events.index :contact="$contact" />
 
-        <div class="px-4 sm:px-0">
-            <h3 class="text-base font-semibold leading-7 text-gray-900">{{ $contact->name }}</h3>
-            <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">{{ $contact->first_name }} @if ($contact->company)
-                    at {{ $contact->company }}
-                @endif
-            </p>
-        </div>
-
-        <div class="mt-6 border-t border-gray-100">
-            <dl class="divide-y divide-gray-100">
-                <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                    <dt class="text-sm font-medium leading-6 text-gray-900">Full name</dt>
-                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ $contact->first_name }}
-                        {{ $contact->middle_name ? substr($contact->middle_name, 0, 1) . '.' : '' }}
-                        {{ $contact->last_name }}</dd>
-                </div>
-                <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                    <dt class="text-sm font-medium leading-6 text-gray-900">Email</dt>
-                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ $contact->email }}</dd>
-                </div>
-                <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                    <dt class="text-sm font-medium leading-6 text-gray-900">X/Twitter</dt>
-                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ $contact->twitter }}</dd>
-                </div>
-                <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                    <dt class="text-sm font-medium leading-6 text-gray-900">Phone</dt>
-                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ $contact->phone }}</dd>
-                </div>
-                <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                    <dt class="text-sm font-medium leading-6 text-gray-900">Preferred contact method</dt>
-                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                        {{ $contact->preferred_contact_method }}</dd>
-                </div>
-                <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                    <dt class="text-sm font-medium leading-6 text-gray-900">General notes</dt>
-                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                        {{ $contact->general_notes }}</dd>
-                </div>
-                <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                    <dt class="text-sm font-medium leading-6 text-gray-900">Threads</dt>
-                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ $contact->threads }}</dd>
-                </div>
-                <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                    <dt class="text-sm font-medium leading-6 text-gray-900">Website</dt>
-                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ $contact->website }}</dd>
-                </div>
-                <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                    <dt class="text-sm font-medium leading-6 text-gray-900">Youtube</dt>
-                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ $contact->youtube }}</dd>
-                </div>
-                <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                    <dt class="text-sm font-medium leading-6 text-gray-900">Linkedin</dt>
-                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ $contact->linkedin }}
-                    </dd>
-                </div>
-                <div>
-                    <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                        <dt class="text-sm font-medium leading-6 text-gray-900">Attachments</dt>
-                        <dd class="mt-2 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                            <ul role="list"
-                                class="divide-y divide-gray-100 rounded-md border border-gray-200">
-                                <li class="flex items-center justify-between py-4 pl-4 pr-5 text-sm leading-6">
-                                    <div class="flex w-0 flex-1 items-center">
-                                        <svg class="h-5 w-5 flex-shrink-0 text-gray-400"
-                                            viewBox="0 0 20 20"
-                                            fill="currentColor"
-                                            aria-hidden="true">
-                                            <path fill-rule="evenodd"
-                                                d="M15.621 4.379a3 3 0 00-4.242 0l-7 7a3 3 0 004.241 4.243h.001l.497-.5a.75.75 0 011.064 1.057l-.498.501-.002.002a4.5 4.5 0 01-6.364-6.364l7-7a4.5 4.5 0 016.368 6.36l-3.455 3.553A2.625 2.625 0 119.52 9.52l3.45-3.451a.75.75 0 111.061 1.06l-3.45 3.451a1.125 1.125 0 001.587 1.595l3.454-3.553a3 3 0 000-4.242z"
-                                                clip-rule="evenodd" />
-                                        </svg>
-                                        <div class="ml-4 flex min-w-0 flex-1 gap-2">
-                                            <span class="truncate font-medium">resume_back_end_developer.pdf</span>
-                                            <span class="flex-shrink-0 text-gray-400">2.4mb</span>
-                                        </div>
-                                    </div>
-                                    <div class="ml-4 flex-shrink-0">
-                                        <a href="#"
-                                            class="font-medium text-indigo-600 hover:text-indigo-500">Download</a>
-                                    </div>
-                                </li>
-                                <li class="flex items-center justify-between py-4 pl-4 pr-5 text-sm leading-6">
-                                    <div class="flex w-0 flex-1 items-center">
-                                        <svg class="h-5 w-5 flex-shrink-0 text-gray-400"
-                                            viewBox="0 0 20 20"
-                                            fill="currentColor"
-                                            aria-hidden="true">
-                                            <path fill-rule="evenodd"
-                                                d="M15.621 4.379a3 3 0 00-4.242 0l-7 7a3 3 0 004.241 4.243h.001l.497-.5a.75.75 0 011.064 1.057l-.498.501-.002.002a4.5 4.5 0 01-6.364-6.364l7-7a4.5 4.5 0 016.368 6.36l-3.455 3.553A2.625 2.625 0 119.52 9.52l3.45-3.451a.75.75 0 111.061 1.06l-3.45 3.451a1.125 1.125 0 001.587 1.595l3.454-3.553a3 3 0 000-4.242z"
-                                                clip-rule="evenodd" />
-                                        </svg>
-                                        <div class="ml-4 flex min-w-0 flex-1 gap-2">
-                                            <span class="truncate font-medium">coverletter_back_end_developer.pdf</span>
-                                            <span class="flex-shrink-0 text-gray-400">4.5mb</span>
-                                        </div>
-                                    </div>
-                                    <div class="ml-4 flex-shrink-0">
-                                        <a href="#"
-                                            class="font-medium text-indigo-600 hover:text-indigo-500">Download</a>
-                                    </div>
-                                </li>
-                            </ul>
+        <h2 class="text-lg mb-2 font-semibold">Contact Information</h2>
+        <div>
+            
+            <div class="mt-6 border-b border-gray-200 bg-white px-4 py-5 sm:px-6">
+                <dl class="grid grid-cols-1 sm:grid-cols-2">
+                    <div class="px-4 py-6 sm:col-span-1 sm:px-0">
+                        <dt class="text-sm font-medium leading-6 text-gray-900">Preferred Contact Method</dt>
+                        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:mt-2">
+                            {{ $contact->preferredContactMethod->name }}
                         </dd>
                     </div>
-            </dl>
+                    @if ($contact->email)
+                        <div class="px-4 py-6 sm:col-span-1 sm:px-0">
+                            <dt class="text-sm font-medium leading-6 text-gray-900">Email address</dt>
+                            <dd class="flex justify-left items-center mt-1 text-sm leading-6 text-gray-700 sm:mt-2">
+                                {{ $contact->email }}
+                                <livewire:shared.copy-to-clipboard elementId="email">
+                            </dd>
+                        </div>
+                    @endif
+                    @if ($contact->linkedin)
+                        <div class="px-4 py-6 sm:col-span-1 sm:px-0">
+                            <dt class="text-sm font-medium leading-6 text-gray-900">LinkedIn</dt>
+                            <dd class="mt-1 text-sm leading-6 text-gray-700 sm:mt-2">{{ $contact->linkedin }}</dd>
+                        </div>
+                    @endif
+                    @if ($contact->phone)
+                        <div class="px-4 py-6 sm:col-span-1 sm:px-0">
+                            <dt class="text-sm font-medium leading-6 text-gray-900">Phone</dt>
+                            <dd class="flex justify-left items-center mt-1 text-sm leading-6 text-gray-700 sm:mt-2">
+                                {{ $contact->phone }}
+                                <livewire:shared.copy-to-clipboard elementId="phone">
+                            </dd>
+                        </div>
+                    @endif
+                    @if ($contact->website)
+                        <div class="px-4 py-6 sm:col-span-1 sm:px-0">
+                            <dt class="text-sm font-medium leading-6 text-gray-900">Phone</dt>
+                            <dd class="flex justify-left items-center mt-1 text-sm leading-6 text-gray-700 sm:mt-2"><a
+                                    href="{{ $contact->website }}"
+                                    target="_blank">{{ $contact->website }}</a>
+                            </dd>
+                        </div>
+                    @endif
+                    @if ($contact->twitter)
+                        <div class="px-4 py-6 sm:col-span-1 sm:px-0">
+                            <dt class="text-sm font-medium leading-6 text-gray-900">X/Twitter</dt>
+                            <dd class="mt-1 text-sm leading-6 text-gray-700 sm:mt-2"><a
+                                    href="https://x.com/{{ $contact->twitter }}"
+                                    target="_blank">{{ $contact->twitter }}</a></dd>
+                        </div>
+                    @endif
+                    @if ($contact->threads)
+                        <div class="px-4 py-6 sm:col-span-1 sm:px-0">
+                            <dt class="text-sm font-medium leading-6 text-gray-900">Threads</dt>
+                            <dd class="mt-1 text-sm leading-6 text-gray-700 sm:mt-2"><a
+                                    href="https://www.threads.net/@{{ $contact - > threads }}"
+                                    target="_blank">{{ $contact->threads }}</a></dd>
+                        </div>
+                    @endif
+                    @if ($contact->youtube)
+                        <div class="px-4 py-6 sm:col-span-1 sm:px-0">
+                            <dt class="text-sm font-medium leading-6 text-gray-900">YouTube</dt>
+                            <dd class="mt-1 text-sm leading-6 text-gray-700 sm:mt-2"><a href="{{ $contact->youtube }}"
+                                    target="_blank">{{ $contact->youtube }}</a></dd>
+                        </div>
+                    @endif
+                    <div class="px-4 py-6 sm:col-span-2 sm:px-0">
+                        <dt class="text-sm font-medium leading-6 text-gray-900">General Notes</dt>
+                        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:mt-2">{{ $contact->general_notes }}</dd>
+                    </div>
+                </dl>
+            </div>
         </div>
+
         @if ($showContactEventModal)
             <livewire:contact-events.modal :contact="$contact" />
         @endif
-
+        
         <livewire:shared.modal component="contacts.modal"
             :show-modal="$showContactForm"
-            :model="$contact" />
+            :model="$contact" 
+            @contactcreatedorupdated="$refresh"/>
 
 </div>

@@ -20,7 +20,7 @@ class GooglePeopleService extends HttpService
                 ['personFields' => 'names,emailAddresses,photos,birthdays', 'pageSize' => 1000, 'pageToken' => $response['nextPageToken']] :
                 ['personFields' => 'names,emailAddresses,photos,birthdays', 'pageSize' => 1000];
             $response = $this->get('/v1/people/me/connections', $params);
-            ray($response['connections'][0],$response['connections'][1],$response['connections'][2]);
+            ray($response['connections'][0], $response['connections'][1], $response['connections'][2]);
             // ray()->pause();
             $contacts = [...$contacts, ...$response['connections']];
         } while (isset($response['nextPageToken']));

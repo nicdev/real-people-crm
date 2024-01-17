@@ -6,7 +6,6 @@ use App\Livewire\Companies\Show as ShowCompany;
 use App\Livewire\Contacts\Index as IndexContact;
 use App\Livewire\Contacts\Show as ShowContact;
 use App\Livewire\Dashboard;
-use App\Livewire\NewContactShow;
 use App\Models\User;
 use App\Services\GooglePeopleService;
 use Illuminate\Support\Facades\Auth;
@@ -83,7 +82,6 @@ Route::get('/', Dashboard::class)->middleware(['auth'])->name('dashboard');
 // Contacts
 Route::group(['prefix' => 'contacts', 'middleware' => 'auth'], function () {
     Route::get('/', IndexContact::class)->name('contacts.index');
-    Route::get('/{contact}/newstuff', NewContactShow::class);
     Route::get('/{contact}', ShowContact::class)->name('contacts.show');
     Route::delete('/{contact}', function ($contact) {
         Auth::user()->contacts()->findOrFail($contact)->delete();

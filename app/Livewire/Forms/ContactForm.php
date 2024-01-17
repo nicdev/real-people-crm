@@ -8,6 +8,8 @@ use App\Models\ContactMethod;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
 use Illuminate\Validation\Rule;
+use Livewire\Attributes\On;
+use Livewire\Attributes\Reactive;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 
@@ -45,7 +47,7 @@ class ContactForm extends Form
     public $website;
 
     #[Validate('required')]
-    public $preferred_contact_method ;
+    public $preferred_contact_method;
 
     #[Validate('nullable|string|max:10000')]
     public $general_notes;
@@ -64,16 +66,19 @@ class ContactForm extends Form
         return view('livewire.contacts.modal-form');
     }
 
-    public function mount()
+    public function mount(?Contact $contact)
     {
         $this->companies = auth()->user()->companies;
         $this->company_id = $this->contact->company_id ?? null;
         $this->preferred_contact_method = $this->contact->preferredContactMethod ?? ContactMethod::whereName('Email')->first()->id;
+
+        $this->contact = $contact;
     }
 
     public function store()
     {
         $this->validate();
+
         $contact = app(CreateOrUpdateContact::class)([
             'id' => isset($this->contact) ? $this->contact->id : null,
             'first_name' => $this->first_name,
@@ -93,15 +98,12 @@ class ContactForm extends Form
             'frequency' => $this->frequency,
         ]);
 
-        session()->flash('message', 'Contact successfully created.');
-
-        return redirect()->route('contacts.show', $contact);
+        return $contact;
     }
 
     public function rules()
     {
         return [
-            // Custom rule for company_id
             'company_id' => [
                 'required',
                 'integer',
@@ -109,17 +111,13 @@ class ContactForm extends Form
                     $query->where('user_id', auth()->id());
                 }),
             ],
-            'preferred_contact_method' => [
-                'required',
-                'integer',
-                Rule::exists('contact_methods', 'id'),
-            ],
+            'preferred_contact_method' => ['required', 'integer', Rule::exists('contact_methods', 'id')],
         ];
     }
 
     public function setContact(Contact $contact): void
     {
-        //$this->contact = $contact;
+        $this->contact = $contact;
 
         $this->first_name = $contact->first_name;
         $this->middle_name = $contact->middle_name;

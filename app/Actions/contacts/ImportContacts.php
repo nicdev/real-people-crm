@@ -2,8 +2,6 @@
 
 namespace App\Actions\Contacts;
 
-use Illuminate\Support\Facades\Auth;
-
 class ImportContacts
 {
     public function __invoke(array $contacts, $user)
@@ -30,6 +28,7 @@ class ImportContacts
             return null;
         }
         ray($contact);
+
         // ray()->pause();
         return [
             'email' => $contact['emailAddresses'][0]['value'],
