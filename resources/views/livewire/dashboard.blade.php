@@ -1,6 +1,18 @@
 <div>
     <livewire:shared.nav />
     <h1 class="text-lg">Upcoming Follow Ups</h1>
+     <div class="my-4">
+        <label for="search"
+            class="block text-sm font-medium leading-6 text-gray-900">Search</label>
+        <div class="relative mt-2 rounded-md shadow-sm">
+            <input type="text"
+                name="search"
+                id="search"
+                class="block w-full rounded-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                placeholder="start typing anything about your contact"
+                wire:model.live="search">
+        </div>
+    </div>
     <div class="my-4">
         {{ $followUpList->links() }}
     </div>
