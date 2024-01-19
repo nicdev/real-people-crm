@@ -17,7 +17,7 @@ class Modal extends Component
     public function mount(string $component, bool $showModal = true, mixed $model = null)
     {
         $this->component = $component;
-        $this->showModal = $showModal;
+        // $this->showModal = $showModal;
         $this->model = $model;
     }
 

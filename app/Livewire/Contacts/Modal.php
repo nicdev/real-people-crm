@@ -49,4 +49,10 @@ class Modal extends Component
     {
         return view('livewire.contacts.modal-form');
     }
+
+    #[On('company-selected')]
+    public function setCompany($company_id)
+    {
+        $this->form->company_id = $company_id;
+    }
 }

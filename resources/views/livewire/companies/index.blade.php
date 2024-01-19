@@ -117,9 +117,6 @@
                             <span>Youtube</span>
                         </a>
                     @endif
-                    <button
-                        wire:click="$dispatch('openModal', {component: 'companies.modal', arguments: {{ json_encode(['company' => $c->id]) }} })"
-                        class="relative ml-3 inline-flex items-center rounded-md bg-white hover:bg-orange-400 hover:text-gray-100 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-orange-400">Edit</button>
                     <livewire:companies.delete :company="$c" />
                 </div>
             </div>

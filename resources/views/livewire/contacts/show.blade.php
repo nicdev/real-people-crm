@@ -46,7 +46,7 @@
                         <div class="px-4 py-6 sm:col-span-1 sm:px-0">
                             <dt class="text-sm font-medium leading-6 text-gray-900">Email address</dt>
                             <dd class="flex justify-left items-center mt-1 text-sm leading-6 text-gray-700 sm:mt-2">
-                                {{ $contact->email }}
+                                <span id="email">{{ $contact->email }}</span
                                 <livewire:shared.copy-to-clipboard elementId="email">
                             </dd>
                         </div>
@@ -61,7 +61,7 @@
                         <div class="px-4 py-6 sm:col-span-1 sm:px-0">
                             <dt class="text-sm font-medium leading-6 text-gray-900">Phone</dt>
                             <dd class="flex justify-left items-center mt-1 text-sm leading-6 text-gray-700 sm:mt-2">
-                                {{ $contact->phone }}
+                                <span id="phone">{{ $contact->phone }}</span>
                                 <livewire:shared.copy-to-clipboard elementId="phone">
                             </dd>
                         </div>
@@ -80,7 +80,7 @@
                             <dt class="text-sm font-medium leading-6 text-gray-900">X/Twitter</dt>
                             <dd class="mt-1 text-sm leading-6 text-gray-700 sm:mt-2"><a
                                     href="https://x.com/{{ $contact->twitter }}"
-                                    target="_blank">{{ $contact->twitter }}</a></dd>
+                                    target="_blank">@{{ $contact->twitter }}</a></dd>
                         </div>
                     @endif
                     @if ($contact->threads)

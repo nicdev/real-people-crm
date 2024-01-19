@@ -6,4 +6,17 @@
             <option value="{{ $c->id }}" wire:key="{{ $c->id }}">{{ $c->name }}</option>
         @endforeach
     </select>
+     @script
+        <script>
+            console.log('here')
+            const segments = window.location.pathname.split("/");
+            if (segments[1].toLowerCase() === "companies" && segments[2]) {
+                initCompanySelect(segments[2])
+            };
+
+            function initCompanySelect(companyId) {
+                $wire.$call('setCompany', companyId)
+            }
+        </script>
+    @endscript
 </div>

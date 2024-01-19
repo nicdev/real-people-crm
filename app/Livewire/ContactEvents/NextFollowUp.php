@@ -14,14 +14,16 @@ class NextFollowUp extends Component
         $this->contact = $contact;
     }
 
-    public function enableFollowUp() {
+    public function enableFollowUp()
+    {
         $this->contact->update([
             'no_follow_up' => false,
             'follow_up_date' => now()->addDays($this->contact->frequency),
         ]);
     }
 
-    public function updateFollowUp($newDate) {
+    public function updateFollowUp($newDate)
+    {
         $this->contact->update([
             'follow_up_date' => $newDate,
         ]);

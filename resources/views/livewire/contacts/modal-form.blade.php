@@ -64,7 +64,7 @@
                 placeholder="Enter email">
 
         </div>
-        <livewire:companies.select />
+        <livewire:companies.select :company_id="$form->company_id ?? 0" />
         <div class="form-group">
             <label class="block text-sm font-medium leading-6 text-gray-900"
                 for="follow_up_date">Follow Up Date</label>

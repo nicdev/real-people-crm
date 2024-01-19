@@ -57,7 +57,6 @@ class Dashboard extends Component
 
     public function cancelFollowUp($contactId)
     {
-        ray($contactId);
         $contact = Contact::find($contactId);
         $contact->update([
             'no_follow_up' => true,

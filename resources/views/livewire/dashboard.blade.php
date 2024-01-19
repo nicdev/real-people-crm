@@ -37,7 +37,7 @@
                                 @if ($fu->title)
                                     {{ $fu->title }}
                                     @endif @if ($fu->company)
-                                        at {{ $fu->company }}
+                                        at {{ $fu->company->name }}
                                     @endif
                             </p>
                         </div>

@@ -69,10 +69,11 @@
                             </a>
                             <p class="text-sm text-gray-500">
                                 @if ($c->title)
-                                    {{ $c->title }}
-                                    @endif @if ($c->company)
-                                        at {{ $c->company }}
+                                    {{ $c->title }} @if ($c->company)
+                                        at {{ $c->company->name }}
                                     @endif
+                                @endif
+
                             </p>
                         </div>
                     </div>
@@ -109,7 +110,7 @@
                             <span>Email</span>
                         </a>
                     @endif
-                    
+
                     <button
                         class="relative ml-3 inline-flex items-center rounded-md bg-white hover:bg-red-500 hover:text-gray-100 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-red-500"
                         wire:click="delete"

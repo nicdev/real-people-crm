@@ -67,7 +67,7 @@ class ContactForm extends Form
     public function mount(?Contact $contact)
     {
         $this->companies = auth()->user()->companies;
-        $this->company_id = $this->contact->company_id ?? null;
+        $this->company_id = $this->contact?->company_id ?: $this->contact->company_id;
         $this->preferred_contact_method = $this->contact->preferredContactMethod ?? ContactMethod::whereName('Email')->first()->id;
 
         $this->contact = $contact;
@@ -103,7 +103,7 @@ class ContactForm extends Form
     {
         return [
             'company_id' => [
-                'required',
+                'nullable',
                 'integer',
                 Rule::exists('companies', 'id')->where(function ($query) {
                     $query->where('user_id', auth()->id());

@@ -15,6 +15,18 @@
         </div>
         <div class="mb-2">
             <label class="block text-sm font-medium leading-6 text-gray-900"
+                for="website">Website</label>
+            <input wire:model="website"
+                type="text"
+                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                id="website"
+                placeholder="Enter website">
+            @error('website')
+                @include('shared.form-error', ['errorMessage' => $message])
+            @enderror
+        </div>
+        <div class="mb-2">
+            <label class="block text-sm font-medium leading-6 text-gray-900"
                 for="phone"
                 class="block text-sm font-medium leading-6 text-gray-900">Phone</label>
             <input wire:model="phone"
@@ -26,7 +38,7 @@
                 @include('shared.form-error', ['errorMessage' => $message])
             @enderror
         </div>
-        <div class="mb-2">
+        {{-- <div class="mb-2">
             <label class="block text-sm font-medium leading-6 text-gray-900"
                 for="email">Email</label>
             <input wire:model="email"
@@ -37,7 +49,7 @@
             @error('email')
                 @include('shared.form-error', ['errorMessage' => $message])
             @enderror
-        </div>
+        </div> --}}
         <div class="mb-2">
             <label class="block text-sm font-medium leading-6 text-gray-900"
                 for="linkedin">LinkedIn</label>
@@ -75,26 +87,15 @@
                 @include('shared.form-error', ['errorMessage' => $message])
             @enderror
         </div>
+        
         <div class="mb-2">
             <label class="block text-sm font-medium leading-6 text-gray-900"
-                for="website">Website</label>
-            <input wire:model="website"
-                type="text"
+                for="notes">General Notes</label>
+            <textarea wire:model="notes"
                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                id="website"
-                placeholder="Enter website">
-            @error('website')
-                @include('shared.form-error', ['errorMessage' => $message])
-            @enderror
-        </div>
-        <div class="mb-2">
-            <label class="block text-sm font-medium leading-6 text-gray-900"
-                for="general_notes">General Notes</label>
-            <textarea wire:model="general_notes"
-                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                id="general_notes"
+                id="notes"
                 rows="3"></textarea>
-            @error('general_notes')
+            @error('notes')
                 @include('shared.form-error', ['errorMessage' => $message])
             @enderror
         </div>

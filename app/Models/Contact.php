@@ -20,6 +20,7 @@ use Illuminate\Support\Str;
  * @property string $email
  * @property array|null $google_metadata
  * @property int $user_id
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Contact newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Contact newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Contact query()
@@ -32,6 +33,7 @@ use Illuminate\Support\Str;
  * @method static \Illuminate\Database\Eloquent\Builder|Contact whereLastName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Contact whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Contact whereUserId($value)
+ *
  * @property int $is_discarded
  * @property string|null $middle_name
  * @property string|null $phone
@@ -43,6 +45,7 @@ use Illuminate\Support\Str;
  * @property string|null $preferred_contact_method
  * @property string|null $general_notes
  * @property-read \App\Models\User|null $user
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Contact whereGeneralNotes($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Contact whereIsDiscarded($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Contact whereLinkedin($value)
@@ -53,27 +56,36 @@ use Illuminate\Support\Str;
  * @method static \Illuminate\Database\Eloquent\Builder|Contact whereTwitter($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Contact whereWebsite($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Contact whereYoutube($value)
+ *
  * @property int $company_id
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ContactEvent> $contactEvents
  * @property-read int|null $contact_events_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, ContactFile> $files
  * @property-read int|null $files_count
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Contact whereCompanyId($value)
+ *
  * @property string|null $slug
  * @property string|null $title
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Contact whereSlug($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Contact whereTitle($value)
+ *
  * @property-read ContactMethod|null $preferredContactMethod
  * @property int $frequency
  * @property \Illuminate\Support\Carbon|null $follow_up_date
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Contact whereFollowUpDate($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Contact whereFrequency($value)
+ *
  * @property int|null $preferred_contact_method_id
  * @property string|null $photo
  * @property \Illuminate\Support\Carbon|null $birthday
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Contact whereBirthday($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Contact wherePhoto($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Contact wherePreferredContactMethodId($value)
+ *
  * @mixin \Eloquent
  */
 class Contact extends Model
@@ -130,7 +142,7 @@ class Contact extends Model
         });
 
         static::creating(function ($contact) {
-            if($contact->follow_up_date === null) {
+            if ($contact->follow_up_date === null) {
                 $contact->follow_up_date = now()->addDays($contact->frequency);
             }
         });
@@ -154,6 +166,11 @@ class Contact extends Model
     public function preferredContactMethod()
     {
         return $this->hasOne(ContactMethod::class, 'id', 'preferred_contact_method_id');
+    }
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
     }
 
     // public function followUp(): Attribute

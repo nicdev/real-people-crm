@@ -5,15 +5,12 @@ namespace App\Livewire\Companies;
 use App\Actions\Companies\CreateOrUpdateCompany;
 use App\Models\Company;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Collection;
 use Livewire\Attributes\Validate;
 use LivewireUI\Modal\ModalComponent;
 
 class Modal extends ModalComponent
 {
     public Company $company;
-
-    public Collection $companies;
 
     #[Validate('required|max:255|string')]
     public $name;
@@ -37,31 +34,25 @@ class Modal extends ModalComponent
     public $website;
 
     #[Validate('required|string|max:10000')]
-    public $general_notes;
+    public $notes;
 
     public function render(): View
     {
         return view('livewire.companies.modal-form');
     }
 
-    public function mount(?Company $company)
+    public function mount($model)
     {
-        $this->company = $company ?? new company();
-        $this->companies = $companies ?? new Collection();
+        if ($model->id) {
+            $this->setCompany($model);
+        }
 
-        $this->name = $company->name;
-        $this->phone = $company->phone;
-        $this->email = $company->email;
-        $this->linkedin = $company->linkedin;
-        $this->twitter = $company->twitter;
-        $this->youtube = $company->youtube;
-        $this->website = $company->website;
-        $this->general_notes = $company->general_notes;
+        $this->company = $model ?? null;
     }
 
     public function store(CreateOrUpdateCompany $createOrUpdateCompany)
     {
-        $createOrUpdateCompany([
+        $company = $createOrUpdateCompany([
             'id' => $this->company?->id,
             'name' => $this->name,
             'phone' => $this->phone,
@@ -70,17 +61,25 @@ class Modal extends ModalComponent
             'twitter' => $this->twitter,
             'youtube' => $this->youtube,
             'website' => $this->website,
-            'general_notes' => $this->general_notes,
+            'notes' => $this->notes,
             'user_id' => auth()->id(),
         ]);
 
-        session()->flash('message', 'Company successfully created.');
+        $message = $company->wasRecentlyCreated ? 'Company successfully created.' : 'Company successfully updated.';
+        session()->flash('message', $message);
 
-        return redirect()->route('companies.index');
+        $company->wasRecentlyCreated ? $this->redirectRoute('companies.index') : $this->redirectRoute('companies.show', $company);
     }
 
-    public static function modalMaxWidth(): string
+    public function setCompany(Company $company)
     {
-        return 'md';
+        $this->name = $company->name;
+        $this->phone = $company->phone;
+        $this->email = $company->email;
+        $this->linkedin = $company->linkedin;
+        $this->twitter = $company->twitter;
+        $this->youtube = $company->youtube;
+        $this->website = $company->website;
+        $this->notes = $company->notes;
     }
 }

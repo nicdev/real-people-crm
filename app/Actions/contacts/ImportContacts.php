@@ -27,9 +27,7 @@ class ImportContacts
         if (! isset($contact['names'][0]['displayName']) && ! isset($contact['names'][0]['givenName']) && ! isset($contact['names'][0]['familyName'])) {
             return null;
         }
-        ray($contact);
 
-        // ray()->pause();
         return [
             'email' => $contact['emailAddresses'][0]['value'],
             'first_name' => $contact['names'][0]['givenName'] ?? null,
