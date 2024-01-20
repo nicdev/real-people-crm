@@ -36,14 +36,9 @@ class Dashboard extends Component
     public function snooze($contactId, $days)
     {
         $contact = Contact::find($contactId);
-        if ($contact->follow_up_date <= now()->addDays($days)) {
-            $nextDate = now()->addDays($days);
-        } else {
-            $nextDate = $contact->follow_up_date->addDays($days);
-        }
-
+        
         $contact->update([
-            'follow_up_date' => $nextDate,
+            'follow_up_date' => $contact->follow_up_date->addDays($days),
         ]);
     }
 

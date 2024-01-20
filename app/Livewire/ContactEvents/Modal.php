@@ -10,16 +10,20 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
+use Livewire\Attributes\Reactive;
 use Livewire\Attributes\Validate;
-use LivewireUI\Modal\ModalComponent;
+use Livewire\Component;
 
-class Modal extends ModalComponent
+class Modal extends Component
 {
     public Contact $contact;
 
     public ContactEvent $contact_event;
 
     public Collection $contact_methods;
+
+    #[Reactive]
+    public bool $showModal = false;
 
     #[Validate('required|max:255|string')]
     public $name;
@@ -44,7 +48,7 @@ class Modal extends ModalComponent
 
     public function render(): View
     {
-        return view('livewire.contact-events.modal-form');
+        return view('livewire.contact-events.modal');
     }
 
     public function mount(?ContactEvent $contactEvent, ?Contact $contact)
@@ -58,6 +62,7 @@ class Modal extends ModalComponent
 
     public function store(CreateOrUpdateContactEvent $createOrUpdateContactEvent)
     {
+        ray('storing contact event');
         $this->contact_event = $createOrUpdateContactEvent([
             'id' => $this->contact_event?->id,
             'user_id' => auth()->id(),
@@ -91,5 +96,10 @@ class Modal extends ModalComponent
     public function title()
     {
         return $this->contact->first_name.' via '.$this->contactMethod();
+    }
+
+    public function closeModal()
+    {
+        $this->dispatch('modal-closed');
     }
 }

@@ -124,5 +124,5 @@
         </div>
     @endforeach
 
-    <livewire:shared.modal component="companies.modal" :show-modal="$showCompanyForm" />
+    <livewire:companies.modal :show-modal="$showCompanyForm" />
 </div>

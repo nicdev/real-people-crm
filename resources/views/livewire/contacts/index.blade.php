@@ -25,8 +25,6 @@
     </nav>
 
     <div class="my-4">
-        <label for="search"
-            class="block text-sm font-medium leading-6 text-gray-900">Search</label>
         <div class="relative mt-2 rounded-md shadow-sm">
             {{-- <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                 <svg class="h-5 w-5 text-gray-400"
@@ -42,7 +40,7 @@
                 name="search"
                 id="search"
                 class="block w-full rounded-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                placeholder="start typing anything about your contact"
+                placeholder="to filter start typing anything about your contact"
                 wire:model.live="search">
         </div>
     </div>
@@ -122,7 +120,7 @@
     <div class="my-4">
         {{ $contacts->links() }}
     </div>
-    <livewire:shared.modal component="contacts.modal"
+    <livewire:contacts.modal
         :show-modal="$showContactForm" />
     {{-- <livewire:shared.modal component="contacts.modal"
         :show-modal="$showContactForm" /> --}}

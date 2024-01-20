@@ -21,10 +21,16 @@ class Index extends Component
 
     public $search;
 
+    // public function mount(bool $showContactForm = false)
+    // {
+    //     // ray($showContactForm);
+    //     // $this->showContactForm = $showContactForm;
+    //     // ray($this->showContactForm);
+    // }
+
     public function render()
     {
-        $contacts = auth()
-            ->user()
+        $contacts = auth()->user()
             ->contacts()
             ->orderBy('first_name', 'asc')
             ->when($this->search, function ($query) {

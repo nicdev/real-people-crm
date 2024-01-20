@@ -5,12 +5,18 @@ namespace App\Livewire\Companies;
 use App\Actions\Companies\CreateOrUpdateCompany;
 use App\Models\Company;
 use Illuminate\Contracts\View\View;
+use Livewire\Attributes\Reactive;
 use Livewire\Attributes\Validate;
-use LivewireUI\Modal\ModalComponent;
+use Livewire\Component;
 
-class Modal extends ModalComponent
+class Modal extends Component
 {
     public Company $company;
+
+    public bool $editMode = false;
+
+    #[Reactive]
+    public bool $showModal = false;
 
     #[Validate('required|max:255|string')]
     public $name;
@@ -38,16 +44,17 @@ class Modal extends ModalComponent
 
     public function render(): View
     {
-        return view('livewire.companies.modal-form');
+        return view('livewire.companies.modal');
     }
 
-    public function mount($model)
+    public function mount(?Company $company)
     {
-        if ($model->id) {
-            $this->setCompany($model);
+        if ($company->id) {
+            $this->setCompany($company);
+            $this->editMode = true;
         }
 
-        $this->company = $model ?? null;
+        $this->company = $company ?? null;
     }
 
     public function store(CreateOrUpdateCompany $createOrUpdateCompany)
@@ -81,5 +88,10 @@ class Modal extends ModalComponent
         $this->youtube = $company->youtube;
         $this->website = $company->website;
         $this->notes = $company->notes;
+    }
+
+    public function closeModal()
+    {
+        $this->dispatch('modal-closed');
     }
 }

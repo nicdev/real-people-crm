@@ -9,6 +9,7 @@ use App\Models\ContactMethod;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
 use Livewire\Attributes\On;
+use Livewire\Attributes\Reactive;
 use Livewire\Component;
 
 class Modal extends Component
@@ -17,17 +18,19 @@ class Modal extends Component
 
     public Collection $contact_methods;
 
+    #[Reactive]
+    public bool $showModal = false;
+
     public bool $editMode = false;
 
-    public function mount(?Contact $model = null)
+    public function mount(?Contact $contact)
     {
-        if ($model->id) {
-            $this->form->setContact($model);
+        if ($contact->id) {
+            $this->form->setContact($contact);
+            $this->editMode = true;
         }
 
         $this->contact_methods = ContactMethod::all();
-
-        $this->editMode = $model->exists ?? false;
     }
 
     public function store()
@@ -47,12 +50,17 @@ class Modal extends Component
 
     public function render(): View
     {
-        return view('livewire.contacts.modal-form');
+        return view('livewire.contacts.modal');
     }
 
     #[On('company-selected')]
     public function setCompany($company_id)
     {
         $this->form->company_id = $company_id;
+    }
+
+    public function closeModal()
+    {
+        $this->dispatch('modal-closed');
     }
 }

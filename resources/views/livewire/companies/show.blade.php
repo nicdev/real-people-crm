@@ -177,10 +177,7 @@
             </div>
         </div>
 
-        <livewire:shared.modal component="companies.modal"
-            :show-modal="$showCompanyForm"
-            :model="$company"
-            @companycreatedorupdated="$refresh" />
+        <livewire:companies.modal :show-modal="$showCompanyForm" :company="$company" @companycreatedorupdated="$refresh"  />
         <livewire:shared.modal component="contacts.modal"
         :show-modal="$showContactForm" :company="$company" />
 
