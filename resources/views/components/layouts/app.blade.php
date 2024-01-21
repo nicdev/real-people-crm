@@ -14,7 +14,5 @@
         <div class="container mx-auto p-4">
             {{ $slot }}
         </div>
-
-        @livewire('wire-elements-modal')
     </body>
 </html>

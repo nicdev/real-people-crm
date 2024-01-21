@@ -31,7 +31,7 @@ Route::get('/login', function () {
     return view('login');
 })->name('login');
 
-Route::get('/auth/redirect', function () {
+Route::get('/auth/google/redirect', function () {
     $scopes = [
         'https://www.googleapis.com/auth/userinfo.email',
         'https://www.googleapis.com/auth/userinfo.profile',
@@ -44,6 +44,7 @@ Route::get('/auth/redirect', function () {
 
 Route::get('/auth/google/callback', function () {
     $user = Socialite::driver('google')->user();
+    ray($user);
     $user = User::updateOrCreate([
         'email' => $user->email,
     ], [
@@ -52,11 +53,35 @@ Route::get('/auth/google/callback', function () {
         'google_token' => $user->token,
         'google_refresh_token' => $user->refreshToken,
         'token_expires_at' => now()->addSeconds($user->expiresIn),
+        'photo' => $user->avatar,
     ]);
 
     Auth::login($user, true);
 
     return redirect('/');
+});
+
+Route::get('/auth/linkedin/callback', function () {
+    $user = Socialite::driver('linkedin-openid')->user();
+    
+    $user = User::updateOrCreate([
+         'email' => $user->email,
+    ], [
+        'name' => $user->name,
+        'photo' => $user->avatar,
+        'linkedin_token' => $user->token,
+        'token_expires_at' => now()->addSeconds($user->expiresIn),
+    ]);
+
+    Auth::login($user, true);
+
+    return redirect('/');
+});
+
+Route::get('/auth/linkedin/redirect', function () {
+    return Socialite::driver('linkedin-openid')
+        ->scopes(['openid', 'profile', 'email'])
+        ->redirect();
 });
 
 Route::get('/contacts/import/google', function (GooglePeopleService $googlePeople, ImportContacts $importContacts) {
