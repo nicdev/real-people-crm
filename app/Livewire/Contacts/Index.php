@@ -22,13 +22,6 @@ class Index extends Component
 
     public $search;
 
-    // public function mount(bool $showContactForm = false)
-    // {
-    //     // ray($showContactForm);
-    //     // $this->showContactForm = $showContactForm;
-    //     // ray($this->showContactForm);
-    // }
-
     public function render()
     {
         $contacts = auth()->user()
@@ -72,7 +65,6 @@ class Index extends Component
 
     public function importFromLinkedin()
     {
-        ray('importFromLinkedin cliocked');
         $this->importingContacts = true;
 
         ImportContactsFromLinkedin::dispatch(Auth::user()->id);

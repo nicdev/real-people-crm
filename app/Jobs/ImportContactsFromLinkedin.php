@@ -28,12 +28,6 @@ class ImportContactsFromLinkedin implements ShouldQueue
      */
     public function handle(LinkedinPeopleService $linkedinPeople, ImportContacts $importContacts): void
     {
-        $user = User::find($this->userId);
-
-        ray($user->linkedin_token);
-        $linkedinPeople->setToken($user->linkedin_token);
-        $importContacts($linkedinPeople->connections(), $user);
-
-        $user->notify(new FinishedImportContactsFromGoogle());
+        // Not implemented because LI API sucks donkey balls
     }
 }
