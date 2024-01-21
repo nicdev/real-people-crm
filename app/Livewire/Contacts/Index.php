@@ -3,6 +3,7 @@
 namespace App\Livewire\Contacts;
 
 use App\Jobs\ImportContactsFromGoogle;
+use App\Jobs\ImportContactsFromLinkedin;
 use App\Models\Contact;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
@@ -67,6 +68,14 @@ class Index extends Component
         $this->importingContacts = true;
 
         ImportContactsFromGoogle::dispatch(Auth::user()->id);
+    }
+
+    public function importFromLinkedin()
+    {
+        ray('importFromLinkedin cliocked');
+        $this->importingContacts = true;
+
+        ImportContactsFromLinkedin::dispatch(Auth::user()->id);
     }
 
     public function updating($key): void

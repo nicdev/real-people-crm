@@ -12,6 +12,7 @@
                 class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 mr-2 border border-blue-500 hover:border-transparent rounded">
                 New Contact</button>
         </span>
+        @if(auth()->user()->google_token)
         <span class="my-4 mr-2">
             <button type="button"
                 wire:click="importFromGoogle"
@@ -19,6 +20,16 @@
                 {{ $importingContacts ? 'disabled' : '' }}>
                 Import Contacts From Google</button>
         </span>
+        @endif
+        {{-- @if(auth()->user()->linkedin_token)
+        <span class="my-4 mr-2">
+            <button type="button"
+                wire:click="importFromLinkedin"
+                class="bg-transparent hover:bg-blue-500 font-semibold hover:text-white py-2 px-4 mr-2 border hover:border-transparent rounded {{ $importingContacts ? 'text-blue-400 border-blue-200  hover:bg-blue-100' : 'text-blue-700 border-blue-500  hover:bg-blue-500' }}"
+                {{ $importingContacts ? 'disabled' : '' }}>
+                Import Contacts From LinkedIn</button>
+        </span>
+        @endif --}}
         @if ($importingContacts)
             <span>Import in progress. You will be notified via email upon completion.</span>
         @endif

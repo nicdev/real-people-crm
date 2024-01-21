@@ -63,9 +63,9 @@ Route::get('/auth/google/callback', function () {
 
 Route::get('/auth/linkedin/callback', function () {
     $user = Socialite::driver('linkedin-openid')->user();
-    
+
     $user = User::updateOrCreate([
-         'email' => $user->email,
+        'email' => $user->email,
     ], [
         'name' => $user->name,
         'photo' => $user->avatar,

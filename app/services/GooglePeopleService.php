@@ -13,7 +13,6 @@ class GooglePeopleService extends HttpService
 
     public function contacts()
     {
-        ray('contacts');
         $contacts = [];
         do {
             $params = isset($response['nextPageToken']) ?

@@ -74,7 +74,7 @@ class User extends Authenticatable
         'google_refresh_token',
         'token_expires_at',
         'photo',
-        'linkedin_token'
+        'linkedin_token',
     ];
 
     /**
