@@ -15,6 +15,8 @@ class Show extends Component
 
     public bool $showContactForm = false;
 
+    public string $title = 'Contact';
+
     public function render()
     {
         return view('livewire.companies.show');
@@ -23,6 +25,7 @@ class Show extends Component
     public function mount(Company $company)
     {
         $this->company = $company;
+        $this->title = $company->name;
     }
 
     public function removeFromCompany($contactId)

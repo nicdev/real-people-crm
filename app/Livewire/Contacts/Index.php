@@ -24,6 +24,8 @@ class Index extends Component
 
     public $search;
 
+    public $title = 'Contacts';
+
     public function render()
     {
         $contacts = auth()->user()

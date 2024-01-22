@@ -59,6 +59,8 @@ class Modal extends Component
 
     public function store(CreateOrUpdateCompany $createOrUpdateCompany)
     {
+        $this->validate();
+        
         $company = $createOrUpdateCompany([
             'id' => $this->company?->id,
             'name' => $this->name,

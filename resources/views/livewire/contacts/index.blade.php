@@ -1,6 +1,8 @@
+<x-slot:title>
+    {{ $title }}
+</x-slot>
 <div>
     <livewire:shared.nav />
-
 
     @session('message')
         @include('shared.success', ['message' => session('message')])

@@ -1,6 +1,7 @@
 <?php
 
 use App\Actions\Contacts\ImportContacts;
+use App\Http\Controllers\AuthController;
 use App\Livewire\Companies\Index as IndexCompany;
 use App\Livewire\Companies\Show as ShowCompany;
 use App\Livewire\Contacts\Index as IndexContact;
@@ -27,79 +28,29 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/login', function () {
-    return view('login');
-})->name('login');
+Route::get('/login', [AuthController::class, 'login'])->name('login');
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('/auth/google/redirect', [AuthController::class, 'googleRedirect'])->name('auth.google.redirect');
+Route::get('/auth/google/callback', [AuthController::class, 'googleCallback'])->name('auth.google.callback');
+Route::get('/auth/linkedin/redirect', [AuthController::class, 'linkedinRedirect'])->name('auth.linkedin.redirect');
+Route::get('/auth/linkedin/callback', [AuthController::class, 'linkedinCallback'])->name('auth.linkedin.callback');
 
-Route::get('/auth/google/redirect', function () {
-    $scopes = [
-        'https://www.googleapis.com/auth/userinfo.email',
-        'https://www.googleapis.com/auth/userinfo.profile',
-        'https://www.googleapis.com/auth/gmail.readonly',
-        'https://www.googleapis.com/auth/contacts.readonly',
-    ];
+// Route::get('/contacts/import/google', function (GooglePeopleService $googlePeople, ImportContacts $importContacts) {
+//     $user = Auth::user();
 
-    return Socialite::driver('google')->scopes($scopes)->redirect();
-});
+//     // check for expired token
+//     if (! $user->token_expires_at || $user->token_expires_at->isPast()) {
+//         $response = $googlePeople->refreshToken($user->google_refresh_token);
+//         $user->update([
+//             'google_token' => $response['access_token'],
+//             'token_expires_at' => now()->addSeconds($response['expires_in']),
+//         ]);
+//     }
 
-Route::get('/auth/google/callback', function () {
-    $user = Socialite::driver('google')->user();
+//     $googlePeople->setToken($user->google_token);
 
-    $user = User::updateOrCreate([
-        'email' => $user->email,
-    ], [
-        'name' => $user->name,
-        'google_id' => $user->id,
-        'google_token' => $user->token,
-        'google_refresh_token' => $user->refreshToken,
-        'token_expires_at' => now()->addSeconds($user->expiresIn),
-        'photo' => $user->avatar,
-    ]);
-
-    Auth::login($user, true);
-
-    return redirect('/');
-});
-
-Route::get('/auth/linkedin/callback', function () {
-    $user = Socialite::driver('linkedin-openid')->user();
-
-    $user = User::updateOrCreate([
-        'email' => $user->email,
-    ], [
-        'name' => $user->name,
-        'photo' => $user->avatar,
-        'linkedin_token' => $user->token,
-        'token_expires_at' => now()->addSeconds($user->expiresIn),
-    ]);
-
-    Auth::login($user, true);
-
-    return redirect('/');
-});
-
-Route::get('/auth/linkedin/redirect', function () {
-    return Socialite::driver('linkedin-openid')
-        ->scopes(['openid', 'profile', 'email'])
-        ->redirect();
-});
-
-Route::get('/contacts/import/google', function (GooglePeopleService $googlePeople, ImportContacts $importContacts) {
-    $user = Auth::user();
-
-    // check for expired token
-    if (! $user->token_expires_at || $user->token_expires_at->isPast()) {
-        $response = $googlePeople->refreshToken($user->google_refresh_token);
-        $user->update([
-            'google_token' => $response['access_token'],
-            'token_expires_at' => now()->addSeconds($response['expires_in']),
-        ]);
-    }
-
-    $googlePeople->setToken($user->google_token);
-
-    $importContacts($googlePeople->contacts());
-})->middleware(['auth'])->name('contacts.import.google');
+//     $importContacts($googlePeople->contacts());
+// })->middleware(['auth'])->name('contacts.import.google');
 
 // Dashboard
 Route::get('/', Dashboard::class)->middleware(['auth'])->name('dashboard');

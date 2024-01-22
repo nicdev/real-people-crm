@@ -28,6 +28,8 @@ class Modal extends Component
         if ($contact->id) {
             $this->form->setContact($contact);
             $this->editMode = true;
+        } else {
+            $this->form->preferred_contact_method = ContactMethod::where('name', 'Email')->first()->id;
         }
 
         $this->contact_methods = ContactMethod::all();

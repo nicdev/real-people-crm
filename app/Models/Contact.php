@@ -152,6 +152,12 @@ class Contact extends Model
                 $contact->follow_up_date = now()->addDays($contact->frequency);
             }
         });
+
+        static::creating(function ($contact) {
+            if ($contact->preferred_contact_method_id === null) {
+                $contact->preferred_contact_method_id = ContactMethod::where('name', 'Email')->first()->id;
+            }
+        });
     }
 
     public function user()

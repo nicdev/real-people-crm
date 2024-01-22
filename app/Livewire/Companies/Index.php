@@ -14,7 +14,7 @@ class Index extends Component
     {
         $companies = auth()->user()->companies ?? [];
 
-        return view('livewire.companies.index')->with(compact('companies'));
+        return view('livewire.companies.index')->with(['companies' => $companies, 'title' => 'Companies']);
     }
 
     #[On('modal-closed')]

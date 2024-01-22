@@ -26,7 +26,7 @@ class FinishedImportContactsFromGoogle extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Introduction ',
+            subject: 'Finished Importing Contacts from Google',
         );
     }
 

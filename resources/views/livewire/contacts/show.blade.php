@@ -1,3 +1,6 @@
+<x-slot:title>
+    {{ $title }}
+</x-slot>
 <div>
     <livewire:shared.nav />
 

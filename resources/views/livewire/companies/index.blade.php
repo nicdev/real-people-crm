@@ -1,4 +1,7 @@
 <div>
+    <x-slot:title>
+        {{ $title }}
+    </x-slot>
     <livewire:shared.nav />
     <nav class="my-4">
         <span class="my-4 mr-2">

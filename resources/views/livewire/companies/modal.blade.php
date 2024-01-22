@@ -29,88 +29,94 @@
                             <label class="block text-sm font-medium leading-6 text-gray-900"
                                 for="name"
                                 class="block text-sm font-medium leading-6 text-gray-900">Name</label>
-                            <input wire:model="name"
+                            @error('name')
+                                @include('shared.form-error', ['errorMessage' => $message])
+                            @enderror
+                            <input wire:model.blur="name"
                                 type="text"
                                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                 id="name"
                                 placeholder="Enter name">
-                            @error('name')
-                                @include('shared.form-error', ['errorMessage' => $message])
-                            @enderror
                         </div>
                         <div class="mb-2">
                             <label class="block text-sm font-medium leading-6 text-gray-900"
                                 for="website">Website</label>
-                            <input wire:model="website"
+                            @error('website')
+                                @include('shared.form-error', ['errorMessage' => $message])
+                            @enderror
+                            <input wire:model.blur="website"
                                 type="text"
                                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                 id="website"
                                 placeholder="Enter website">
-                            @error('website')
-                                @include('shared.form-error', ['errorMessage' => $message])
-                            @enderror
+
                         </div>
                         <div class="mb-2">
                             <label class="block text-sm font-medium leading-6 text-gray-900"
                                 for="phone"
                                 class="block text-sm font-medium leading-6 text-gray-900">Phone</label>
-                            <input wire:model="phone"
+                            @error('phone')
+                                @include('shared.form-error', ['errorMessage' => $message])
+                            @enderror
+                            <input wire:model.blur="phone"
                                 type="text"
                                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                 id="phone"
                                 placeholder="Enter phone">
-                            @error('phone')
-                                @include('shared.form-error', ['errorMessage' => $message])
-                            @enderror
+
                         </div>
                         <div class="mb-2">
                             <label class="block text-sm font-medium leading-6 text-gray-900"
                                 for="linkedin">LinkedIn</label>
-                            <input wire:model="linkedin"
+                            @error('linkedin')
+                                @include('shared.form-error', ['errorMessage' => $message])
+                            @enderror
+                            <input wire:model.blur="linkedin"
                                 type="text"
                                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                 id="linkedin"
                                 placeholder="Enter linkedin">
-                            @error('linkedin')
-                                @include('shared.form-error', ['errorMessage' => $message])
-                            @enderror
+
                         </div>
                         <div class="mb-2">
                             <label class="block text-sm font-medium leading-6 text-gray-900"
                                 for="twitter">Twitter/X</label>
-                            <input wire:model="twitter"
+                            @error('twitter')
+                                @include('shared.form-error', ['errorMessage' => $message])
+                            @enderror
+                            <input wire:model.blur="twitter"
                                 type="text"
                                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                 id="twitter"
                                 placeholder="Enter twitter">
-                            @error('twitter')
-                                @include('shared.form-error', ['errorMessage' => $message])
-                            @enderror
+
                         </div>
 
                         <div class="mb-2">
                             <label class="block text-sm font-medium leading-6 text-gray-900"
                                 for="youtube">YouTube</label>
-                            <input wire:model="youtube"
+                            @error('youtube')
+                                @include('shared.form-error', ['errorMessage' => $message])
+                            @enderror
+                            <input wire:model.blur="youtube"
                                 type="text"
                                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                 id="youtube"
                                 placeholder="Enter youtube">
-                            @error('youtube')
-                                @include('shared.form-error', ['errorMessage' => $message])
-                            @enderror
+
                         </div>
 
                         <div class="mb-2">
                             <label class="block text-sm font-medium leading-6 text-gray-900"
                                 for="notes">General Notes</label>
-                            <textarea wire:model="notes"
-                                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                id="notes"
-                                rows="3"></textarea>
                             @error('notes')
                                 @include('shared.form-error', ['errorMessage' => $message])
                             @enderror
+                            <textarea wire:model.blur="notes"
+                                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                id="notes"
+                                rows="3"></textarea>
+
                         </div>
                         <div class="form-group mt-4">
                             <button type="submit"

@@ -14,7 +14,7 @@
     <div class="my-4">
         {{ $followUpList->links() }}
     </div>
-    @foreach ($followUpList as $fu)
+    @forelse ($followUpList as $fu)
         <div class="border-b border-gray-200 bg-white px-4 py-5 sm:px-6"
             wire:key="{{ $fu->id }}">
             <div class="-ml-4 -mt-4 flex flex-wrap items-center justify-between sm:flex-nowrap">
@@ -77,7 +77,9 @@
                 </div>
             </div>
         </div>
-    @endforeach
+    @empty
+        <p>No Follow Ups scheduled for the next 7 days</p>
+    @endforelse
     <div class="my-4">
         {{ $followUpList->links() }}
     </div>

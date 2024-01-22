@@ -16,7 +16,6 @@ class IntroductionSent extends Notification
      */
     public function __construct(public Introduction $introduction)
     {
-        ray('in mailable', $introduction);
         $this->introduction = $introduction;
     }
 

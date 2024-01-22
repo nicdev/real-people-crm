@@ -51,9 +51,11 @@
             </div>
             <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                 <div class="flex flex-shrink-0 items-center">
-                    <img class="h-8 w-auto"
+                    <a href="{{ route('dashboard') }}">
+                        <img
+                        class="h-12 w-auto"
                         src="{{ asset('images/logo.png') }}"
-                        alt="Real People CRM">
+                        alt="Real People CRM"></a>
                 </div>
                 <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
                     <a href="{{ route('dashboard') }}"
@@ -61,7 +63,7 @@
                     <a href="{{ route('contacts.index') }}"
                         wire:navigate
                         class="inline-flex items-center border-b-2 px-1 pt-1 text-sm font-mediu {{ preg_match('/contacts.*/', Request::segment(1)) ? 'border-indigo-500 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700' }}">Contacts</a>
-                   
+
                     <a href={{ route('companies.index') }}
                         wire:navigate
                         class="inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium {{ preg_match('/companies.*/', Request::segment(1)) ? 'border-indigo-500 text-gray-900' : 'border-transparent text-gray-500  hover:border-gray-300 hover:text-gray-700' }}">Companies</a>
@@ -102,17 +104,17 @@
                         aria-labelledby="user-menu-button"
                         tabindex="-1">
                         <!-- Active: "bg-gray-100", Not Active: "" -->
-                        <a href="#"
+                        {{-- <a href="#"
                             class="block px-4 py-2 text-sm text-gray-700"
                             role="menuitem"
                             tabindex="-1"
-                            id="user-menu-item-0">Your Profile</a>
+                            id="user-menu-item-0">Your Profile</a> --}}
                         <a href="#"
                             class="block px-4 py-2 text-sm text-gray-700"
                             role="menuitem"
                             tabindex="-1"
                             id="user-menu-item-1">Settings</a>
-                        <a href="#"
+                        <a href="{{ route('logout') }}"
                             class="block px-4 py-2 text-sm text-gray-700"
                             role="menuitem"
                             tabindex="-1"

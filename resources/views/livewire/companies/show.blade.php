@@ -1,3 +1,6 @@
+<x-slot:title>
+    {{ $title }}
+</x-slot>
 <div>
     <livewire:shared.nav>
 
@@ -19,16 +22,16 @@
             </span>
         </nav>
         <h1 class="text-xl font-semibold my-4 flex justify-left items-center">
-            @if($company->logo)
-            <img class="h-12 w-12 rounded-full mr-2"
-                src="{{ $company->logo }}"
-                alt="">
+            @if ($company->logo)
+                <img class="h-12 w-12 rounded-full mr-2"
+                    src="{{ $company->logo }}"
+                    alt="">
             @endif
             {{ $company->name }}
         </h1>
 
         <h2 class="text-lg mb-2 font-semibold">Contacts at {{ $company->name }}</h2>
-        
+
         @forelse ($company->contacts as $c)
             <div class="border-b border-gray-200 bg-white px-4 py-5 sm:px-6"
                 wire:key="{{ $c->id }}">
@@ -115,7 +118,9 @@
                     @if ($company->phone)
                         <div class="px-4 py-6 sm:col-span-1 sm:px-0">
                             <dt class="text-sm font-medium leading-6 text-gray-900">Phone</dt>
-                            <dd class="mt-1 text-sm leading-6 text-gray-700 sm:mt-2 flex justify-left items-center"><span id="phone">{{ $company->phone }}</span><livewire:shared.copy-to-clipboard elementId="phone"></dd>
+                            <dd class="mt-1 text-sm leading-6 text-gray-700 sm:mt-2 flex justify-left items-center">
+                                <span id="phone">{{ $company->phone }}</span><livewire:shared.copy-to-clipboard
+                                    elementId="phone"></dd>
                         </div>
                     @endif
                     @if ($company->address)
@@ -123,18 +128,18 @@
                             <dt class="text-sm font-medium leading-6 text-gray-900">Address</dt>
                             <dd class="flex justify-left items-center mt-1 text-sm leading-6 text-gray-700 sm:mt-2">
                                 <span id="address">
-                                {{ $company->address }}<br>
-                                {{ $company->city }}, {{ $company->state }} {{ $company->zip }}<br>
-                                {{ $company->country }}
-                                </span
-                                <livewire:shared.copy-to-clipboard elementId="address">
+                                    {{ $company->address }}<br>
+                                    {{ $company->city }}, {{ $company->state }} {{ $company->zip }}<br>
+                                    {{ $company->country }}
+                                </span <livewire:shared.copy-to-clipboard elementId="address">
                             </dd>
                         </div>
                     @endif
                     @if ($company->industry)
                         <div class="px-4 py-6 sm:col-span-1 sm:px-0">
                             <dt class="text-sm font-medium leading-6 text-gray-900">Industry</dt>
-                            <dd class="flex justify-left items-center mt-1 text-sm leading-6 text-gray-700 sm:mt-2">{{ $contact->industry }}
+                            <dd class="flex justify-left items-center mt-1 text-sm leading-6 text-gray-700 sm:mt-2">
+                                {{ $contact->industry }}
                             </dd>
                         </div>
                     @endif
@@ -143,7 +148,7 @@
                             <dt class="text-sm font-medium leading-6 text-gray-900">LinkedIn</dt>
                             <dd class="mt-1 text-sm leading-6 text-gray-700 sm:mt-2"><a
                                     href="https://x.com/{{ $company->linkedin }}"
-                                    target="_blank">@{{ $company->linkedin }}</a></dd>
+                                    target="_blank">@{{ $company - > linkedin }}</a></dd>
                         </div>
                     @endif
                     @if ($company->twitter)
@@ -151,7 +156,7 @@
                             <dt class="text-sm font-medium leading-6 text-gray-900">X/Twitter</dt>
                             <dd class="mt-1 text-sm leading-6 text-gray-700 sm:mt-2"><a
                                     href="https://x.com/{{ $company->twitter }}"
-                                    target="_blank">{{ '@'.$company->twitter }}</a></dd>
+                                    target="_blank">{{ '@' . $company->twitter }}</a></dd>
                         </div>
                     @endif
                     @if ($company->threads)
@@ -177,8 +182,11 @@
             </div>
         </div>
 
-        <livewire:companies.modal :show-modal="$showCompanyForm" :company="$company" @companycreatedorupdated="$refresh"  />
+        <livewire:companies.modal :show-modal="$showCompanyForm"
+            :company="$company"
+            @companycreatedorupdated="$refresh" />
         <livewire:shared.modal component="contacts.modal"
-        :show-modal="$showContactForm" :company="$company" />
+            :show-modal="$showContactForm"
+            :company="$company" />
 
 </div>

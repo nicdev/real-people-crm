@@ -29,7 +29,6 @@ class HttpService
         private $history = [],
     ) {
         if ($client) {
-            ray($this->url);
             $this->client = $client;
         } else {
             $this->client = new Client([
@@ -53,9 +52,6 @@ class HttpService
      */
     public function get($path, array $query = []): array
     {
-        ray($this->client);
-        ray($path);
-        ray()->pause();
         $response = $this->client->get($path, [...$this->headers, 'query' => $query]);
 
         return $this->respond($response);
