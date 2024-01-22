@@ -18,6 +18,8 @@ class Index extends Component
 
     public $showContactEventForm = false;
 
+    public $showIntroduceContactsForm = false;
+
     public $importingContacts = false;
 
     public $search;
@@ -45,6 +47,7 @@ class Index extends Component
     {
         $this->showContactForm = false;
         $this->showContactEventForm = false;
+        $this->showIntroduceContactsForm = false;
     }
 
     public function delete(Contact $contact)

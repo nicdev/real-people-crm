@@ -8,7 +8,6 @@
     </select>
      @script
         <script>
-            console.log('here')
             const segments = window.location.pathname.split("/");
             if (segments[1].toLowerCase() === "companies" && segments[2]) {
                 initCompanySelect(segments[2])

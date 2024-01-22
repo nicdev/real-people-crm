@@ -3,8 +3,6 @@
 namespace App\Jobs;
 
 use App\Actions\Contacts\ImportContacts;
-use App\Models\User;
-use App\Notifications\FinishedImportContactsFromGoogle;
 use App\Services\LinkedinPeopleService;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;

@@ -9,3 +9,9 @@
 .clipboard-copy:active path {
     transform: scale(0.9);
 }
+
+.trix-button-group--block-tools,
+.trix-button-group--file-tools,
+.trix-button-group--history-tools {
+    display: none !important;
+}

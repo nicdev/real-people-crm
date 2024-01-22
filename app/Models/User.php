@@ -53,6 +53,11 @@ use Laravel\Sanctum\HasApiTokens;
  * @property-read int|null $companies_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ContactEvent> $contactEvents
  * @property-read int|null $contact_events_count
+ * @property string|null $photo
+ * @property string|null $linkedin_token
+ *
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereLinkedinToken($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User wherePhoto($value)
  *
  * @mixin \Eloquent
  */

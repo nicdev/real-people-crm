@@ -2,20 +2,22 @@
 
 namespace App\Mail;
 
+use App\Models\Introduction as IntroductionModel;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class FinishedImportContactsFromGoogle extends Mailable
+class Introduction extends Mailable
 {
     use Queueable, SerializesModels;
 
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct(public IntroductionModel $introduction)
     {
         //
     }
@@ -26,7 +28,8 @@ class FinishedImportContactsFromGoogle extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Introduction ',
+            replyTo: [new Address($this->introduction->user->email, $this->introduction->user->name)],
+            subject: 'Introduction '.$this->introduction->firstContact->first_name.' '.$this->introduction->firstContact->last_name.' and '.$this->introduction->secondContact->first_name.' '.$this->introduction->secondContact->last_name,
         );
     }
 
@@ -36,7 +39,7 @@ class FinishedImportContactsFromGoogle extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'email.finished-import-contacts',
+            view: 'email.introduction',
         );
     }
 

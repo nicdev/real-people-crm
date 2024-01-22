@@ -6,6 +6,7 @@ use App\Models\File as ContactFile;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
 
 /**
@@ -86,11 +87,16 @@ use Illuminate\Support\Str;
  * @method static \Illuminate\Database\Eloquent\Builder|Contact wherePhoto($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Contact wherePreferredContactMethodId($value)
  *
+ * @property int $no_follow_up
+ * @property-read \App\Models\Company|null $company
+ *
+ * @method static \Illuminate\Database\Eloquent\Builder|Contact whereNoFollowUp($value)
+ *
  * @mixin \Eloquent
  */
 class Contact extends Model
 {
-    use HasFactory;
+    use HasFactory, Notifiable;
 
     protected $fillable = [
         'first_name',

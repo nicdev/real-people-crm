@@ -52,6 +52,12 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Company whereYoutube($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Company whereZip($value)
  *
+ * @property string|null $logo
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Contact> $contacts
+ * @property-read int|null $contacts_count
+ *
+ * @method static \Illuminate\Database\Eloquent\Builder|Company whereLogo($value)
+ *
  * @mixin \Eloquent
  */
 class Company extends Model
