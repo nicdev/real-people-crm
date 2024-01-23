@@ -170,7 +170,7 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         // Custom service providers
-        App\Providers\GooglePeopleService::class,
+        App\Providers\GooglePeopleServiceProvider::class,
     ])->toArray(),
 
     /*
