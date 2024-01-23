@@ -52,10 +52,9 @@
             <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                 <div class="flex flex-shrink-0 items-center">
                     <a href="{{ route('dashboard') }}">
-                        <img
-                        class="h-12 w-auto"
-                        src="{{ asset('images/logo.png') }}"
-                        alt="Real People CRM"></a>
+                        <img class="h-12 w-auto"
+                            src="{{ asset('images/logo.png') }}"
+                            alt="Real People CRM"></a>
                 </div>
                 <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
                     <a href="{{ route('dashboard') }}"
@@ -141,3 +140,12 @@
         </div>
     </div>
 </nav>
+@script
+    <script>
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape") {
+                $wire.dispatch('modal-closed')
+            }
+        });
+    </script>
+@endscript

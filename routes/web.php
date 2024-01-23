@@ -1,6 +1,5 @@
 <?php
 
-use App\Actions\Contacts\ImportContacts;
 use App\Http\Controllers\AuthController;
 use App\Livewire\Companies\Index as IndexCompany;
 use App\Livewire\Companies\Show as ShowCompany;
@@ -8,11 +7,7 @@ use App\Livewire\Contacts\Index as IndexContact;
 use App\Livewire\Contacts\Show as ShowContact;
 use App\Livewire\Dashboard;
 use App\Livewire\Settings\Index as IndexSettings;
-use App\Models\User;
-use App\Services\GooglePeopleService;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use Laravel\Socialite\Facades\Socialite;
 
 /*
 |--------------------------------------------------------------------------

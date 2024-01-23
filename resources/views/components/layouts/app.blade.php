@@ -10,7 +10,7 @@
     <meta name="csrf-token"
         content="{{ csrf_token() }}">
 
-    <title>Real People CRM {{ isset($title) ? ' - '.$title : '' }}</title>
+    <title>Real People CRM {{ isset($title) ? ' - ' . $title : '' }}</title>
 
     @vite('resources/css/app.css')
 </head>

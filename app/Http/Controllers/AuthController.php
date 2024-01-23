@@ -12,12 +12,14 @@ class AuthController extends Controller
     public function login()
     {
         $action = 'authenticate';
+
         return view('login-register')->with(compact('action'));
     }
 
     public function register()
     {
         $action = 'auth.store';
+
         return view('login-register')->with(compact('action'));
     }
 

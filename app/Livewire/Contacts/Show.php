@@ -24,7 +24,7 @@ class Show extends Component
     public function mount(Contact $contact)
     {
         $this->contact = $contact;
-        $this->title = $contact->first_name . ' ' . $contact->last_name;
+        $this->title = $contact->first_name.' '.$contact->last_name;
     }
 
     public function delete(Contact $contact)

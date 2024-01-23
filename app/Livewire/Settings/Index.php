@@ -40,7 +40,7 @@ class Index extends Component
         auth()->user()->contactEvents()->delete();
         auth()->user()->companies()->delete();
         auth()->user()->contacts()->delete();
-        
+
         auth()->user()->delete();
 
         return redirect()->route('login');
@@ -52,7 +52,8 @@ class Index extends Component
         $this->email = auth()->user()->email;
     }
 
-    public function connectToGoogle() {
+    public function connectToGoogle()
+    {
         redirect()->route('auth.google.redirect');
     }
 }
