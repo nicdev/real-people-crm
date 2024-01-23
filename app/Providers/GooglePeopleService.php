@@ -2,10 +2,10 @@
 
 namespace App\Providers;
 
-use App\Services\GooglePeopleService;
+use App\Services\GooglePeopleService as GooglePeopleServiceInstance;
 use Illuminate\Support\ServiceProvider;
 
-class GooglePeopleServiceProvider extends ServiceProvider
+class GooglePeopleService extends ServiceProvider
 {
     /**
      * Register services.
@@ -13,7 +13,7 @@ class GooglePeopleServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind('GooglePeopleService', function () {
-            return new GooglePeopleService();
+            return new GooglePeopleServiceInstance();
         });
     }
 
