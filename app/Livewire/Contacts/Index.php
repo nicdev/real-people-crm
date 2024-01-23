@@ -54,6 +54,8 @@ class Index extends Component
 
     public function delete(Contact $contact)
     {
+        ray($contact->id);
+        ray('delete');
         $contact->delete();
 
         session()->flash('message', 'Contact successfully deleted.');

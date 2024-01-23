@@ -11,7 +11,51 @@ class AuthController extends Controller
 {
     public function login()
     {
-        return view('login');
+        $action = 'authenticate';
+        return view('login-register')->with(compact('action'));
+    }
+
+    public function register()
+    {
+        $action = 'auth.store';
+        return view('login-register')->with(compact('action'));
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'email|required|string|max:255|unique:users',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => strtolower($request->email),
+            'password' => bcrypt($request->password),
+        ]);
+
+        Auth::login($user, true);
+
+        return redirect('/dashboard');
+    }
+
+    public function authenticate(Request $request)
+    {
+        $request->validate([
+            'email' => 'email|required|string|max:255',
+            'password' => 'required|string',
+        ]);
+
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::attempt($credentials, true)) {
+            return redirect('/dashboard');
+        }
+
+        return redirect('/login')->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ]);
     }
 
     public function logout()
