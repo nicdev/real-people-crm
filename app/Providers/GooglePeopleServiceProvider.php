@@ -12,7 +12,7 @@ class GooglePeopleServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind('GooglePeopleService', function () {
+        $this->app->bind(GooglePeopleService::class, function () {
             return new GooglePeopleService();
         });
     }
