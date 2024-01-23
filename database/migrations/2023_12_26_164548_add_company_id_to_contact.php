@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::table('contacts', function (Blueprint $table) {
             $table->unsignedBigInteger('company_id')->nullable();
-            $table->foreign(Company::class)->constrained()->onDelete('cascade');
+            $table->foreign('company_id')->references('companies')->onDelete('cascade');
         });
     }
 
