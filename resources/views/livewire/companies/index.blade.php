@@ -14,14 +14,19 @@
         @endsession
     </nav>
     @foreach ($companies as $c)
-        <div class="border-b border-gray-200 bg-white px-4 py-5 sm:px-6" wire:key="{{ $c->id }}">
+        <div class="border-b border-gray-200 bg-white px-4 py-5 sm:px-6"
+            wire:key="{{ $c->id }}">
             <div class="-ml-4 -mt-4 flex flex-wrap items-center justify-between sm:flex-nowrap">
                 <div class="ml-4 mt-4">
                     <div class="flex items-center">
                         <div class="flex-shrink-0">
-                            <img class="h-12 w-12 rounded-full"
-                                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                                alt="">
+                            @if ($c->logo)
+                                <img class="h-12 w-12 rounded-full"
+                                    src="src="{{ $c->logo }}"
+                                    alt="">
+                            @else
+                                <span class="no-photo">{{ substr($c->name, 0, 1) }}</span>
+                            @endif
                         </div>
                         <div class="ml-4">
                             <a href="{{ route('companies.show', $c) }}">

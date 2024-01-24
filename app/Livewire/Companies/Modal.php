@@ -21,25 +21,25 @@ class Modal extends Component
     #[Validate('required|max:255|string')]
     public $name;
 
-    #[Validate('required|max:40|string')]
+    #[Validate('nullable|max:40|string')]
     public $phone;
 
-    #[Validate('required|max:255|email')]
+    #[Validate('nullable|max:255|email')]
     public $email;
 
-    #[Validate('required|max:255|url')]
+    #[Validate('nullable|max:255|url')]
     public $linkedin;
 
-    #[Validate('required|max:255|url')]
+    #[Validate('nullable|max:255|url')]
     public $twitter;
 
-    #[Validate('required|max:255|url')]
+    #[Validate('nullable|max:255|url')]
     public $youtube;
 
-    #[Validate('required|max:255|url')]
+    #[Validate('nullable|max:255|url')]
     public $website;
 
-    #[Validate('required|string|max:10000')]
+    #[Validate('nullable|string|max:10000')]
     public $notes;
 
     public function render(): View

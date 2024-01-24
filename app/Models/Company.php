@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 /**
  * App\Models\Company
@@ -83,6 +84,25 @@ class Company extends Model
         'threads',
         'logo',
     ];
+
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        static::creating(function ($company) {
+            $slugBase = Str::slug($company->name);
+            $slug = $slugBase;
+            $count = 1;
+
+            // Check if the slug already exists and increment the suffix until a unique slug is found
+            while (static::where('slug', $slug)->exists()) {
+                $slug = $slugBase.'-'.$count;
+                $count++;
+            }
+
+            $company->slug = $slug;
+        });
+    }
 
     public function contacts()
     {

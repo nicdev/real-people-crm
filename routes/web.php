@@ -47,11 +47,11 @@ Route::get('/settings', IndexSettings::class)->middleware(['auth'])->name('setti
 // Contacts
 Route::group(['prefix' => 'contacts', 'middleware' => 'auth'], function () {
     Route::get('/', IndexContact::class)->name('contacts.index');
-    Route::get('/{contact}', ShowContact::class)->name('contacts.show');
+    Route::get('/{contact:slug}', ShowContact::class)->name('contacts.show');
 });
 
 // Companies
 Route::group(['prefix' => 'companies', 'middleware' => 'auth'], function () {
     Route::get('/', IndexCompany::class)->name('companies.index');
-    Route::get('/{company}', ShowCompany::class)->name('companies.show');
+    Route::get('/{company:slug}', ShowCompany::class)->name('companies.show');
 });
