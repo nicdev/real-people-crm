@@ -55,7 +55,7 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials, true)) {
-            return redirect('/dashboard');
+            return redirect()->route('dashboard');
         }
 
         return redirect('/login')->withErrors([
@@ -99,7 +99,7 @@ class AuthController extends Controller
 
         Auth::login($user, true);
 
-        return redirect('/');
+        return redirect()->route('dashboard');
     }
 
     public function linkedinRedirect()
@@ -124,7 +124,7 @@ class AuthController extends Controller
 
         Auth::login($user, true);
 
-        return redirect('/');
+        return redirect()->route('dashboard');
     }
 
     public function passwordResetRequest()
@@ -194,6 +194,6 @@ class AuthController extends Controller
 
         Auth::login($user, true);
 
-        return redirect('/dashboard');
+        return redirect()->route('dashboard');
     }
 }

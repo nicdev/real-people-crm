@@ -12,7 +12,7 @@ class Index extends Component
     #[Validate('required|string|max:255')]
     public $name;
 
-    #[Validate('required|email|max:255')]
+    #[Validate('email|required|string|max:255|unique:users')]
     public $email;
 
     public function render()
@@ -27,6 +27,8 @@ class Index extends Component
 
     public function updateUser()
     {
+        $this->authorize('update', auth()->user());
+        
         $this->validate();
 
         auth()->user()->update([
@@ -37,6 +39,8 @@ class Index extends Component
 
     public function deleteUser()
     {
+        $this->authorize('delete', auth()->user());
+        
         auth()->user()->contactEvents()->delete();
         auth()->user()->companies()->delete();
         auth()->user()->contacts()->delete();
@@ -54,6 +58,8 @@ class Index extends Component
 
     public function connectToGoogle()
     {
+        $this->authorize('update', auth()->user());
+        
         redirect()->route('auth.google.redirect');
     }
 }

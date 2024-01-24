@@ -23,12 +23,15 @@ class Show extends Component
 
     public function mount(Contact $contact)
     {
+        $this->authorize('view', $contact);
         $this->contact = $contact;
         $this->title = $contact->first_name.' '.$contact->last_name;
     }
 
     public function delete(Contact $contact)
     {
+        $this->authorize('delete', $contact);
+        
         $contact->delete();
 
         session()->flash('message', 'Contact successfully deleted.');

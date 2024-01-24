@@ -62,6 +62,8 @@ class Modal extends Component
 
     public function store(CreateOrUpdateContactEvent $createOrUpdateContactEvent)
     {
+        $this->authorize('create', ContactEvent::class);
+
         $this->contact_event = $createOrUpdateContactEvent([
             'id' => $this->contact_event?->id,
             'user_id' => auth()->id(),

@@ -35,6 +35,8 @@ class Dashboard extends Component
 
     public function snooze($contactId, $days)
     {
+        $this->authorize('update', Contact::find($contactId));
+        
         $contact = Contact::find($contactId);
 
         $contact->update([
@@ -44,6 +46,8 @@ class Dashboard extends Component
 
     public function updateFollowUp($newDate, $contactId)
     {
+        $this->authorize('update', Contact::find($contactId));
+        
         $contact = Contact::find($contactId);
         $contact->update([
             'follow_up_date' => $newDate,
@@ -52,6 +56,8 @@ class Dashboard extends Component
 
     public function cancelFollowUp($contactId)
     {
+        $this->authorize('update', Contact::find($contactId));
+        
         $contact = Contact::find($contactId);
         $contact->update([
             'no_follow_up' => true,

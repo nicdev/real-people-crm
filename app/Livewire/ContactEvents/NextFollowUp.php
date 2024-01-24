@@ -16,6 +16,8 @@ class NextFollowUp extends Component
 
     public function enableFollowUp()
     {
+        $this->authorize('update', $this->contact);
+        
         $this->contact->update([
             'no_follow_up' => false,
             'follow_up_date' => now()->addDays($this->contact->frequency),
@@ -24,6 +26,8 @@ class NextFollowUp extends Component
 
     public function updateFollowUp($newDate)
     {
+        $this->authorize('update', $this->contact);
+        
         $this->contact->update([
             'follow_up_date' => $newDate,
         ]);
