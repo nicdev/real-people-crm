@@ -152,7 +152,9 @@ class AuthController extends Controller
 
         $user->notify(new PasswordResetRequest);
 
-        return redirect('/password/reset')->with('message', 'Password reset email sent.');
+        session()->flash('message', 'Password reset email sent.');
+        
+        return redirect('/password/reset');
     }
 
     public function passwordReset(?string $resetToken = null)
@@ -160,7 +162,7 @@ class AuthController extends Controller
         $user = User::where('reset_token', $resetToken)->first();
 
         if (! $user) {
-            session()->flash('message', 'The provided email does not match our records or the reset token is invalid.');
+            session()->flash('error-message', 'The provided email does not match our records or the reset token is invalid.');
 
             return redirect()->route('password.request');
         }
@@ -180,7 +182,7 @@ class AuthController extends Controller
         $user = User::where('email', $request->email)->where('reset_token', $request->reset_token)->first();
 
         if (! $user) {
-            session()->flash('message', 'The provided email does not match our records or the reset token is invalid.');
+            session()->flash('error-message', 'The provided email does not match our records or the reset token is invalid.');
 
             return redirect()->route('password.request');
         }
@@ -193,6 +195,8 @@ class AuthController extends Controller
         $user->notify(new PasswordReset);
 
         Auth::login($user, true);
+
+        session()->flash('message', 'Password successfully reset.');
 
         return redirect()->route('dashboard');
     }

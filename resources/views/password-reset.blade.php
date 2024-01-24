@@ -22,8 +22,11 @@
                 alt="Real People CRM">
         </div>
         <div class="max-w-md w-full space-y-8 mx-auto">
+            @session('error-message')
+                @include('shared.error', ['message' => session('error-message')])
+            @endsession
             @session('message')
-                @include('shared.error', ['message' => session('message')])
+                @include('shared.success', ['message' => session('message')])
             @endsession
             @if ($errors)
                 @foreach ($errors->all() as $error)

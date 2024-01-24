@@ -46,7 +46,7 @@ class Show extends Component
         
         $this->company->delete();
 
-        session()->flash('success', 'Company deleted successfully');
+        session()->flash('message', 'Company deleted successfully');
 
         return redirect()->route('companies.index');
     }

@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use App\Mail\PasswordResetFinishedMailMessage;
 use App\Mail\PasswordResetMailMessage;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
@@ -31,7 +32,7 @@ class PasswordReset extends Notification
     /**
      * Get the mail representation of the notification.
      */
-    public function toMail(object $notifiable): PasswordResetMailMessage
+    public function toMail(object $notifiable): PasswordResetFinishedMailMessage
     {
         return (new PasswordResetFinishedMailMessage)
             ->to($notifiable->email);
