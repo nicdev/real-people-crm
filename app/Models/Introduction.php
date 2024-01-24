@@ -5,6 +5,31 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Introduction
+ *
+ * @property int $id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property int $first_contact_id
+ * @property int $second_contact_id
+ * @property int $user_id
+ * @property string $content
+ * @property-read \App\Models\Contact $firstContact
+ * @property-read \App\Models\Contact $secondContact
+ * @property-read \App\Models\User $user
+ * @method static \Illuminate\Database\Eloquent\Builder|Introduction newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Introduction newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Introduction query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Introduction whereContent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Introduction whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Introduction whereFirstContactId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Introduction whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Introduction whereSecondContactId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Introduction whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Introduction whereUserId($value)
+ * @mixin \Eloquent
+ */
 class Introduction extends Model
 {
     use HasFactory;
