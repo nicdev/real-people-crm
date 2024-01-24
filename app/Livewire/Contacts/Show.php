@@ -39,7 +39,6 @@ class Show extends Component
     #[On('modal-closed')]
     public function closeModal()
     {
-        ray('close modal');
         $this->showContactEventModal = false;
         $this->showContactForm = false;
     }
