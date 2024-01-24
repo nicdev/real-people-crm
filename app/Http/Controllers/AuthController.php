@@ -155,15 +155,16 @@ class AuthController extends Controller
         return redirect('/password/reset')->with('message', 'Password reset email sent.');
     }
 
-    public function passwordReset(string $resetToken = null)
+    public function passwordReset(?string $resetToken = null)
     {
         $user = User::where('reset_token', $resetToken)->first();
 
-        if(! $user) {
+        if (! $user) {
             session()->flash('message', 'The provided email does not match our records or the reset token is invalid.');
+
             return redirect()->route('password.request');
         }
-        
+
         return view('password-reset')->with(compact('user'));
     }
 
@@ -177,9 +178,10 @@ class AuthController extends Controller
         ]);
 
         $user = User::where('email', $request->email)->where('reset_token', $request->reset_token)->first();
-        
+
         if (! $user) {
             session()->flash('message', 'The provided email does not match our records or the reset token is invalid.');
+
             return redirect()->route('password.request');
         }
 

@@ -81,7 +81,7 @@ class User extends Authenticatable
         'token_expires_at',
         'photo',
         'linkedin_token',
-        'reset_token'
+        'reset_token',
     ];
 
     /**

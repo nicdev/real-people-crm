@@ -19,9 +19,9 @@ class Introduction extends Model
     protected static function boot(): void
     {
         parent::boot();
-        
+
         static::created(function ($introduction) {
-            $title = $introduction->firstContact->first_name . ' ' . $introduction->firstContact->last_name . ' introduced to ' . $introduction->secondContact->first_name . ' ' . $introduction->secondContact->last_name;
+            $title = $introduction->firstContact->first_name.' '.$introduction->firstContact->last_name.' introduced to '.$introduction->secondContact->first_name.' '.$introduction->secondContact->last_name;
 
             $introduction->firstContact->contactEvents()->create([
                 'title' => $title,
@@ -29,7 +29,7 @@ class Introduction extends Model
                 'recap' => strip_tags($introduction->content),
                 'date' => now(),
             ]);
-            
+
             $introduction->secondContact->contactEvents()->create([
                 'title' => $title,
                 'contact_method_id' => ContactMethod::where('name', 'Email')->first()->id,

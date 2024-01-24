@@ -4,8 +4,6 @@ namespace App\Notifications;
 
 use App\Mail\UserRegisteredMailMessage;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
 class UserRegistered extends Notification
@@ -36,6 +34,7 @@ class UserRegistered extends Notification
     public function toMail(object $notifiable): UserRegisteredMailMessage
     {
         ray('toMail');
+
         return (new UserRegisteredMailMessage)
             ->to($notifiable->email);
     }
