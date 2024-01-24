@@ -24,7 +24,10 @@
                 alt="Real People CRM">
         </div>
         <div class="max-w-md w-full space-y-8 mx-auto">
-            @if($errors)
+            @session('message')
+                @include('shared.error', ['message' => session('message')])
+            @endsession
+            @if ($errors)
                 @foreach ($errors->all() as $error)
                     <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
                         role="alert">
@@ -80,15 +83,6 @@
                         {{ $action === 'authenticate' ? 'Sign in' : 'Register' }}
                     </button>
                 </div>
-                @if($action === 'authenticate')
-                <a href="{{ route('register') }}"
-                    class="group relative w-full flex justify-center py-2 px-4  text-sm font-medium hover:bg-blue-500 text-blue-700 hover:text-white mr-2">
-                    Don't have an account? Register</a>
-                @else
-                <a href="{{ route('login') }}"
-                    class="group relative w-full flex justify-center py-2 px-4  text-sm font-medium hover:bg-blue-500 text-blue-700 hover:text-white mr-2">
-                    Already have an account? Login</a>
-                @endif
             </form>
             <div class="flex w-full justify-between">
                 <a href="/auth/linkedin/redirect"
@@ -134,6 +128,20 @@
                         <script xmlns="" />
                     </svg>Sign in with Google</a>
             </div>
+            @if ($action === 'authenticate')
+                <div class="flex items-center justify-center">
+                    <a href="{{ route('register') }}"
+                        class="group relative w-1/2 flex justify-center py-2 px-4  text-sm font-medium hover:bg-blue-500 text-blue-700 hover:text-white mr-2 rounded-md text-center">
+                        Don't have an account? Register</a>
+                    <a href="{{ route('password.request') }}"
+                        class="group relative w-1/2 flex justify-center py-2 px-4  text-sm font-medium hover:bg-blue-500 text-blue-700 hover:text-white mr-2 rounded-md text-center">
+                        Forgot your password?</a>
+                </div>
+            @else
+                <a href="{{ route('login') }}"
+                    class="group relative w-full flex justify-center py-2 px-4  text-sm font-medium hover:bg-blue-500 text-blue-700 hover:text-white mr-2 rounded-md">
+                    Already have an account? Login</a>
+            @endif
         </div>
     </div>
 </body>

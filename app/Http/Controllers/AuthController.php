@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Notifications\PasswordReset;
+use App\Notifications\PasswordResetRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
 
 class AuthController extends Controller
@@ -122,5 +125,73 @@ class AuthController extends Controller
         Auth::login($user, true);
 
         return redirect('/');
+    }
+
+    public function passwordResetRequest()
+    {
+        return view('password-reset-request');
+    }
+
+    public function passwordResetInit(Request $request)
+    {
+        $request->validate([
+            'email' => 'email|required|string|max:255',
+        ]);
+
+        $user = User::where('email', $request->email)->first();
+
+        if (! $user) {
+            return redirect('/password/reset/request')->withErrors([
+                'email' => 'The provided email does not match our records.',
+            ]);
+        }
+
+        $user->update([
+            'reset_token' => Str::random(32),
+        ]);
+
+        $user->notify(new PasswordResetRequest);
+
+        return redirect('/password/reset')->with('message', 'Password reset email sent.');
+    }
+
+    public function passwordReset(string $resetToken = null)
+    {
+        $user = User::where('reset_token', $resetToken)->first();
+
+        if(! $user) {
+            session()->flash('message', 'The provided email does not match our records or the reset token is invalid.');
+            return redirect()->route('password.request');
+        }
+        
+        return view('password-reset')->with(compact('user'));
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $request->validate([
+            'email' => 'email|required|string|max:255',
+            'password' => 'required|string|min:8|confirmed',
+            'password_confirmation' => 'required|string|min:8',
+            'reset_token' => 'required|string|max:255',
+        ]);
+
+        $user = User::where('email', $request->email)->where('reset_token', $request->reset_token)->first();
+        
+        if (! $user) {
+            session()->flash('message', 'The provided email does not match our records or the reset token is invalid.');
+            return redirect()->route('password.request');
+        }
+
+        $user->update([
+            'password' => bcrypt($request->password),
+            'reset_token' => null,
+        ]);
+
+        $user->notify(new PasswordReset);
+
+        Auth::login($user, true);
+
+        return redirect('/dashboard');
     }
 }

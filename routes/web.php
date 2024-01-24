@@ -28,6 +28,10 @@ Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'authenticate'])->name('authenticate');
 Route::get('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/register', [AuthController::class, 'store'])->name('auth.store');
+Route::post('/password/reset/request', [AuthController::class, 'passwordResetInit'])->name('password.reset.init');
+Route::get('/password/reset/{resetToken}', [AuthController::class, 'passwordReset'])->name('password.reset');
+Route::get('/password/reset', [AuthController::class, 'passwordResetRequest'])->name('password.request');
+Route::post('/password/reset', [AuthController::class, 'updatePassword'])->name('auth.update');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/auth/google/redirect', [AuthController::class, 'googleRedirect'])->name('auth.google.redirect');
 Route::get('/auth/google/callback', [AuthController::class, 'googleCallback'])->name('auth.google.callback');
@@ -35,7 +39,7 @@ Route::get('/auth/linkedin/redirect', [AuthController::class, 'linkedinRedirect'
 Route::get('/auth/linkedin/callback', [AuthController::class, 'linkedinCallback'])->name('auth.linkedin.callback');
 
 // Dashboard
-Route::get('/', Dashboard::class)->middleware(['auth'])->name('dashboard');
+Route::get('/dashboard', Dashboard::class)->middleware(['auth'])->name('dashboard');
 
 // Settings
 Route::get('/settings', IndexSettings::class)->middleware(['auth'])->name('settings');
