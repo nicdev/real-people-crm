@@ -9,7 +9,11 @@
                             <div class="ml-4">
                                 <a href="{{ route('contacts.show', $ce) }}">
                                     <h3 class="text-base font-semibold leading-6 text-gray-900">
+                                    @if($ce->title)
+                                        {{ $ce->title }} on {{ $ce->date->format('M d, Y') }}</h3>
+                                    @else
                                         {{ $ce->contactMethod->name }} on {{ $ce->date->format('M d, Y') }}</h3>
+                                    @endif
                                 </a>
                                 @if ($ce->recap)
                                     <p class="text-sm text-gray-500">
