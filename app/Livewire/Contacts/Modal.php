@@ -23,13 +23,17 @@ class Modal extends Component
 
     public bool $editMode = false;
 
-    public function mount(?Contact $contact)
+    public function mount(?Contact $contact, ?int $companyId = null)
     {
         if ($contact->id) {
             $this->form->setContact($contact);
             $this->editMode = true;
         } else {
             $this->form->preferred_contact_method = ContactMethod::where('name', 'Email')->first()->id;
+        }
+
+        if ($companyId) {
+            $this->form->setCompany($companyId);
         }
 
         $this->contact_methods = ContactMethod::all();
@@ -53,12 +57,6 @@ class Modal extends Component
     public function render(): View
     {
         return view('livewire.contacts.modal');
-    }
-
-    #[On('company-selected')]
-    public function setCompany($company_id)
-    {
-        $this->form->company_id = $company_id;
     }
 
     public function closeModal()

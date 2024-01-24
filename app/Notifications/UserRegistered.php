@@ -33,8 +33,6 @@ class UserRegistered extends Notification
      */
     public function toMail(object $notifiable): UserRegisteredMailMessage
     {
-        ray('toMail');
-
         return (new UserRegisteredMailMessage)
             ->to($notifiable->email);
     }

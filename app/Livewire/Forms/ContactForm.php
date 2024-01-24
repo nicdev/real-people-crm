@@ -8,6 +8,7 @@ use App\Models\ContactMethod;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
 use Illuminate\Validation\Rule;
+use Livewire\Attributes\On;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 
@@ -67,7 +68,7 @@ class ContactForm extends Form
     public function mount(?Contact $contact)
     {
         $this->companies = auth()->user()->companies;
-        $this->company_id = $this->contact?->company_id ?: $this->contact->company_id;
+        //$this->company_id = $this->contact?->company_id ?: $this->contact->company_id;
         $this->preferred_contact_method = $this->contact->preferredContactMethod ?? ContactMethod::whereName('Email')->first()->id;
 
         $this->contact = $contact;
@@ -138,5 +139,11 @@ class ContactForm extends Form
         // foreach ($this->contact->getAttributes() as $key => $value) {
         //     $this->$key = $value;
         // }
+    }
+
+    #[On('company-selected')]
+    public function setCompany($company_id)
+    {
+        $this->company_id = $company_id;
     }
 }

@@ -185,8 +185,7 @@
         <livewire:companies.modal :show-modal="$showCompanyForm"
             :company="$company"
             @companycreatedorupdated="$refresh" />
-        <livewire:shared.modal component="contacts.modal"
-            :show-modal="$showContactForm"
-            :company="$company" />
+        <livewire:contacts.modal :show-modal="$showContactForm"
+            :companyId="$company->id" />
 
 </div>

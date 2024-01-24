@@ -116,7 +116,6 @@ class User extends Authenticatable
         });
 
         static::created(function ($user) {
-            ray('notify');
             $user->notify(new UserRegistered);
         });
     }

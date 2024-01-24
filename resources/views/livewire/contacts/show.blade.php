@@ -110,14 +110,12 @@
                 </div>
             </dl>
         </div>
-    </div>
 
-    @if ($showContactEventModal)
-        <livewire:contact-events.modal :contact="$contact" />
-    @endif
-
-    <livewire:contacts.modal :show-modal="$showContactForm"
+    <livewire:contacts.modal :showModal="$showContactForm"
         :contact="$contact"
         @contactcreatedorupdated="$refresh" />
+    </div>
+    <livewire:contact-events.modal :contact="$contact"  :showModal="$showContactEventModal"/>
+    
 
 </div>

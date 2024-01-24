@@ -1,4 +1,4 @@
-<div class="relative z-10"
+<div class="relative z-10 {{ $showModal ? '' : 'hidden' }}"
     aria-labelledby="modal-title"
     role="dialog"
     aria-modal="true">
@@ -8,8 +8,9 @@
             <div
                 class="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6">
                 <!-- Close button -->
+                <!-- Close button -->
                 <button type="button"
-                    wire:click="$dispatch('modal-closed')"
+                    wire:click="closeModal"
                     class="absolute top-0 right-0 mt-4 mr-4 mb-4 rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                     <span class="sr-only">Close</span>
                     <svg class="h-6 w-6"

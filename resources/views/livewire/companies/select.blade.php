@@ -8,10 +8,10 @@
     </select>
      @script
         <script>
-            const segments = window.location.pathname.split("/");
+            {{-- const segments = window.location.pathname.split("/");
             if (segments[1].toLowerCase() === "companies" && segments[2]) {
                 initCompanySelect(segments[2])
-            };
+            }; --}}
 
             function initCompanySelect(companyId) {
                 $wire.$call('setCompany', companyId)
