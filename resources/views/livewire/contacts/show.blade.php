@@ -24,7 +24,7 @@
         </span>
     </nav>
     <h1 class="text-xl font-semibold my-4 flex justify-left items-center">
-        <img class="h-12 w-12 rounded-full mr-2"
+        <img class="h-12 w-12 rounded-full mr-2 object-cover"
             src="{{ $contact->photo ?? gravatar($contact->email) }}"
             alt="">
         {{ $contact->first_name }}{{ $contact->middle_name ? ' ' . substr($contact->middle_name, 0, 1) : '' }}
