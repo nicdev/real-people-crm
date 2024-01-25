@@ -30,6 +30,8 @@ class Dashboard extends Component
             ->orderBy('last_name', 'asc')
             ->paginate(10);
 
+        $followUpList->withPath('/dashboard');
+
         return view('livewire.dashboard')->with(compact('followUpList'));
     }
 
