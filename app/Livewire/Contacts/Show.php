@@ -4,6 +4,7 @@ namespace App\Livewire\Contacts;
 
 use App\Models\Contact;
 use Livewire\Attributes\On;
+use Livewire\Attributes\Renderless;
 use Livewire\Component;
 
 class Show extends Component
@@ -25,14 +26,19 @@ class Show extends Component
     {
         $this->authorize('view', $contact);
         $this->contact = $contact;
-        $this->title = $contact->first_name.' '.$contact->last_name;
+        $this->title = $contact->first_name . ' ' . $contact->last_name;
     }
 
-    public function delete(Contact $contact)
+    // Having an issue where a 404 is triggered on deletion
+    // before I can redirect.
+    // #[Renderless]
+    public function delete()
     {
-        $this->authorize('delete', $contact);
+        // $this->skipHydrate();
         
-        $contact->delete();
+        $this->authorize('delete', $this->contact);
+
+        $this->contact->delete();
 
         session()->flash('message', 'Contact successfully deleted.');
 

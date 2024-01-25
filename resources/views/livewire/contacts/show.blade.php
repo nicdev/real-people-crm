@@ -17,10 +17,10 @@
             <button wire:click="$toggle('showContactEventModal')"
                 class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 mr-2 border border-blue-500 hover:border-transparent rounded">
                 New Contact Event</button>
-            <button
+            {{-- <button
                 class="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 mr-2 border border-red-500 hover:border-transparent rounded"
                 wire:click="delete"
-                wire:confirm="Are you sure you want to delete {{ $contact->first_name }}?">Delete</button>
+                wire:confirm="Are you sure you want to delete {{ $contact->first_name }}?">Delete</button> --}}
         </span>
     </nav>
     <h1 class="text-xl font-semibold my-4 flex justify-left items-center">

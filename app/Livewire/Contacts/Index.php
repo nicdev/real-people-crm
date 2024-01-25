@@ -54,11 +54,11 @@ class Index extends Component
 
     public function delete(Contact $contact)
     {
+        $this->authorize('delete', $contact);
+        
         $contact->delete();
 
         session()->flash('message', 'Contact successfully deleted.');
-
-        return redirect()->route('contacts.index');
     }
 
     public function importFromGoogle()

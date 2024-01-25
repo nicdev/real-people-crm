@@ -41,7 +41,7 @@ class Modal extends Component
 
     public function store()
     {
-        if($this->form->contact) {
+        if(isset($this->form->contact)) {
             $this->authorize('update', $this->form->contact);
         } else {
             $this->authorize('create', Contact::class);
