@@ -21,7 +21,7 @@
                 <div class="ml-4 mt-4">
                     <div class="flex items-center">
                         <div class="flex-shrink-0">
-                            <img class="h-12 w-12 rounded-full"
+                            <img class="h-12 w-12 rounded-full object-cover"
                                 src="{{ $fu->photo ?? gravatar($fu->email) }}"
                                 alt="">
                         </div>

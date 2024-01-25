@@ -28,19 +28,23 @@ class Index extends Component
 
     public function render()
     {
-        $searchTerm = strtolower(trim($this->search));
         $contacts = auth()->user()
             ->contacts()
             ->orderBy('first_name', 'asc')
-            ->when($this->search, function ($query) use ($searchTerm){
-                $query->whereRaw('LOWER(first_name) LIKE ?', "%{$searchTerm}%")
-                    ->orWhereRaw('LOWER(middle_name) LIKE ?', "%{$searchTerm}%")
-                    ->orWhereRaw('LOWER(last_name) LIKE ?', "%{$searchTerm}%")
-                    ->orWhereRaw('LOWER(email) LIKE ?', "%{$searchTerm}%")
-                    ->orWhereRaw('LOWER(general_notes) LIKE ?', "%{$searchTerm}%")
-                    ->orWhere('phone', 'like', "%{$searchTerm}%");
+            ->when($this->search, function ($query) {
+                $searchTerm = strtolower(trim($this->search));
+                $query->where(function ($subQuery) use ($searchTerm) {
+                    $subQuery->whereRaw('LOWER(first_name) LIKE ?', "%{$searchTerm}%")
+                        ->orWhereRaw('LOWER(middle_name) LIKE ?', "%{$searchTerm}%")
+                        ->orWhereRaw('LOWER(last_name) LIKE ?', "%{$searchTerm}%")
+                        ->orWhereRaw('LOWER(email) LIKE ?', "%{$searchTerm}%")
+                        ->orWhereRaw('LOWER(general_notes) LIKE ?', "%{$searchTerm}%")
+                        ->orWhere('phone', 'like', "%{$searchTerm}%");
+                });
             })
             ->paginate(15);
+
+        ray($contacts);
 
         $contacts->withPath('/contacts');
 
@@ -58,7 +62,7 @@ class Index extends Component
     public function delete(Contact $contact)
     {
         $this->authorize('delete', $contact);
-        
+
         $contact->delete();
 
         session()->flash('message', 'Contact successfully deleted.');
