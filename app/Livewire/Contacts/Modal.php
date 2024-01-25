@@ -41,12 +41,12 @@ class Modal extends Component
 
     public function store()
     {
-        if(isset($this->form->contact)) {
+        if (isset($this->form->contact)) {
             $this->authorize('update', $this->form->contact);
         } else {
             $this->authorize('create', Contact::class);
         }
-        
+
         $contact = $this->form->store();
 
         $message = $contact->wasRecentlyCreated ? 'Contact successfully created.' : 'Contact successfully updated.';
@@ -77,9 +77,10 @@ class Modal extends Component
     public function updated($key, $value)
     {
         match ($key) {
-             'form.linkedin' => $this->form->linkedin = formatPersonLinkedInUrl($value),
-             'form.twitter' =>$this->form->twitter = formatTwitterUrl($value),
-             'form.website' => $this->form->website = formatWebsiteUrl($value),
+            'form.linkedin' => $this->form->linkedin = formatPersonLinkedInUrl($value),
+            'form.twitter' => $this->form->twitter = formatTwitterUrl($value),
+            'form.website' => $this->form->website = formatWebsiteUrl($value),
+            default => null,
         };
     }
 }
