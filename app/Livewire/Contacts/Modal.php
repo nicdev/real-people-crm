@@ -73,4 +73,13 @@ class Modal extends Component
     {
         $this->form->company_id = $company_id;
     }
+
+    public function updated($key, $value)
+    {
+        match ($key) {
+             'form.linkedin' => $this->form->linkedin = formatPersonLinkedInUrl($value),
+             'form.twitter' =>$this->form->twitter = formatTwitterUrl($value),
+             'form.website' => $this->form->website = formatWebsiteUrl($value),
+        };
+    }
 }
