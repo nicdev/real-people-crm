@@ -17,13 +17,16 @@ class Select extends Component
         return view('livewire.companies.select')->with(['companies' => $this->companies]);
     }
 
-    public function setCompany($company_id)
-    {
-        $this->dispatch('company-selected', $company_id)->to(Modal::class);
-    }
-
-    public function mount(Collection $companies)
+    public function mount(Collection $companies, int $company_id = null)
     {
         $this->companies = $companies;
+        $this->company_id = $company_id;
+    }
+    
+    public function updated($key, $value)
+    {
+        if($key === 'company_id') {
+            $this->dispatch('company-selected', $value);
+        }
     }
 }
