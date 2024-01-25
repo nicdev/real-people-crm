@@ -28,18 +28,21 @@ class Index extends Component
 
     public function render()
     {
+        $searchTerm = strtolower(trim($this->search));
         $contacts = auth()->user()
             ->contacts()
             ->orderBy('first_name', 'asc')
-            ->when($this->search, function ($query) {
-                $query->where('first_name', 'like', "%{$this->search}%")
-                    ->orWhere('middle_name', 'like', "%{$this->search}%")
-                    ->orWhere('last_name', 'like', "%{$this->search}%")
-                    ->orWhere('email', 'like', "%{$this->search}%")
-                    ->orWhere('phone', 'like', "%{$this->search}%")
-                    ->orWhere('general_notes', 'like', "%{$this->search}%");
+            ->when($this->search, function ($query) use ($searchTerm){
+                $query->whereRaw('LOWER(first_name) LIKE ?', "%{$searchTerm}%")
+                    ->orWhereRaw('LOWER(middle_name) LIKE ?', "%{$searchTerm}%")
+                    ->orWhereRaw('LOWER(last_name) LIKE ?', "%{$searchTerm}%")
+                    ->orWhereRaw('LOWER(email) LIKE ?', "%{$searchTerm}%")
+                    ->orWhereRaw('LOWER(general_notes) LIKE ?', "%{$searchTerm}%")
+                    ->orWhere('phone', 'like', "%{$searchTerm}%");
             })
             ->paginate(15);
+
+        $contacts->withPath('/contacts');
 
         return view('livewire.contacts.index')->with(compact('contacts'));
     }
