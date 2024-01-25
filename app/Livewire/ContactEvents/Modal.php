@@ -78,7 +78,9 @@ class Modal extends Component
 
         session()->flash('message', 'Contact Event successfully created.');
 
-        return redirect()->route('contacts.show', $this->contact_event->contact_id);
+        $this->contact_event = new ContactEvent();
+
+        return redirect()->route('contacts.show', $this->contact);
     }
 
     #[On('updated-contact-id')]

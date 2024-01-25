@@ -60,7 +60,7 @@
                 @if ($contact->linkedin)
                     <div class="px-4 py-6 sm:col-span-1 sm:px-0">
                         <dt class="text-sm font-medium leading-6 text-gray-900">LinkedIn</dt>
-                        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:mt-2">{{ $contact->linkedin }}</dd>
+                        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:mt-2"><a href="{{ $contact->linkedin }}" target="_blank">{{ $contact->linkedin }}</a></dd>
                     </div>
                 @endif
                 @if ($contact->phone)
@@ -74,7 +74,7 @@
                 @endif
                 @if ($contact->website)
                     <div class="px-4 py-6 sm:col-span-1 sm:px-0">
-                        <dt class="text-sm font-medium leading-6 text-gray-900">Phone</dt>
+                        <dt class="text-sm font-medium leading-6 text-gray-900">Website</dt>
                         <dd class="flex justify-left items-center mt-1 text-sm leading-6 text-gray-700 sm:mt-2"><a
                                 href="{{ $contact->website }}"
                                 target="_blank">{{ $contact->website }}</a>
@@ -82,11 +82,14 @@
                     </div>
                 @endif
                 @if ($contact->twitter)
+                    @php
+                        $twitterParts = explode('/', $contact->twitter);
+                    @endphp
                     <div class="px-4 py-6 sm:col-span-1 sm:px-0">
                         <dt class="text-sm font-medium leading-6 text-gray-900">X/Twitter</dt>
                         <dd class="mt-1 text-sm leading-6 text-gray-700 sm:mt-2"><a
-                                href="https://x.com/{{ $contact->twitter }}"
-                                target="_blank">@{{ $contact - > twitter }}</a></dd>
+                                href="{{ $contact->twitter }}"
+                                target="_blank">{{ '@'.array_pop($twitterParts) }}</a></dd>
                     </div>
                 @endif
                 @if ($contact->threads)
@@ -104,10 +107,12 @@
                                 target="_blank">{{ $contact->youtube }}</a></dd>
                     </div>
                 @endif
+                @if($contact->general_notes)
                 <div class="px-4 py-6 sm:col-span-2 sm:px-0">
                     <dt class="text-sm font-medium leading-6 text-gray-900">General Notes</dt>
                     <dd class="mt-1 text-sm leading-6 text-gray-700 sm:mt-2">{{ $contact->general_notes }}</dd>
                 </div>
+                @endif
             </dl>
         </div>
 

@@ -140,10 +140,4 @@ class ContactForm extends Form
         //     $this->$key = $value;
         // }
     }
-
-    #[On('company-selected')]
-    public function setCompany($company_id)
-    {
-        $this->company_id = $company_id;
-    }
 }

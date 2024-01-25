@@ -33,7 +33,7 @@ class Modal extends Component
         }
 
         if ($companyId) {
-            $this->form->setCompany($companyId);
+            $this->form->company_id = $companyId;
         }
 
         $this->contact_methods = ContactMethod::all();
@@ -53,8 +53,6 @@ class Modal extends Component
 
         session()->flash('message', $message);
 
-        $this->dispatch('contact-created-or-updated', $contact->id)->to(SharedModal::class);
-
         // @TODO I have a bug where the modal doesn't get filled in with the new contact on first load
         // reloading the page fixes it. For the time being I'm simply redirecting to the contact index page
         $contact->wasRecentlyCreated ? $this->redirectRoute('contacts.index') : $this->redirectRoute('contacts.show', $contact);
@@ -68,5 +66,20 @@ class Modal extends Component
     public function closeModal()
     {
         $this->dispatch('modal-closed');
+    }
+
+    #[On('company-selected')]
+    public function setCompany($company_id)
+    {
+        $this->form->company_id = $company_id;
+    }
+
+    public function updated($key, $value)
+    {
+        match ($key) {
+             'form.linkedin' => $this->form->linkedin = formatPersonLinkedInUrl($value),
+             'form.twitter' =>$this->form->twitter = formatTwitterUrl($value),
+             'form.website' => $this->form->website = formatWebsiteUrl($value),
+        };
     }
 }

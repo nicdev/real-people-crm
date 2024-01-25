@@ -181,11 +181,10 @@
                 </dl>
             </div>
         </div>
-
         <livewire:companies.modal :show-modal="$showCompanyForm"
             :company="$company"
             @companycreatedorupdated="$refresh" />
         <livewire:contacts.modal :show-modal="$showContactForm"
-            :companyId="$company->id" />
+            :company_id="$company->id" />
 
 </div>

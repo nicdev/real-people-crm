@@ -15,7 +15,6 @@ class IntroductionPolicy
      */
     public function create(User $user, Contact $firstContact, Contact $secondContact): bool
     {
-        ray($user, $firstContact, $secondContact);
         return Auth::check() && $firstContact->user_id === $user->id && $secondContact->user_id === $user->id;
     }
 
