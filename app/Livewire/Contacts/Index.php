@@ -44,8 +44,6 @@ class Index extends Component
             })
             ->paginate(15);
 
-        ray($contacts);
-
         $contacts->withPath('/contacts');
 
         return view('livewire.contacts.index')->with(compact('contacts'));
