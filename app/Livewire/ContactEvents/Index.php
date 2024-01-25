@@ -11,7 +11,7 @@ class Index extends Component
 
     public function render()
     {
-        $contactEvents = $this->contact->contactEvents()->orderBy('date', 'desc')->limit(5)->get();
+        $contactEvents = $this->contact->contactEvents()->orderBy('date', 'desc')->orderBy('updated_at', 'desc')->paginate(5);
 
         return view('livewire.contact-events.index')->with(compact('contactEvents'));
     }
