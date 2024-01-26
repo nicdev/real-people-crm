@@ -32,7 +32,7 @@ Route::get('/privacy-policy', function () {
     return view('privacy');
 });;
 
-Route::get('/terms-of-service', function () {
+Route::get('/tos', function () {
     return view('terms');
 });;
 
