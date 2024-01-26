@@ -15,12 +15,13 @@
         {{ $followUpList->links() }}
     </div>
     @forelse ($followUpList as $fu)
-        <div class="border-b border-gray-200 bg-white px-4 py-5 sm:px-6 flex flex-wrap sm:flex-nowrap items-start"
+        <div class="border-b border-gray-200 bg-white px-4 py-5 sm:px-6"
             wire:key="{{ $fu->id }}">
             <div class="-ml-4 -mt-4 flex flex-wrap items-center justify-between sm:flex-nowrap">
                 <div class="ml-4 mt-4">
                     <div class="flex items-center flex-wrap sm:flex-nowrap">
-                        <div class="flex flex-wrap sm:flex-nowrap">
+                        {{-- <div class="flex flex-wrap sm:flex-nowrap"> --}}
+                        <div class="flex-shrink-0">
                             <img class="h-12 w-12 rounded-full object-cover"
                                 src="{{ $fu->photo ?? gravatar($fu->email) }}"
                                 alt="">
@@ -31,13 +32,13 @@
                                     {{ $fu->middle_name ? substr($fu->middle_name, 0, 1) . '.' : '' }}
                                     {{ $fu->last_name }}</h3>
                             </a>
-                            <p class="text-sm text-gray-500">
+                            {{-- <p class="text-sm text-gray-500">
                                 @if ($fu->title)
-                                    {{ $fu->title }}
+                                    {{ $fu->title }} at 
                                     @endif @if ($fu->company)
-                                        at {{ $fu->company->name }}
+                                        {{ $fu->company->name }}
                                     @endif
-                            </p>
+                            </p> --}}
                         </div>
 
                         <div class="ml-4">
@@ -54,10 +55,9 @@
                                 @endif
                             </p>
                         </div>
-
                     </div>
                 </div>
-                <div class="mt-4 flex flex-wrap sm:flex-nowrap items-center justify-end ml-4">
+                <div class="mt-4 ml-4">
                     <button type="button"
                         class="relative inline-flex items-center rounded-md bg-white px-3 py-2 mb-4 sm:mb-0 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 mr-4" wire:click="snooze({{$fu->id }}, 7)">
                         <span>Snooze a Week</span>
