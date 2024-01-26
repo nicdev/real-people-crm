@@ -9,6 +9,8 @@ class Nav extends Component
 {
     public bool $showUserMenu = false;
 
+    public bool $showNavMenu = false;
+
     public function render(): View
     {
         return view('livewire.shared.nav');

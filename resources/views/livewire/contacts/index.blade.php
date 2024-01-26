@@ -14,6 +14,13 @@
                 class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 mr-2 border border-blue-500 hover:border-transparent rounded">
                 New Contact</button>
         </span>
+        @if (auth()->user()->contacts->count() >= 2)
+            <span class="my-4 mr-2">
+                <button wire:click="$toggle('showIntroduceContactsForm')"
+                    class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 mr-2 border border-blue-500 hover:border-transparent rounded mb-4 sm:mb-0">
+                    Introduce Contacts</button>
+            </span>
+        @endif
         @if (auth()->user()->google_token)
             <span class="my-4 mr-2">
                 <button type="button"
@@ -21,13 +28,6 @@
                     class="bg-transparent hover:bg-blue-500 font-semibold hover:text-white py-2 px-4 mr-2 border hover:border-transparent rounded {{ $importingContacts ? 'text-blue-400 border-blue-200  hover:bg-blue-100' : 'text-blue-700 border-blue-500  hover:bg-blue-500' }}"
                     {{ $importingContacts ? 'disabled' : '' }}>
                     Import Contacts From Google</button>
-            </span>
-        @endif
-        @if (auth()->user()->contacts->count() >= 2)
-            <span class="my-4 mr-2">
-                <button wire:click="$toggle('showIntroduceContactsForm')"
-                    class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 mr-2 border border-blue-500 hover:border-transparent rounded">
-                    Introduce Contacts</button>
             </span>
         @endif
         {{-- @if (auth()->user()->linkedin_token)
