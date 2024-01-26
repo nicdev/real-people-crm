@@ -1,7 +1,7 @@
 <div>
     <livewire:shared.nav />
     <h1 class="text-lg">Upcoming Follow Ups</h1>
-     <div class="my-4">
+     <div class="my-4 sm:w-auto w-full">
         <div class="relative mt-2 rounded-md shadow-sm">
             <input type="text"
                 name="search"
@@ -15,17 +15,17 @@
         {{ $followUpList->links() }}
     </div>
     @forelse ($followUpList as $fu)
-        <div class="border-b border-gray-200 bg-white px-4 py-5 sm:px-6"
+        <div class="border-b border-gray-200 bg-white px-4 py-5 sm:px-6 flex flex-wrap sm:flex-nowrap"
             wire:key="{{ $fu->id }}">
             <div class="-ml-4 -mt-4 flex flex-wrap items-center justify-between sm:flex-nowrap">
                 <div class="ml-4 mt-4">
-                    <div class="flex items-center">
-                        <div class="flex-shrink-0">
+                    <div class="flex items-center flex-wrap sm:flex-nowrap">
+                        <div class="flex flex-wrap sm:flex-nowrap">
                             <img class="h-12 w-12 rounded-full object-cover"
                                 src="{{ $fu->photo ?? gravatar($fu->email) }}"
                                 alt="">
                         </div>
-                        <div class="ml-4">
+                        <div class="ml-4 flex flex-wrap sm:flex-nowrap">
                             <a href="{{ route('contacts.show', $fu) }}">
                                 <h3 class="text-base font-semibold leading-6 text-gray-900">{{ $fu->first_name }}
                                     {{ $fu->middle_name ? substr($fu->middle_name, 0, 1) . '.' : '' }}
@@ -57,13 +57,13 @@
 
                     </div>
                 </div>
-                <div class="ml-4 mt-4 flex flex-shrink-0">
+                <div class="ml-4 mt-4 flex flex-wrap sm:flex-nowrap items-center justify-center sm:justify-left">
                     <button type="button"
-                        class="relative inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 mr-1" wire:click="snooze({{$fu->id }}, 7)">
+                        class="relative inline-flex items-center rounded-md bg-white px-3 py-2 mb-4 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 mr-1" wire:click="snooze({{$fu->id }}, 7)">
                         <span>Snooze a Week</span>
                     </button>
                     <button type="button"
-                        class="relative inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 mr-1" wire:click="snooze({{$fu->id }}, 30)">
+                        class="relative inline-flex items-center rounded-md bg-white px-3 py-2 mb-4 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 mr-1" wire:click="snooze({{$fu->id }}, 30)">
                         <span>Snooze a Month</span>
                     </button>
                     <input type="date"
