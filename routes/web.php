@@ -32,6 +32,10 @@ Route::get('/privacy-policy', function () {
     return view('privacy');
 });;
 
+Route::get('/terms-of-service', function () {
+    return view('terms');
+});;
+
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'authenticate'])->name('authenticate');
 Route::get('/register', [AuthController::class, 'register'])->name('register');
