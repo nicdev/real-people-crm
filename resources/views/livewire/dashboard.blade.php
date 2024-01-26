@@ -15,7 +15,7 @@
         {{ $followUpList->links() }}
     </div>
     @forelse ($followUpList as $fu)
-        <div class="border-b border-gray-200 bg-white px-4 py-5 sm:px-6 flex flex-wrap sm:flex-nowrap"
+        <div class="border-b border-gray-200 bg-white px-4 py-5 sm:px-6 flex flex-wrap sm:flex-nowrap items-start"
             wire:key="{{ $fu->id }}">
             <div class="-ml-4 -mt-4 flex flex-wrap items-center justify-between sm:flex-nowrap">
                 <div class="ml-4 mt-4">
@@ -57,17 +57,17 @@
 
                     </div>
                 </div>
-                <div class="ml-4 mt-4 flex flex-wrap sm:flex-nowrap items-center justify-center sm:justify-left">
+                <div class="mt-4 flex flex-wrap sm:flex-nowrap items-center justify-end ml-4">
                     <button type="button"
-                        class="relative inline-flex items-center rounded-md bg-white px-3 py-2 mb-4 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 mr-1" wire:click="snooze({{$fu->id }}, 7)">
+                        class="relative inline-flex items-center rounded-md bg-white px-3 py-2 mb-4 sm:mb-0 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 mr-4" wire:click="snooze({{$fu->id }}, 7)">
                         <span>Snooze a Week</span>
                     </button>
                     <button type="button"
-                        class="relative inline-flex items-center rounded-md bg-white px-3 py-2 mb-4 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 mr-1" wire:click="snooze({{$fu->id }}, 30)">
+                        class="relative inline-flex items-center rounded-md bg-white px-3 py-2 mb-4 sm:mb-0 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 mr-4" wire:click="snooze({{$fu->id }}, 30)">
                         <span>Snooze a Month</span>
                     </button>
                     <input type="date"
-                        class="relative inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 mr-1"
+                        class="relative inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 mr-4"
                         wire:change="updateFollowUp($event.target.value, {{ $fu->id }})" value={{ $fu->follow_up_date }}>
                     <button
                         class="relative inline-flex items-center rounded-md bg-white hover:bg-red-500 hover:text-gray-100 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-red-500"
