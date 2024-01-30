@@ -342,9 +342,9 @@
                     <p>By email: info@realpeoplecrm.com</p>
                 </li>
                 <li>
-                    <p>By visiting this page on our website: <a href="https://nicrosental.com/rpcrm/privacy"
+                    <p>By visiting this page on our website: <a href="https://app.realpeoplecrm.com/privacy-policy"
                             rel="external nofollow noopener noreferrer"
-                            target="_blank">https://nicrosental.com/rpcrm/privacy</a></p>
+                            target="_blank">https://app.realpeoplecrm.com/privacy-policy</a></p>
                 </li>
             </ul>
         </div>
