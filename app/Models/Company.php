@@ -99,7 +99,7 @@ class Company extends Model
             $count = 1;
 
             // Check if the slug already exists and increment the suffix until a unique slug is found
-            while (static::where('slug', $slug)->exists()) {
+            while (static::where('slug', $slug)->withTrashed()->exists()) {
                 $slug = $slugBase.'-'.$count;
                 $count++;
             }
