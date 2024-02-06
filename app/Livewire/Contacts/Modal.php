@@ -3,7 +3,6 @@
 namespace App\Livewire\Contacts;
 
 use App\Livewire\Forms\ContactForm;
-use App\Livewire\Shared\Modal as SharedModal;
 use App\Models\Contact;
 use App\Models\ContactMethod;
 use Illuminate\Contracts\View\View;

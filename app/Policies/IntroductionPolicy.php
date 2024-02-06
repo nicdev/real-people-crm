@@ -5,7 +5,6 @@ namespace App\Policies;
 use App\Models\Contact;
 use App\Models\Introduction;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
 use Illuminate\Support\Facades\Auth;
 
 class IntroductionPolicy
@@ -31,6 +30,6 @@ class IntroductionPolicy
      */
     public function delete(User $user, Introduction $introduction): bool
     {
-        return $introduction->user_id === $user->id; 
+        return $introduction->user_id === $user->id;
     }
 }

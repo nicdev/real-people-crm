@@ -153,7 +153,7 @@ class AuthController extends Controller
         $user->notify(new PasswordResetRequest);
 
         session()->flash('message', 'Password reset email sent.');
-        
+
         return redirect('/password/reset');
     }
 

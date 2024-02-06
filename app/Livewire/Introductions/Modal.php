@@ -70,7 +70,7 @@ class Modal extends Component
     public function sendIntroduction(CreateIntroduction $createIntroduction)
     {
         $this->authorize('create', Contact::find($this->first_contact), Contact::find($this->second_contact));
-        
+
         $createIntroduction([
             'first_contact_id' => $this->first_contact,
             'second_contact_id' => $this->second_contact,

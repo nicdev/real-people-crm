@@ -59,7 +59,7 @@ class Modal extends Component
 
     public function store(CreateOrUpdateCompany $createOrUpdateCompany)
     {
-        if($this->company?->id) {
+        if ($this->company?->id) {
             $this->authorize('update', $this->company);
         } else {
             $this->authorize('create', Company::class);

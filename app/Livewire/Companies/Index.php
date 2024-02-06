@@ -26,7 +26,7 @@ class Index extends Component
     public function delete(Contact $company)
     {
         $this->authorize('delete', $company);
-        
+
         $company->delete();
 
         session()->flash('message', 'Company successfully deleted.');

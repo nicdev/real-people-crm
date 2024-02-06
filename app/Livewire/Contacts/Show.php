@@ -27,7 +27,7 @@ class Show extends Component
     {
         $this->authorize('view', $contact);
         $this->contact = $contact;
-        $this->title = $contact->first_name . ' ' . $contact->last_name;
+        $this->title = $contact->first_name.' '.$contact->last_name;
     }
 
     // Having an issue where a 404 is triggered on deletion
@@ -36,7 +36,7 @@ class Show extends Component
     public function delete()
     {
         // $this->skipHydrate();
-        
+
         $this->authorize('delete', $this->contact);
 
         $this->contact->delete();

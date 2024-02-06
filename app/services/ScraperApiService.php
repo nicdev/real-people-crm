@@ -92,7 +92,7 @@ class ScraperApiService
     /**
      * Makes a structured Twitter Search API call
      */
-    public function twitterSearch(string $query, string $nextCursor = null): array
+    public function twitterSearch(string $query, ?string $nextCursor = null): array
     {
         $url = config('services.scraperapi.api').'/structured/twitter/v2/search';
         $params = [
@@ -128,7 +128,7 @@ class ScraperApiService
     /**
      * Retrieves tweets for a given Twitter profile
      */
-    public function twitterTweets(string $userId, string $nextCursor = null): array
+    public function twitterTweets(string $userId, ?string $nextCursor = null): array
     {
         $url = config('services.scraperapi.api').'/structured/twitter/v2/tweets';
         $params = [

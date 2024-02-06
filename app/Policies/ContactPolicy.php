@@ -5,7 +5,6 @@ namespace App\Policies;
 use App\Models\Contact;
 use App\Models\User;
 use Auth;
-use Illuminate\Auth\Access\Response;
 
 class ContactPolicy
 {

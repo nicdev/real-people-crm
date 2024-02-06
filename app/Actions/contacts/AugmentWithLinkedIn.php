@@ -11,7 +11,7 @@ class AugmentWithLinkedIn
     {
         $client = new ScraperApiService(config('services.scraperapi.api_key'));
         $client->get([
-            'https://www.linkedin.com/in/' . $contact->linkedin,
+            'https://www.linkedin.com/in/'.$contact->linkedin,
         ]);
     }
 }
