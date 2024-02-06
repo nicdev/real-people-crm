@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Contacts;
 
+use App\Actions\Contacts\AugmentWithLinkedIn;
 use App\Models\Contact;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Renderless;
@@ -50,5 +51,10 @@ class Show extends Component
     {
         $this->showContactEventModal = false;
         $this->showContactForm = false;
+    }
+
+    public function augmentWithLinkedIn(AugmentWithLinkedIn $augmentWithLinkedIn)
+    {
+        $augmentWithLinkedIn($this->contact);
     }
 }

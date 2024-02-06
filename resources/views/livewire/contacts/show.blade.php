@@ -14,9 +14,16 @@
                     class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 mr-2 border border-blue-500 hover:border-transparent rounded">
                     Edit</button>
             </span>
+            <span class="my-4 mr-2">
             <button wire:click="$toggle('showContactEventModal')"
                 class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 mr-2 border border-blue-500 hover:border-transparent rounded">
                 New Contact Event</button>
+            </span>
+            <span class="my-4 mr-2">
+            <button wire:click="augmentWithLinkedIn"
+                class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 mr-2 border border-blue-500 hover:border-transparent rounded">
+                Augment with LinkedIn</button>
+            </span>
             {{-- <button
                 class="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 mr-2 border border-red-500 hover:border-transparent rounded"
                 wire:click="delete"
