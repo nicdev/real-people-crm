@@ -75,8 +75,8 @@ class AuthController extends Controller
         $scopes = [
             'https://www.googleapis.com/auth/userinfo.email',
             'https://www.googleapis.com/auth/userinfo.profile',
-            'https://www.googleapis.com/auth/gmail.readonly',
-            'https://www.googleapis.com/auth/contacts.readonly',
+            // 'https://www.googleapis.com/auth/gmail.readonly',
+            // 'https://www.googleapis.com/auth/contacts.readonly',
         ];
 
         return Socialite::driver('google')->scopes($scopes)->redirect();
