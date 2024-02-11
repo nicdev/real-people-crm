@@ -10,10 +10,14 @@ class AugmentWithLinkedIn
     public function __invoke(Contact $contact)
     {
         $client = new ScraperApiService(config('services.scraperapi.api_key'));
-        
-        $client->get([
-            // 'https://www.linkedin.com/in/'.$contact->linkedin,
-            $contact->linkedin,
-        ]);
+
+        return $client->get(
+            '',
+            false,
+            [
+                'api_key' => config('services.scraperapi.api_key'),
+                'url' => $contact->linkedin,
+            ]  
+        );
     }
 }

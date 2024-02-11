@@ -55,6 +55,7 @@ class Show extends Component
 
     public function augmentWithLinkedIn(AugmentWithLinkedIn $augmentWithLinkedIn)
     {
-        $augmentWithLinkedIn($this->contact);
+        $augmentedData = $augmentWithLinkedIn($this->contact);
+        ray($augmentedData);
     }
 }
