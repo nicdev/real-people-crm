@@ -25,7 +25,7 @@ class Show extends Component
     public function mount(Company $company)
     {
         $this->authorize('view', $company);
-        
+
         $this->company = $company;
         $this->title = $company->name;
     }
@@ -33,7 +33,7 @@ class Show extends Component
     public function removeFromCompany($contactId)
     {
         $this->authorize('update', $this->company);
-        
+
         $contact = Contact::find($contactId);
         $contact->company()->dissociate();
         $contact->save();
@@ -43,7 +43,7 @@ class Show extends Component
     public function delete()
     {
         $this->authorize('delete', $this->company);
-        
+
         $this->company->delete();
 
         session()->flash('message', 'Company deleted successfully');

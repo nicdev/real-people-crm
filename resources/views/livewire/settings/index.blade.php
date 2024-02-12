@@ -44,12 +44,12 @@
                         Save Settings
                     </button>
 
-                    @if(! auth()->user()->google_id || ! auth()->user()->google_token)
+                    {{-- @if(! auth()->user()->google_id || ! auth()->user()->google_token)
                     <button wire:click="connectToGoogle" class="bg-transparent font-semibold hover:text-white py-2 px-4 mr-2 border hover:border-transparent rounded text-blue-700 border-blue-500  hover:bg-blue-500">
                         Connect to Google
                     </button>
                     </a>
-                    @endif
+                    @endif --}}
 
                     <button wire:click="deleteUser" wire:confirm="Your account and all associated data will be deleted" class="bg-transparent font-semibold hover:text-white py-2 px-4 mr-2 border hover:border-transparent rounded text-red-700 border-red-500  hover:bg-red-500">
                         Delete Account

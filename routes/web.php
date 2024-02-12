@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    if(Auth::check()) {
+    if (Auth::check()) {
         return redirect()->route('dashboard');
     }
 
@@ -30,11 +30,11 @@ Route::get('/', function () {
 
 Route::get('/privacy-policy', function () {
     return view('privacy');
-});;
+});
 
 Route::get('/tos', function () {
     return view('terms');
-});;
+});
 
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'authenticate'])->name('authenticate');

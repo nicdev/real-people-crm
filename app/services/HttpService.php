@@ -24,7 +24,7 @@ class HttpService
         private $token = null,
         private $refreshToken = null,
         private $client = null,
-        private $headers = [],
+        public $headers = [],
         private $result = [],
         private $history = [],
     ) {

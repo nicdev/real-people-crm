@@ -3,7 +3,6 @@
 namespace App\Notifications;
 
 use App\Mail\PasswordResetFinishedMailMessage;
-use App\Mail\PasswordResetMailMessage;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 

@@ -42,4 +42,20 @@ return [
         'client_secret' => env('LINKEDIN_CLIENT_SECRET'),
         'redirect' => env('LINKEDIN_CALLBACK_URL'),
     ],
+
+    'scraperapi' => [
+        'api_key' => env('SCRAPER_API_KEY'),
+        'api' => env('SCRAPER_API', 'https://api.scraperapi.com'),
+        'async' => env('SCRAPER_API_ASYNC', 'https://async.scraperapi.com'),
+        'proxy_api' => null,
+        'webhook_url' => env('SCRAPER_API_WEBHOOK_URL'),
+        'basic_scrape_limit' => 2,
+        'max_tries' => 4,
+        'batch_size' => 200,
+    ],
+    'linkedin_rapid_api' => [
+        'api_key' => env('LI_RAPID_API_KEY'),
+        'host' => env('LI_RAPID_API_HOST', 'fresh-linkedin-profile-data.p.rapidapi.com'),
+        'url' => env('LI_RAPID_API_URL', 'https://fresh-linkedin-profile-data.p.rapidapi.com/get-linkedin-profile'),
+    ],
 ];

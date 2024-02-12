@@ -9,7 +9,7 @@ if (! function_exists('gravatar')) {
     }
 }
 
-if(! function_exists('formatPersonLinkedInUrl')) {
+if (! function_exists('formatPersonLinkedInUrl')) {
     function formatPersonLinkedInUrl($url)
     {
         if (str_contains($url, 'https://linkedin.com')) {
@@ -20,7 +20,7 @@ if(! function_exists('formatPersonLinkedInUrl')) {
     }
 }
 
-if(! function_exists('formatPersonLinkedInUrl')) {
+if (! function_exists('formatPersonLinkedInUrl')) {
     function formatPersonLinkedInUrl($url)
     {
         if (str_contains($url, 'https://linkedin.com')) {
@@ -31,7 +31,7 @@ if(! function_exists('formatPersonLinkedInUrl')) {
     }
 }
 
-if(! function_exists('formatTwitterUrl')) {
+if (! function_exists('formatTwitterUrl')) {
     function formatTwitterUrl($url)
     {
         if (str_contains($url, 'https://twitter.com' || str_contains($url, 'https://x.com'))) {
@@ -42,7 +42,7 @@ if(! function_exists('formatTwitterUrl')) {
     }
 }
 
-if(!function_exists('formatWebsiteUrl')) {
+if (! function_exists('formatWebsiteUrl')) {
     function formatWebsiteUrl($url)
     {
         if (str_contains($url, 'https://') || str_contains($url, 'http://')) {

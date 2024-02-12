@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Contacts;
 
+use App\Actions\Contacts\AugmentWithLinkedIn;
 use App\Models\Contact;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Renderless;
@@ -26,7 +27,7 @@ class Show extends Component
     {
         $this->authorize('view', $contact);
         $this->contact = $contact;
-        $this->title = $contact->first_name . ' ' . $contact->last_name;
+        $this->title = $contact->first_name.' '.$contact->last_name;
     }
 
     // Having an issue where a 404 is triggered on deletion
@@ -35,7 +36,7 @@ class Show extends Component
     public function delete()
     {
         // $this->skipHydrate();
-        
+
         $this->authorize('delete', $this->contact);
 
         $this->contact->delete();
@@ -50,5 +51,17 @@ class Show extends Component
     {
         $this->showContactEventModal = false;
         $this->showContactForm = false;
+    }
+
+    public function augmentWithLinkedIn(AugmentWithLinkedIn $augmentWithLinkedIn)
+    {
+        $augmentedData = $augmentWithLinkedIn($this->contact);
+
+        $this->contact->update([
+            'general_notes' => $this->contact->general_notes."\n\n".$augmentedData['about'],
+            'photo' => $augmentedData['profile_image_url'],
+            'structured_metadata' => $augmentedData,
+            'last_api_update' => now(),
+        ]);
     }
 }
