@@ -128,12 +128,16 @@ class Contact extends Model
         'photo',
         'birthday',
         'no_follow_up',
+        'structured_metadata',
+        'last_api_update',
     ];
 
     protected $casts = [
         'google_metadata' => 'array',
         'follow_up_date' => 'date',
         'birthday' => 'date',
+        'structured_metadata' => 'array',
+        'last_api_update' => 'datetime',
     ];
 
     protected static function boot()
