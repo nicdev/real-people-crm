@@ -56,7 +56,7 @@ class Show extends Component
     public function augmentWithLinkedIn(AugmentWithLinkedIn $augmentWithLinkedIn)
     {
         $augmentedData = $augmentWithLinkedIn($this->contact);
-        
+
         $this->contact->update([
             'general_notes' => $this->contact->general_notes."\n\n".$augmentedData['about'],
             'photo' => $augmentedData['profile_image_url'],

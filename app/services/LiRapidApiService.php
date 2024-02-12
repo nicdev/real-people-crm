@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Services\HttpService;
 use Illuminate\Support\Facades\Http;
 
 class LiRapidApiService
@@ -36,8 +35,9 @@ class LiRapidApiService
     //     return $res->json() ?: null;
     // }
 
-    public function getProfile($contact) {
-       return $this->client->get('', [
+    public function getProfile($contact)
+    {
+        return $this->client->get('', [
             'api_key' => config('services.linkedin_rapid_api.api_key'),
             'linkedin_url' => $contact->linkedin,
         ]);
@@ -54,7 +54,7 @@ class LiRapidApiService
     //     ];
 
     //     $this->headers['headers'] = $headers;
-        
+
     //     ray(config('services.linkedin_rapid_api.url').'/'.$endpoint);
     //     $res = Http::withHeaders($headers)->get(config('services.linkedin_rapid_api.url').'/'.$endpoint, $params);
 
