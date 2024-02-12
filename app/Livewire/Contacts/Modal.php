@@ -48,7 +48,7 @@ class Modal extends Component
 
         $contact = $this->form->store();
 
-        $message = $contact->wasRecentlyCreated ? 'Contact successfully created.' : 'Contact successfully updated.';
+        $message = $contact->wasRecentlyCreated ? 'Contact successfully created.<a class="button" href="'.route('contacts.show', $contact).'"> See contact</a>.' : 'Contact successfully updated.';
 
         session()->flash('message', $message);
 
