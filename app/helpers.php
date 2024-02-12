@@ -12,7 +12,7 @@ if (! function_exists('gravatar')) {
 if (! function_exists('formatPersonLinkedInUrl')) {
     function formatPersonLinkedInUrl($url)
     {
-        if (str_contains($url, 'https://linkedin.com')) {
+        if (str_contains($url, 'https://linkedin.com') || str_contains($url, 'https://www.linkedin.com')) {
             return $url;
         }
 

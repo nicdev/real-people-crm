@@ -16,6 +16,8 @@ class Show extends Component
 
     public $showContactForm = false;
 
+    public $message = null;
+
     public $title = 'Contact';
 
     public function render()
@@ -55,6 +57,14 @@ class Show extends Component
 
     public function augmentWithLinkedIn(AugmentWithLinkedIn $augmentWithLinkedIn)
     {
+        if($this->contact->last_api_update?->diffInDays(now()) <= 1) {
+            $this->message = 'You can only augment a contact with LinkedIn data once every 24 hours.';
+        }
+
+        if(!$this->authorize('augmentWithLinkedIn', $this->contact)) {
+            return;
+        }
+        
         $augmentedData = $augmentWithLinkedIn($this->contact);
 
         $this->contact->update([

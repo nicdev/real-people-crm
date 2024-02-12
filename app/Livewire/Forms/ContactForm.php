@@ -29,10 +29,10 @@ class ContactForm extends Form
     #[Validate('nullable|max:40|string')]
     public $phone;
 
-    #[Validate('required|max:255|email')]
+    #[Validate('required_without:linkedin|nullable|max:255|email')]
     public $email;
 
-    #[Validate('nullable|max:255|url')]
+    #[Validate('required_without:email|nullable|max:255|url')]
     public $linkedin;
 
     #[Validate('nullable|max:255|url')]
