@@ -45,6 +45,6 @@ class ContactPolicy
      */
     public function augmentWithLinkedIn(User $user, Contact $contact): bool
     {
-        return $contact->user_id === $user->id && (!$contact->last_api_update || $contact->last_api_update->diffInDays(now()) > 1);
+        return $contact->user_id === $user->id && (! $contact->last_api_update || $contact->last_api_update->diffInDays(now()) > 1);
     }
 }
