@@ -53,4 +53,9 @@ return [
         'max_tries' => 4,
         'batch_size' => 200,
     ],
+    'linkedin_rapid_api' => [
+        'api_key' => env('LI_RAPID_API_KEY'),
+        'host' => env('LI_RAPID_API_HOST', 'fresh-linkedin-profile-data.p.rapidapi.com'),
+        'url' => env('LI_RAPID_API_URL', 'https://fresh-linkedin-profile-data.p.rapidapi.com/get-linkedin-profile'),
+    ],
 ];
