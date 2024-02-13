@@ -12,6 +12,7 @@ use Illuminate\Support\Str;
  * @method static \Illuminate\Database\Eloquent\Builder|Company newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Company newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Company query()
+ *
  * @property int $id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -31,6 +32,7 @@ use Illuminate\Support\Str;
  * @property string|null $youtube
  * @property string|null $threads
  * @property int $user_id
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Company whereAddress($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Company whereCity($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Company whereCountry($value)
@@ -50,12 +52,17 @@ use Illuminate\Support\Str;
  * @method static \Illuminate\Database\Eloquent\Builder|Company whereWebsite($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Company whereYoutube($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Company whereZip($value)
+ *
  * @property string|null $logo
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Contact> $contacts
  * @property-read int|null $contacts_count
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Company whereLogo($value)
+ *
  * @property string $slug
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Company whereSlug($value)
+ *
  * @mixin \Eloquent
  */
 class Company extends Model
