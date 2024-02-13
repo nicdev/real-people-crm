@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \App\Models\Contact $firstContact
  * @property-read \App\Models\Contact $secondContact
  * @property-read \App\Models\User $user
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Introduction newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Introduction newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Introduction query()
@@ -28,6 +29,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Introduction whereSecondContactId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Introduction whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Introduction whereUserId($value)
+ *
  * @mixin \Eloquent
  */
 class Introduction extends Model
