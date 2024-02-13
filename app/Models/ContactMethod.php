@@ -14,7 +14,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $name
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ContactEvent> $contactEvents
  * @property-read int|null $contact_events_count
- *
  * @method static \Illuminate\Database\Eloquent\Builder|ContactMethod newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ContactMethod newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ContactMethod query()
@@ -22,7 +21,6 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|ContactMethod whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ContactMethod whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ContactMethod whereUpdatedAt($value)
- *
  * @mixin \Eloquent
  */
 class ContactMethod extends Model
