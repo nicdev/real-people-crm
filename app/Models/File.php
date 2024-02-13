@@ -13,7 +13,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property int $contact_id
  * @property-read Contact $contact
- *
  * @method static \Illuminate\Database\Eloquent\Builder|File newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|File newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|File query()
@@ -21,7 +20,6 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|File whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|File whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|File whereUpdatedAt($value)
- *
  * @mixin \Eloquent
  */
 class File extends Model

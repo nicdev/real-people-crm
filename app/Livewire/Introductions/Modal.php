@@ -12,6 +12,8 @@ class Modal extends Component
     #[Reactive]
     public $showModal = false;
 
+    public $editIntro = false;
+
     public $first_contact;
 
     public $second_contact;
@@ -22,11 +24,11 @@ class Modal extends Component
 
     public $originalText = <<<'HTML'
     <div>
-        <p class="mb-2">Hi %s and %s,<p>
-        <p class="mb-2">I wanted to introduce you two. I think you both could benefit from connecting. Feel free to reach out to each other directly.</p>
-        <p class="mb-2">Best,</p>
-        <p class="mb-8"><em>%s</em></p>
-        <em>Introduction sent via <a href="%s" class="underline">%s.</a></em>
+        <p style="margin-bottom:5px">Hi FIRST_CONTACT_FIRST_NAME and SECOND_CONTACT_FIRST_NAME,<p>
+        <p style="margin-bottom:15px">I wanted to introduce you two. I think you both could benefit from connecting. Feel free to reach out to each other directly.</p>
+        <p style="margin-bottom:15px">Best,</p>
+        <p style="font-weight:bold"><em>USER_NAME</em></p>
+        <em>Introduction sent via <a href="%s">APP_URL.</a></em>
     </div>
     HTML;
 
@@ -42,7 +44,7 @@ class Modal extends Component
 
     public function mount()
     {
-        $this->introduction = sprintf($this->originalText, $this->first_contact?->first_name ?? '________', $this->second_contact?->first_name ?? '________', auth()->user()->name, env('APP_URL'), env('APP_NAME'));
+        $this->resetIntroMessage();
     }
 
     public function closeModal()
@@ -53,17 +55,25 @@ class Modal extends Component
     public function updated($property)
     {
         if ($property === 'first_contact' || $property === 'second_contact') {
-            $firstContactName = auth()->user()->contacts()->where('id', $this->first_contact)->first()?->first_name ?? '________';
-            $secondContactName = auth()->user()->contacts()->where('id', $this->second_contact)->first()?->first_name ?? '________';
+            $firstContact = auth()->user()->contacts()->where('id', $this->first_contact)->first();
+            $secondContact = auth()->user()->contacts()->where('id', $this->second_contact)->first();
 
-            $this->introduction = sprintf(
-                $this->originalText,
-                $firstContactName,
-                $secondContactName,
-                auth()->user()->name,
-                env('APP_URL', 'https://realpeoplecrm.com'),
-                env('APP_NAME')
-            );
+            if ($firstContact) {
+                $this->introduction = str_replace('FIRST_CONTACT_FIRST_NAME', $firstContact->first_name, $this->introduction);
+                $this->introduction = str_replace('FIRST_CONTACT_LAST_NAME', $firstContact->last_name, $this->introduction);
+            }
+
+            if ($secondContact) {
+                $this->introduction = str_replace('SECOND_CONTACT_FIRST_NAME', $secondContact->first_name, $this->introduction);
+                $this->introduction = str_replace('SECOND_CONTACT_LAST_NAME', $secondContact->last_name, $this->introduction);
+            }
+
+            $this->introduction = str_replace('APP_URL', env('APP_URL', 'https://realpeoplecrm.com'), $this->introduction);
+            $this->introduction = str_replace('APP_NAME', env('APP_NAME'), $this->introduction);
+
+            $this->introduction = str_replace('USER_NAME', auth()->user()->name, $this->introduction);
+
+            $this->introductionCustomized = true;
         }
     }
 
@@ -81,5 +91,15 @@ class Modal extends Component
         session()->flash('message', 'Introduction successfully sent.');
 
         $this->closeModal();
+    }
+
+    public function toggleEditIntro()
+    {
+        $this->editIntro = ! $this->editIntro;
+    }
+
+    public function resetIntroMessage()
+    {
+        $this->introduction = auth()->user()->custom_introduction_message ?: sprintf($this->originalText, $this->first_contact?->first_name ?? 'FIRST_CONTACT_FIRST_NAME', $this->second_contact?->first_name ?? 'SECOND_CONTACT_FIRST_NAME', auth()->user()->name, env('APP_URL'), env('APP_NAME'));
     }
 }
