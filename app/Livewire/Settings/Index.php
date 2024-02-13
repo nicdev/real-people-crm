@@ -33,7 +33,7 @@ class Index extends Component
         $this->authorize('update', auth()->user());
 
         $this->validate();
-        ray($this->name, $this->email, $this->introduction);
+        
         auth()
             ->user()
             ->update([
