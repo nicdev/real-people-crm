@@ -12,6 +12,8 @@ class Modal extends Component
     #[Reactive]
     public $showModal = false;
 
+    public $editIntro = false;
+
     public $first_contact;
 
     public $second_contact;
@@ -22,11 +24,11 @@ class Modal extends Component
 
     public $originalText = <<<'HTML'
     <div>
-        <p class="mb-2">Hi %s and %s,<p>
-        <p class="mb-2">I wanted to introduce you two. I think you both could benefit from connecting. Feel free to reach out to each other directly.</p>
-        <p class="mb-2">Best,</p>
-        <p class="mb-8"><em>%s</em></p>
-        <em>Introduction sent via <a href="%s" class="underline">%s.</a></em>
+        <p style="margin-bottom:5px">Hi %s and %s,<p>
+        <p style="margin-bottom:15px">I wanted to introduce you two. I think you both could benefit from connecting. Feel free to reach out to each other directly.</p>
+        <p style="margin-bottom:15px">Best,</p>
+        <p style="font-weight:bold"><em>%s</em></p>
+        <em>Introduction sent via <a href="%s">%s.</a></em>
     </div>
     HTML;
 
@@ -42,7 +44,7 @@ class Modal extends Component
 
     public function mount()
     {
-        $this->introduction = sprintf($this->originalText, $this->first_contact?->first_name ?? '________', $this->second_contact?->first_name ?? '________', auth()->user()->name, env('APP_URL'), env('APP_NAME'));
+        $this->resetIntroMessage();
     }
 
     public function closeModal()
@@ -64,6 +66,8 @@ class Modal extends Component
                 env('APP_URL', 'https://realpeoplecrm.com'),
                 env('APP_NAME')
             );
+
+            $this->introductionCustomized = true;
         }
     }
 
@@ -81,5 +85,15 @@ class Modal extends Component
         session()->flash('message', 'Introduction successfully sent.');
 
         $this->closeModal();
+    }
+
+    public function toggleEditIntro()
+    {
+        $this->editIntro = !$this->editIntro;
+    }
+
+    public function resetIntroMessage()
+    {
+        $this->introduction = sprintf($this->originalText, $this->first_contact?->first_name ?? '________', $this->second_contact?->first_name ?? '________', auth()->user()->name, env('APP_URL'), env('APP_NAME'));
     }
 }
