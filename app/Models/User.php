@@ -86,7 +86,7 @@ class User extends Authenticatable
         'photo',
         'linkedin_token',
         'reset_token',
-        'custom_introduction_message'
+        'custom_introduction_message',
     ];
 
     /**

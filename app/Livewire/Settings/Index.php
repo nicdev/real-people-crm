@@ -42,9 +42,9 @@ class Index extends Component
                 'custom_introduction_message' => $this->introduction,
             ]);
 
-            session()->flash('message', 'Settings updated.');
+        session()->flash('message', 'Settings updated.');
 
-            return redirect()->route('settings');
+        return redirect()->route('settings');
     }
 
     public function deleteUser()

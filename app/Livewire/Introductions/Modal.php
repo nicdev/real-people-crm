@@ -58,12 +58,12 @@ class Modal extends Component
             $firstContact = auth()->user()->contacts()->where('id', $this->first_contact)->first();
             $secondContact = auth()->user()->contacts()->where('id', $this->second_contact)->first();
 
-            if($firstContact) {
+            if ($firstContact) {
                 $this->introduction = str_replace('FIRST_CONTACT_FIRST_NAME', $firstContact->first_name, $this->introduction);
-                $this->introduction = str_replace('FIRST_CONTACT_LAST_NAME', $firstContact->last_name, $this->introduction);    
+                $this->introduction = str_replace('FIRST_CONTACT_LAST_NAME', $firstContact->last_name, $this->introduction);
             }
 
-            if($secondContact) {
+            if ($secondContact) {
                 $this->introduction = str_replace('SECOND_CONTACT_FIRST_NAME', $secondContact->first_name, $this->introduction);
                 $this->introduction = str_replace('SECOND_CONTACT_LAST_NAME', $secondContact->last_name, $this->introduction);
             }
@@ -95,7 +95,7 @@ class Modal extends Component
 
     public function toggleEditIntro()
     {
-        $this->editIntro = !$this->editIntro;
+        $this->editIntro = ! $this->editIntro;
     }
 
     public function resetIntroMessage()
