@@ -20,11 +20,14 @@
             </p>
 
             @foreach ($contacts as $c)
-                <div class="flex-shrink-0 flex items-center my-4">
-                    <img class="h-12 w-12 rounded-full object-cover mr-2"
+                <div style="display: flex; align-items: center;">
+                    <img style="display: inline-block; width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;"
                         src="{{ $c->photo }}"
                         alt="{{ $c->first_name }} {{ $c->last_name }}" />
-                    <p><a href="{{ route('contacts.show', $c) }}">{{ $c->first_name }} {{ $c->last_name }}</a> <pre class="ml-2">{{ $c->email }}</pre></p>
+                    <p style="display: inline-block; vertical-align: middle; color:#ccc">
+                        <a style="color:#ccc;text-decoration:none;background-color:#999;padding:5px" href="{{ route('contacts.show', $c) }}">{{ $c->first_name }} {{ $c->last_name }}</a>
+                        {{ $c->email }}
+                    </p>
                 </div>
             @endforeach
 

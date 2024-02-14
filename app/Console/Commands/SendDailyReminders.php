@@ -28,6 +28,7 @@ class SendDailyReminders extends Command
      */
     public function handle()
     {
+        ray('Sending daily reminders');
         User::whereHas('contacts', function ($query) {
             $query->where('follow_up_date', now()->format('Y-m-d'));
         })->get()->each(function ($user) {
