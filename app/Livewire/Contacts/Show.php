@@ -57,7 +57,7 @@ class Show extends Component
 
     public function augmentWithLinkedIn(AugmentWithLinkedIn $augmentWithLinkedIn)
     {
-        if ($this->contact->last_api_update?->diffInDays(now()) <= 1) {
+        if ($this->contact->last_api_update?->diffInHours(now()) < 24) {
             $this->message = 'You can only augment a contact with LinkedIn data once every 24 hours.';
         }
 

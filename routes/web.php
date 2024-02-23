@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\EmailWebhookController;
 use App\Livewire\Companies\Index as IndexCompany;
 use App\Livewire\Companies\Show as ShowCompany;
 use App\Livewire\Contacts\Index as IndexContact;
@@ -35,6 +36,8 @@ Route::get('/privacy-policy', function () {
 Route::get('/tos', function () {
     return view('terms');
 });
+
+Route::post('/webhooks/email', [EmailWebhookController::class, 'handle'])->name('webhooks.email');
 
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'authenticate'])->name('authenticate');
