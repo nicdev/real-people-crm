@@ -23,7 +23,6 @@ class ScraperApiService
 
     public function get($endpoint, $async = false, $params = [])
     {
-        ray($endpoint, $async, $params);
         $url = $async ? config('services.scraperapi.async').'/'.$endpoint : config('services.scraperapi.api').'/'.$endpoint;
 
         $res = Http::get(config('services.scraperapi.api').'/'.$endpoint, $params);

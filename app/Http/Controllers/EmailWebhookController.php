@@ -16,24 +16,22 @@ class EmailWebhookController extends Controller
     {
         // Handle the incoming email webhook
         $email = new EmailProcessingService($request->all());
-        
+
         // Email received from a contact and forwarded to app
-        if($email->isForward()) {
+        if ($email->isForward()) {
             $contactInfo = $email->getOriginalSender();
         } else { // Email sent to a contact and received by app as cc/bcc
             $contactInfo = $email->getRecipient();
         }
-        ray($contactInfo);
         $contactInfo = [...$contactInfo, 'user_id' => $email->getSenderUser()->id];
-        $newContact = app(CreateOrUpdateContact::class)($contactInfo);    
-        ray($newContact);
-        
+        $newContact = app(CreateOrUpdateContact::class)($contactInfo);
+
         return response('OK', 200)->header('Content-Type', 'text/plain');
     }
 
     public function sentByUser(Request $request)
     {
-        
+
     }
 }
 
@@ -204,7 +202,7 @@ Subject: Re: Follow up
 >
 > Kristin
 >
-> 
+>
 > On Fri, Feb 23, 2024 at 10:28 AM Nic Rosental <nicrosental@gmail.com> wrote:
 > > > Hi Kristin,
 > > >

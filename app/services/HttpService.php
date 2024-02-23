@@ -12,12 +12,12 @@ class HttpService
     /**
      * Create a new HttpClient instance.
      *
-     * @param  string  $token The API token to use.
-     * @param  string  $refreshToken The API refresh token to use.
-     * @param  \GuzzleHttp\Client|null  $client The Guzzle HTTP client to use.
-     * @param  array  $headers An array of headers to include in all requests.
-     * @param  array  $result The result of the last API request.
-     * @param  array  $history An array of HTTP transactions made by the client.
+     * @param  string  $token  The API token to use.
+     * @param  string  $refreshToken  The API refresh token to use.
+     * @param  \GuzzleHttp\Client|null  $client  The Guzzle HTTP client to use.
+     * @param  array  $headers  An array of headers to include in all requests.
+     * @param  array  $result  The result of the last API request.
+     * @param  array  $history  An array of HTTP transactions made by the client.
      */
     public function __construct(
         public $url,
@@ -46,8 +46,8 @@ class HttpService
     /**
      * Send a GET request to the API.
      *
-     * @param  string  $path The path of the API endpoint.
-     * @param  array  $query An optional array of query parameters.
+     * @param  string  $path  The path of the API endpoint.
+     * @param  array  $query  An optional array of query parameters.
      * @return array The decoded JSON response from the API.
      */
     public function get($path, array $query = []): array
@@ -60,8 +60,8 @@ class HttpService
     /**
      * Send a POST request to the API.
      *
-     * @param  string  $path The path of the API endpoint.
-     * @param  array  $payload An optional array of data to include in the request body.
+     * @param  string  $path  The path of the API endpoint.
+     * @param  array  $payload  An optional array of data to include in the request body.
      * @return array The decoded JSON response from the API.
      */
     public function post($path, $payload = []): array
@@ -74,7 +74,7 @@ class HttpService
     /**
      * Send a DELETE request to the API.
      *
-     * @param  string  $path The path of the API endpoint.
+     * @param  string  $path  The path of the API endpoint.
      * @return array The decoded JSON response from the API.
      */
     public function delete($path): array
@@ -87,7 +87,7 @@ class HttpService
     /**
      * Send a PUT request to the API.
      *
-     * @param  string  $path The path of the API endpoint.
+     * @param  string  $path  The path of the API endpoint.
      * @return array The decoded JSON response from the API.
      */
     public function put($path, $payload): array
@@ -100,7 +100,7 @@ class HttpService
     /**
      * Send a PATCH request to the API.
      *
-     * @param  string  $path The path of the API endpoint.
+     * @param  string  $path  The path of the API endpoint.
      * @return array The decoded JSON response from the API.
      */
     public function patch($path, $payload): array
@@ -113,7 +113,7 @@ class HttpService
     /**
      * Process the response from the API and return the decoded JSON data.
      *
-     * @param  \Psr\Http\Message\ResponseInterface  $response The HTTP response from the API.
+     * @param  \Psr\Http\Message\ResponseInterface  $response  The HTTP response from the API.
      * @return array The decoded JSON data from the response body.
      */
     public function respond(ResponseInterface $response): array

@@ -16,7 +16,7 @@ class EmailProcessingService
         return (bool) preg_match('/forwarded message/i', $this->email['body-plain']);
     }
 
-    public function getOriginalSender(): array|null
+    public function getOriginalSender(): ?array
     {
 
         // Perform the regex match
@@ -31,8 +31,6 @@ class EmailProcessingService
         } else {
             return $this->getSender();
         }
-
-        ray($contact);
 
         return $contact['email'] ? $contact : null;
     }
@@ -54,11 +52,12 @@ class EmailProcessingService
         ];
     }
 
-    public function getSenderUser(): User|null
+    public function getSenderUser(): ?User
     {
         if ($emailAddress = $this->getSender()['email']) {
             return User::where('email', $emailAddress)->first();
         }
+
         return null;
     }
 
