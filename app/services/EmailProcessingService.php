@@ -23,7 +23,6 @@ class EmailProcessingService
 
     public function getOriginalSender(): ?array
     {
-
         // Perform the regex match
         if ($this->isForward()) {
             if (preg_match('/From: (.+?) <.+?>/', $this->email['body-plain'], $matches)) {
