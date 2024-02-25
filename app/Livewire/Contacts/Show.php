@@ -4,6 +4,7 @@ namespace App\Livewire\Contacts;
 
 use App\Actions\Contacts\AugmentWithLinkedIn;
 use App\Models\Contact;
+use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Renderless;
 use Livewire\Component;
@@ -57,10 +58,6 @@ class Show extends Component
 
     public function augmentWithLinkedIn(AugmentWithLinkedIn $augmentWithLinkedIn)
     {
-        if ($this->contact->last_api_update?->diffInHours(now()) < 24) {
-            $this->message = 'You can only augment a contact with LinkedIn data once every 24 hours.';
-        }
-
         if (! $this->authorize('augmentWithLinkedIn', $this->contact)) {
             return;
         }
@@ -73,5 +70,19 @@ class Show extends Component
             'structured_metadata' => $augmentedData,
             'last_api_update' => now(),
         ]);
+    }
+
+    #[Computed]
+    public function linkedinDisabled()
+    {
+        return !$this->contact->linkedin || ($this->contact->linkedin && !is_null($this->contact->last_api_update) &&$this->contact->last_api_update?->diffInHours(now()) < 24);
+    }
+
+    #[Computed]
+    public function linkedinDisabledMessage()
+    {
+        return ! $this->contact->linkedin ? 
+            'A LinkedIn Profile is required' : 
+            'You can only augment a contact with LinkedIn data once every 24 hours.';
     }
 }
