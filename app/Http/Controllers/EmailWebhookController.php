@@ -19,10 +19,13 @@ class EmailWebhookController extends Controller
         // Handle the incoming email webhook
         $email = new EmailProcessingService($request->all());
 
-        // Email received from a contact and forwarded to app
-        if ($email->isForward()) {
+        if ($email->isForward()) { // Email received from a contact and forwarded to app
             $contactInfo = $email->getOriginalSender();
-        } else { // Email sent to a contact and received by app as cc/bcc
+        } elseif ($email->isReply()) { // Email is a reply and the app has been copied
+            ray('replied email');
+            $contactInfo = $email->getRecipient();
+            ray($contactInfo);
+        } else { // Email sent to a contact and received by app as cc/bcc, not a reply
             $contactInfo = $email->getRecipient();
         }
         $contactInfo = [...$contactInfo, 'user_id' => $email->getSenderUser()->id];
