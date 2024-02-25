@@ -75,14 +75,14 @@ class Show extends Component
     #[Computed]
     public function linkedinDisabled()
     {
-        return !$this->contact->linkedin || ($this->contact->linkedin && !is_null($this->contact->last_api_update) &&$this->contact->last_api_update?->diffInHours(now()) < 24);
+        return ! $this->contact->linkedin || ($this->contact->linkedin && ! is_null($this->contact->last_api_update) && $this->contact->last_api_update?->diffInHours(now()) < 24);
     }
 
     #[Computed]
     public function linkedinDisabledMessage()
     {
-        return ! $this->contact->linkedin ? 
-            'A LinkedIn Profile is required' : 
+        return ! $this->contact->linkedin ?
+            'A LinkedIn Profile is required' :
             'You can only augment a contact with LinkedIn data once every 24 hours.';
     }
 }
