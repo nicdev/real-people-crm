@@ -20,6 +20,7 @@ class ContactMethodSeeder extends Seeder
             'Website',
             'Slack',
             'Discord',
+            'Zoom',
             'Other',
         ];
 
