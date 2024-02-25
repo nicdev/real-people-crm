@@ -50,10 +50,16 @@ class EmailProcessingService
 
     public function getRecipient(): array
     {
+        $name = preg_match('/(.+?) <.+?>/', $this->email['To'], $matches);
+        $nameParts = explode(' ', trim($matches[1]));
+        $email = preg_match('/\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b/', $this->email['To'], $matches) ? trim($matches[0]) : null;
+
+        
         return [
-            'first_name' => preg_match('/(.+?) <.+?>/', $this->email['To'], $matches) ? explode(' ', trim($matches[1]))[0] : $this->email['To'],
-            'last_name' => preg_match('/<(.+?)>/', $this->email['To'], $matches) ? explode(' ', trim($matches[1]))[1] : null,
-            'email' => preg_match('/\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b/', $this->email['To'], $matches) ? trim($matches[0]) : null,
+            'first_name' => $nameParts[0] ?? null,
+            'last_name' => $nameParts[1] ?? null,
+            'last_name' => preg_match('/<(.+?)>/', $this->email['To'], $matches) ? [1] : null,
+            'email' => $email,
         ];
     }
 
