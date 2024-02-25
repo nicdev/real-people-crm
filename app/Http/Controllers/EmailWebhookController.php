@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Actions\ContactEvents\CreateOrUpdateContactEvent;
 use App\Actions\Contacts\CreateOrUpdateContact;
 use App\Models\ContactMethod;
 use App\Services\EmailProcessingService;
@@ -21,10 +20,8 @@ class EmailWebhookController extends Controller
 
         if ($email->isForward()) { // Email received from a contact and forwarded to app
             $contactInfo = $email->getOriginalSender();
-        } elseif ($email->isReply()) { // Email is a reply and the app has been copied
-            ray('replied email');
+        } elseif ($email->isReply()) {
             $contactInfo = $email->getRecipient();
-            ray($contactInfo);
         } else { // Email sent to a contact and received by app as cc/bcc, not a reply
             $contactInfo = $email->getRecipient();
         }
@@ -34,7 +31,7 @@ class EmailWebhookController extends Controller
         $newContact->ContactEvents()->create([
             'id' => $newContact['id'],
             'user_id' => $email->getSenderUser()->id,
-            'title' => $email->wasReceived() ? $newContact['first_name'] . ' to ' . $email->getSenderUser()->name : $email->getSenderUser()->name . ' to ' . $newContact['first_name'],
+            'title' => $email->wasReceived() ? $newContact['first_name'].' to '.$email->getSenderUser()->name : $email->getSenderUser()->name.' to '.$newContact['first_name'],
             'date' => $email->getDate(),
             'contact_method_id' => ContactMethod::where('name', 'Email')->first()?->id,
             'recap' => $email->email['stripped-text'],
