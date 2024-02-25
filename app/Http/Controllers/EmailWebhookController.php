@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\ContactEvents\CreateOrUpdateContactEvent;
 use App\Actions\Contacts\CreateOrUpdateContact;
+use App\Models\ContactMethod;
 use App\Services\EmailProcessingService;
 use Illuminate\Http\Request;
 
@@ -25,6 +27,26 @@ class EmailWebhookController extends Controller
         }
         $contactInfo = [...$contactInfo, 'user_id' => $email->getSenderUser()->id];
         $newContact = app(CreateOrUpdateContact::class)($contactInfo);
+
+        $newContact->ContactEvents()->create([
+            'id' => $newContact['id'],
+            'user_id' => $email->getSenderUser()->id,
+            'title' => $email->wasReceived() ? $newContact['first_name'] . ' to ' . $email->getSenderUser()->name : $email->getSenderUser()->name . ' to ' . $newContact['first_name'],
+            'date' => $email->getDate(),
+            'contact_method_id' => ContactMethod::where('name', 'Email')->first()?->id,
+            'recap' => '',
+        ]);
+
+        // 'id' => $this->contact_event?->id,
+        //     'user_id' => auth()->id(),
+        //     'title' => $this->title,
+        //     'description' => $this->description,
+        //     'date' => $this->date,
+        //     'location' => $this->location,
+        //     'contact_id' => $this->contact->id,
+        //     'contact_method_id' => $this->contact_method_id,
+        //     'recap' => $this->recap,
+        //$newContactEvent = app(CreateOrUpdateContactEvent::class)($newContact);
 
         return response('OK', 200)->header('Content-Type', 'text/plain');
     }

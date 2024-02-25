@@ -16,6 +16,11 @@ class EmailProcessingService
         return (bool) preg_match('/forwarded message/i', $this->email['body-plain']);
     }
 
+    public function isReply(): bool
+    {
+        return (bool) preg_match('/^re:/i', $this->email['Subject']);
+    }
+
     public function getOriginalSender(): ?array
     {
 
@@ -57,7 +62,7 @@ class EmailProcessingService
         if ($emailAddress = $this->getSender()['email']) {
             return User::where('email', $emailAddress)->first();
         }
-
+        
         return null;
     }
 
@@ -73,5 +78,17 @@ class EmailProcessingService
             'first_name' => array_shift($parts),
             'last_name' => implode(' ', $parts),
         ];
+    }
+
+    public function getDate(): string
+    {
+        return date('Y-m-d', strtotime($this->email['Date']));
+    }
+
+    public function wasReceived(): bool
+    {
+        ray($this->getRecipient());
+        ray($this->getRecipient()['email'], $this->getSenderUser()?->email);
+        return $this->getRecipient()['email'] === $this->getSenderUser()?->email;
     }
 }
