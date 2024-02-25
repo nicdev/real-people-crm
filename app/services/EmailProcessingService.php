@@ -62,7 +62,7 @@ class EmailProcessingService
         if ($emailAddress = $this->getSender()['email']) {
             return User::where('email', $emailAddress)->first();
         }
-        
+
         return null;
     }
 
