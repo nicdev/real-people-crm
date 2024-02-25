@@ -52,8 +52,9 @@ class EmailProcessingService
     public function getRecipient(): array
     {
         return [
-            'name' => preg_match('/(.+?) <.+?>/', $this->email['To'], $matches) ? trim($matches[1]) : 'No Name Provided',
-            'email' => preg_match('/(?:<|&lt;)(.+?)(?:>|&gt;)/', $this->email['To'], $matches) ? trim($matches[1]) : null,
+            'first_name' => preg_match('/(.+?) <.+?>/', $this->email['To'], $matches) ? explode(' ', trim($matches[1]))[0] : $this->email['To'],
+            'last_name' => preg_match('/<(.+?)>/', $this->email['To'], $matches) ? explode(' ', trim($matches[1]))[1] : null,
+            'email' => preg_match('/\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b/', $this->email['To'], $matches) ? trim($matches[0]) : null,
         ];
     }
 
@@ -87,8 +88,6 @@ class EmailProcessingService
 
     public function wasReceived(): bool
     {
-        ray($this->getRecipient());
-        ray($this->getRecipient()['email'], $this->getSenderUser()?->email);
         return $this->getRecipient()['email'] === $this->getSenderUser()?->email;
     }
 }

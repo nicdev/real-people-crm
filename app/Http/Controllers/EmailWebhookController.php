@@ -34,19 +34,8 @@ class EmailWebhookController extends Controller
             'title' => $email->wasReceived() ? $newContact['first_name'] . ' to ' . $email->getSenderUser()->name : $email->getSenderUser()->name . ' to ' . $newContact['first_name'],
             'date' => $email->getDate(),
             'contact_method_id' => ContactMethod::where('name', 'Email')->first()?->id,
-            'recap' => '',
+            'recap' => $email->email['stripped-text'],
         ]);
-
-        // 'id' => $this->contact_event?->id,
-        //     'user_id' => auth()->id(),
-        //     'title' => $this->title,
-        //     'description' => $this->description,
-        //     'date' => $this->date,
-        //     'location' => $this->location,
-        //     'contact_id' => $this->contact->id,
-        //     'contact_method_id' => $this->contact_method_id,
-        //     'recap' => $this->recap,
-        //$newContactEvent = app(CreateOrUpdateContactEvent::class)($newContact);
 
         return response('OK', 200)->header('Content-Type', 'text/plain');
     }
