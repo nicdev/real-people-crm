@@ -57,7 +57,6 @@ class EmailProcessingService
         return [
             'first_name' => $nameParts[0] ?? null,
             'last_name' => $nameParts[1] ?? null,
-            'last_name' => preg_match('/<(.+?)>/', $this->email['To'], $matches) ? [1] : null,
             'email' => $email,
         ];
     }
