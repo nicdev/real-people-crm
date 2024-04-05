@@ -64,11 +64,9 @@ class ContactEvent extends Model
         parent::boot();
 
         static::creating(function ($contactEvent) {
-            if ($contactEvent->date >= $contactEvent->contact->follow_up_date) {
                 $contactEvent->contact->update([
                     'follow_up_date' => $contactEvent->date->addDays($contactEvent->contact->frequency),
                 ]);
-            }
         });
     }
 
