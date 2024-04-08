@@ -58,4 +58,7 @@ return [
         'host' => env('LI_RAPID_API_HOST', 'fresh-linkedin-profile-data.p.rapidapi.com'),
         'url' => env('LI_RAPID_API_URL', 'https://fresh-linkedin-profile-data.p.rapidapi.com/get-linkedin-profile'),
     ],
+    'openai' => [
+        'api_key' => env('OPENAI_API_KEY'),
+    ],
 ];
