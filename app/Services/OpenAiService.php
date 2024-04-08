@@ -21,7 +21,7 @@ class OpenAIService
             return $carry . 'Contact via: ' . $event->contactMethod->name . ': ' . $event->recap . ' ';
         }, '');
         return $this->client->chat()->create([
-            'model' => 'gpt-4',
+            'model' => 'gpt-3.5-turbo',
             'messages' => [
                 [
                     'role' => 'user',
